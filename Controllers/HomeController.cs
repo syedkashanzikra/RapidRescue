@@ -29,7 +29,7 @@ namespace RapidRescue.Controllers
             var breadcrumbs = new List<Tuple<string, string>>()
     {
         new Tuple<string, string>("Home", Url.Action("Home", "Home")),
-        new Tuple<string, string>("Contact", "Home")
+        new Tuple<string, string>("Contact", "")
     };
             return View(breadcrumbs);
         }
