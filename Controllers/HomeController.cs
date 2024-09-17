@@ -34,6 +34,9 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

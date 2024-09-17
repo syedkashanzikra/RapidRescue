@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RapidRescue.Context;
 using RapidRescue.Data.Seeders;
+using RapidRescue.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<RapidRescueContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dbcon")));
 
+builder.Services.AddHttpClient();
+
+builder.Services.AddTransient<EmailService>();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
