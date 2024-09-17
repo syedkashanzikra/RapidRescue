@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**RAPID RESCUE** is a responsive and user-friendly web application designed to streamline the process of requesting and dispatching ambulances in emergency and non-emergency situations. The platform allows patients to register, request ambulance services, and track the ambulance's live location on a map. It is intended for individuals, emergency dispatchers, and EMT drivers to manage emergency services efficiently and with real-time updates.
+**RAPID RESCUE <i class="fas fa-ambulance"></i>** is a responsive and user-friendly web application designed to streamline the process of requesting and dispatching ambulances in emergency and non-emergency situations. The platform allows patients to register, request ambulance services, and track the ambulance's live location on a map. It is intended for individuals, emergency dispatchers, and EMT drivers to manage emergency services efficiently and with real-time updates.
 
 ### Key Features
 
