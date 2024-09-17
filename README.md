@@ -1,4 +1,5 @@
  # RAPID RESCUE - E-Ambulance Web Application
+![image](https://github.com/user-attachments/assets/a20ca27a-6420-4d40-96b6-d19aa10bba50)
 
 ## Project Overview
 
