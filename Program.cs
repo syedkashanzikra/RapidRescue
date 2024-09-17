@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RapidRescue.Context;
+using RapidRescue.Data.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,11 @@ builder.Services.AddDbContext<RapidRescueContext>(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<RapidRescueContext>();
+    RolesSeeder.SeedRoles(dbContext); // Call the Roles seeder
+}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

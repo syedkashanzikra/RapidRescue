@@ -13,7 +13,7 @@ namespace RapidRescue.Context
 
         }
 
-        DbSet<Roles> Role { get; set; }
+      public  DbSet<Roles> Roles { get; set; }
        
         
     }
