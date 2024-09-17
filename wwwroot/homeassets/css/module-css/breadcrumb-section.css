@@ -1,0 +1,122 @@
+/*** 
+=============================================
+    Breadcrumb area style
+=============================================
+***/
+.breadcrumb-area {
+    position: relative;
+    display: block;
+    z-index: 11;
+}
+
+.breadcrumb-area-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-attachment: scroll;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+}
+
+.breadcrumb-area-bg:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: var(--thm-primary);
+    opacity: 0.70;
+    content: "";
+    z-index: -1;
+}
+
+.breadcrumb-area .inner-content {
+    position: relative;
+    display: block;
+    padding: 202px 0 150px;
+    text-align: center;
+    z-index: 10;
+}
+
+.breadcrumb-area .title {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.breadcrumb-area .title h2 {
+    color: #ffffff;
+    font-size: 50px;
+    line-height: 1.3em;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+
+.breadcrumb-menu {
+    position: absolute;
+    left: 0;
+    bottom: -25px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.breadcrumb-menu ul {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    padding: 14px 50px 14px;
+    border-radius: 25px;
+}
+
+.breadcrumb-menu ul li {
+    position: relative;
+    float: none;
+    color: var(--thm-gray);
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-right: 13px;
+    margin-right: 13px;
+    font-family: var(--thm-font);
+}
+
+.breadcrumb-menu ul li:last-child {
+    padding-right: 0;
+    margin-right: 0;
+}
+
+.breadcrumb-menu ul li:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 0;
+    bottom: 5px;
+    width: 1px;
+    background: var(--thm-gray);
+    transform: rotate(25deg);
+}
+
+.breadcrumb-menu ul li:last-child:before {
+    display: none;
+}
+
+.breadcrumb-menu ul li a {
+    color: var(--thm-primary);
+    transition: all 200ms linear;
+    transition-delay: 0.1s;
+}
+
+.breadcrumb-menu ul li:hover a,
+.breadcrumb-menu ul li.active {
+    color: var(--thm-base);
+}

@@ -1,0 +1,257 @@
+/*** 
+=============================================
+    Faq Page One Css
+=============================================
+***/
+.faq-page-one {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    padding: 120px 0 120px;
+    z-index: 10;
+}
+
+.faq-style1-content {
+    position: relative;
+    display: block;
+}
+
+.accordion-box {
+    position: relative;
+    display: block;
+}
+
+.accordion-box .block {
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+    transition: all 500ms ease;
+}
+
+.accordion-box .block:last-child {
+    margin-bottom: 0;
+}
+
+.accordion-box .block .acc-content.current {
+    display: block;
+}
+
+.accordion-box .block .acc-btn {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    background: #ffffff;
+    padding-top: 19px;
+    padding-left: 40px;
+    padding-bottom: 19px;
+    padding-right: 40px;
+    border: 1px solid #dcdeee;
+    transition: all 500ms ease;
+}
+
+.accordion-box .block .acc-btn.active {}
+
+.accordion-box .block .acc-btn h3 {
+    color: var(--thm-primary);
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 700;
+    transition: all 500ms ease;
+}
+
+.accordion-box .block .acc-btn.active h3 {
+    color: var(--thm-base);
+}
+
+.accordion-box .block .acc-btn .icon-outer {
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    width: 15px;
+    height: 15px;
+    color: var(--thm-base);
+    font-size: 12px;
+    text-align: right;
+    line-height: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transform: translateY(-50%) rotate(0deg);
+    transition: all 500ms ease;
+    z-index: 1;
+}
+
+.accordion-box .block .acc-btn.active .icon-outer {
+    color: var(--thm-primary);
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.accordion-box .block .acc-btn .icon-outer i:before {
+    font-weight: 700;
+}
+
+
+/***
+.accordion-box .block .acc-btn.active .icon-outer i:before {
+    position: relative;
+    font-size: 12px;
+    font-family: 'icomoon' !important;
+    font-weight: 700;
+    margin: 0px;
+    content: "\e928";
+}
+
+**/
+
+.accordion-box .block .acc-content {
+    position: relative;
+    display: none;
+    padding-top: 31px;
+    padding-left: 40px;
+    padding-bottom: 28px;
+    padding-right: 30px;
+    border: 1px solid #dcdeee;
+    border-top: none;
+}
+
+.accordion-box .block .acc-content p {
+    margin: 0;
+}
+
+
+
+/*** 
+=============================================
+    Faq Page One Css
+=============================================
+***/
+.faq-form-area {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    padding-bottom: 120px;
+    z-index: 10;
+}
+
+.faq-form-box {
+    position: relative;
+    display: block;
+    max-width: 770px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.faq-form-box .sec-title {
+    position: relative;
+}
+
+.faq-form-box form {
+    position: relative;
+    display: block;
+}
+
+.faq-form-box form .input-box {
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.faq-form-box form input[type="text"],
+.faq-form-box form input[type="email"],
+.faq-form-box form textarea {
+    position: relative;
+    display: block;
+    background: #f2f3fa;
+    width: 100%;
+    height: 60px;
+    border: 0px solid #ebf1ed;
+    color: #797989;
+    font-size: 14px;
+    font-weight: 700;
+    font-style: normal;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 0px;
+    transition: all 500ms ease;
+    font-family: var(--thm-font);
+}
+
+.faq-form-box form textarea {
+    height: 170px;
+    padding-top: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.faq-form-box form input[type="text"]:focus {
+    color: #797989;
+    border-color: var(--thm-primary);
+}
+
+.faq-form-box form input[type="email"]:focus {
+    color: #797989;
+    border-color: var(--thm-primary);
+}
+
+.faq-form-box form textarea:focus {
+    color: #797989;
+    border-color: var(--thm-primary);
+}
+
+
+.faq-form-box form input[type="text"]::-webkit-input-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form input[type="text"]:-moz-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form input[type="text"]::-moz-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form input[type="text"]:-ms-input-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form input[type="email"]::-webkit-input-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form input[type="email"]:-moz-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form input[type="email"]::-moz-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form input[type="email"]:-ms-input-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form textarea::-webkit-input-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form textarea:-moz-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form textarea::-moz-placeholder {
+    color: #797989;
+}
+
+.faq-form-box form textarea:-ms-input-placeholder {
+    color: #797989;
+}
+
+
+
+.faq-form-box form .button-box {
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+.faq-form-box form .button-box button {}

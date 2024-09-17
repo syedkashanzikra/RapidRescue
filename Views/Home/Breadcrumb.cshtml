@@ -1,0 +1,32 @@
+﻿@model List<Tuple<string, string>>
+
+<section class="breadcrumb-area">
+    <div class="breadcrumb-area-bg" style="background-image: url(@Url.Content("~/homeassets/images/breadcrumb/breadcrumb-1.jpg"));">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="inner-content">
+                    <div class="title" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500">
+                        <h2>@Model.Last().Item1</h2>
+                    </div>
+                    <div class="breadcrumb-menu">
+                        <ul>
+                            @for (int i = 0; i < Model.Count; i++)
+                            {
+                                if (i == Model.Count - 1)
+                                {
+                                    <li class="active">@Model[i].Item1</li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Model[i].Item2">@Model[i].Item1</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

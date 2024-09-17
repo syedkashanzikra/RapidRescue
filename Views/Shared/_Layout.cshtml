@@ -1,49 +1,577 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RapidRescue</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/RapidRescue.styles.css" asp-append-version="true" />
+    <meta charset="UTF-8">
+    <title>Rapid Rescue - @ViewData["Title"]</title>
+
+    <!-- responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- For IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+
+    <link rel="stylesheet" href="~/homeassets/css/animate.css">
+    <link rel="stylesheet" href="~/homeassets/css/aos.css">
+    <link rel="stylesheet" href="~/homeassets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/homeassets/css/custom-animate.css">
+    <link rel="stylesheet" href="~/homeassets/css/fancybox.min.css">
+    <link rel="stylesheet" href="~/homeassets/css/flaticon.css">
+    <link rel="stylesheet" href="~/homeassets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/homeassets/css/icomoon.css">
+    <link rel="stylesheet" href="~/homeassets/css/imp.css">
+    <link rel="stylesheet" href="~/homeassets/css/jquery.bootstrap-touchspin.css">
+    <link rel="stylesheet" href="~/homeassets/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/homeassets/css/nice-select.css">
+    <link rel="stylesheet" href="~/homeassets/css/owl.css">
+    <link rel="stylesheet" href="~/homeassets/css/rtl.css">
+    <link rel="stylesheet" href="~/homeassets/css/scrollbar.css">
+    <link rel="stylesheet" href="~/homeassets/css/swiper.min.css">
+
+    <!-- Module css -->
+    <link rel="stylesheet" href="~/homeassets/css/module-css/header-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/banner-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/about-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/blog-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/fact-counter-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/faq-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/contact-page.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/breadcrumb-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/team-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/partner-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/testimonial-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/services-section.css">
+    <link rel="stylesheet" href="~/homeassets/css/module-css/footer-section.css">
+
+    <link href="~/homeassets/css/color/theme-color.css" id="jssDefault" rel="stylesheet">
+    <link rel="stylesheet" href="~/homeassets/css/style.css">
+    <link rel="stylesheet" href="~/homeassets/css/responsive.css">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/homeassets/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="~/homeassets/images/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="~/homeassets/images/favicon/favicon-16x16.png" sizes="16x16">
+
+    <!-- Fixing Internet Explorer-->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="~/homeassets/js/html5shiv.js"></script>
+    <![endif]-->
+
 </head>
+
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RapidRescue</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+
+    <div class="boxed_wrapper ltr">
+
+        <div class="loader-wrap">
+            <div class="preloader">
+                <div class="preloader-close">x</div>
+                <div id="handle-preloader" class="handle-preloader">
+                    <div class="animation-preloader">
+                        <div class="spinner"></div>
+                        <div class="txt-loading">
+                            <span data-text-preloader="R" class="letters-loading">
+                                R
+                            </span>
+                            <span data-text-preloader="A" class="letters-loading">
+                                A
+                            </span>
+                            <span data-text-preloader="P" class="letters-loading">
+                                P
+                            </span>
+                            <span data-text-preloader="I" class="letters-loading">
+                                I
+                            </span>
+                            <span data-text-preloader="D" class="letters-loading">
+                                D
+                            </span>
+                            <span data-text-preloader=" " class="letters-loading">
+                                &nbsp;
+                            </span>
+                            <span data-text-preloader="R" class="letters-loading">
+                                R
+                            </span>
+                            <span data-text-preloader="E" class="letters-loading">
+                                E
+                            </span>
+                            <span data-text-preloader="S" class="letters-loading">
+                                S
+                            </span>
+                            <span data-text-preloader="C" class="letters-loading">
+                                C
+                            </span>
+                            <span data-text-preloader="U" class="letters-loading">
+                                U
+                            </span>
+                            <span data-text-preloader="E" class="letters-loading">
+                                E
+                            </span>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
+        </div>
+     
+        <header class="main-header header-style-one">
+            @functions {
+                public string IsActive(string controller, string action)
+                {
+                    var routeData = Context.GetRouteData();
+
+                    var routeController = routeData.Values["controller"]?.ToString();
+                    var routeAction = routeData.Values["action"]?.ToString();
+
+                    return (controller == routeController && action == routeAction) ? "current" : "";
+                }
+
+                public string IsMultipleActive(string controller, params string[] actions)
+                {
+                    var routeData = Context.GetRouteData();
+
+                    var routeController = routeData.Values["controller"]?.ToString();
+                    var routeAction = routeData.Values["action"]?.ToString();
+
+                    // Check if the current controller matches and if the current action is in the provided list of actions
+                    if (controller == routeController && actions.Contains(routeAction))
+                    {
+                        return "current";
+                    }
+
+                    return "";
+                }
+
+            }
+            <!--Start Header Top-->
+            <div class="header-top">
+                <div class="auto-container">
+                    <div class="outer-box">
+
+                        <div class="header-top__left">
+                            <div class="main-logo-box">
+                                <a href="index.html">
+                                    <img src="~/homeassets/images/resources/logo.png" alt="Awesome Logo" title="">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="header-top__right">
+                            <div class="header-contact-info-style1">
+                                <ul>
+                                    <li>
+                                        <div class="icon">
+                                            <span class="icon-telephone"></span>
+                                        </div>
+                                        <div class="text">
+                                            <p>Call anytime</p>
+                                            <h5><a href="tel:123456789">+ 1- (246) 333-0089</a></h5>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon">
+                                            <span class="icon-email"></span>
+                                        </div>
+                                        <div class="text">
+                                            <p>Write email</p>
+                                            <h5><a href="mailto:yourmail@email.com">needhelp@company.com</a></h5>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="header-button-style1">
+                                <a class="btn-one" href="contact.html">
+                                    <span class="txt">Get a Free Quote</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Header Top-->
+            <!--Start Header-->
+            <div class="header">
+                <div class="auto-container">
+                    <div class="outer-box">
+
+                        <!--Start Header Left-->
+                        <div class="header-left">
+                            <div class="nav-outer style1 clearfix">
+                                <!--Mobile Navigation Toggler-->
+                                <div class="mobile-nav-toggler">
+                                    <div class="inner">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </div>
+                                </div>
+                                <!-- Main Menu -->
+
+                                <nav class="main-menu style1 navbar-expand-md navbar-light">
+                                    <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                                        <ul class="navigation clearfix">
+                                            <li class="@IsActive("Home", "Home")">
+                                                <a asp-action="Home" asp-controller="Home">Home</a>
+                                              
+                                            </li>
+                                          
+                                            <li class="dropdown">
+                                                <a href="index.html#">Services</a>
+                                                <ul>
+                                                    <li><a href="services.html">View All Services</a></li>
+                                                    <li><a href="services-single-1.html">Ambulance Car</a></li>
+                                                    <li>
+                                                        <a href="services-single-2.html">Medical Flight Services</a>
+                                                    </li>
+                                                    <li><a href="services-single-3.html">Medical Escort</a></li>
+                                                    <li><a href="services-single-4.html">Private Air Ambulance</a></li>
+                                                    <li><a href="services-single-5.html">Advance Life Support</a></li>
+                                                    <li><a href="services-single-6.html">General Services</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="index.html#">Pages</a>
+                                                <ul>
+                                                    <li><a href="about.html">About Our Company</a></li>
+                                                    <li><a href="team.html">Team</a></li>
+                                                    <li><a href="testimonials.html">Testimonials</a></li>
+                                                    <li><a href="faq.html">FAQ’s</a></li>
+                                                    
+                                                </ul>
+                                            </li>
+                                            <li >
+                                                <a >Blog</a>
+                                              
+                                            </li>
+                                            <li class ="@IsActive("Home", "Contact")"><a asp-action="Contact" asp-controller="Home">Contact</a></li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                                <!-- Main Menu End-->
+                            </div>
+                        </div>
+                        <!--End Header Left-->
+                        <!--Start Header Right-->
+                        <div class="header-right">
+                            <div class="header-social-link">
+                                <ul class="clearfix">
+                                    <li>
+                                        <a href="index.html#"><i class="icon-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="index.html#"><i class="icon-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="index.html#"><i class="icon-pinterest"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="index.html#"><i class="icon-instagram"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--End Header Right-->
+
+                    </div>
+                </div>
+            </div>
+            <!--End header-->
+            <!--Sticky Header-->
+            <div class="sticky-header">
+                <div class="container">
+                    <div class="clearfix">
+                        <!--Logo-->
+                        <div class="logo float-left">
+                            <a href="index.html" class="img-responsive">
+                                <img src="~/homeassets/images/resources/sticky-logo.png" alt="" title="">
+                            </a>
+                        </div>
+                        <!--Right Col-->
+                        <div class="right-col float-right">
+                            <!-- Main Menu -->
+                            <nav class="main-menu clearfix">
+                                <!--Keep This Empty / Menu will come through Javascript-->
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Sticky Header-->
+            <!-- Mobile Menu  -->
+            <div class="mobile-menu">
+                <div class="menu-backdrop"></div>
+                <div class="close-btn"><span class="icon fa fa-times-circle"></span></div>
+                <nav class="menu-box">
+                    <div class="nav-logo">
+                        <a href="index.html">
+                            <img src="~/homeassets/images/resources/mobilemenu-logo.png"
+                                 alt="" title="">
+                        </a>
+                    </div>
+                    <div class="menu-outer">
+                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                    </div>
+                    <!--Social Links-->
+                    <div class="social-links">
+                        <ul class="clearfix">
+                            <li><a href="index.html#"><span class="fab fa fa-facebook-square"></span></a></li>
+                            <li><a href="index.html#"><span class="fab fa fa-twitter-square"></span></a></li>
+                            <li><a href="index.html#"><span class="fab fa fa-pinterest-square"></span></a></li>
+                            <li><a href="index.html#"><span class="fab fa fa-google-plus-square"></span></a></li>
+                            <li><a href="index.html#"><span class="fab fa fa-youtube-square"></span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <!-- End Mobile Menu -->
+
+        </header>
+    <div class="">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - RapidRescue - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="bottom-parallax">
+            <!--Start footer area -->
+            <footer class="footer-area">
+                <div class="footer-area-shape float-bob"
+                     style="background-image: url(/homeassets/images/shape/shape-2.png);"></div>
+                <!--Start Footer-->
+                <div class="footer">
+                    <div class="container">
+                        <div class="row text-right-rtl">
+
+                            <!--Start single footer widget-->
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                                <div class="single-footer-widget marbtm50">
+                                    <div class="our-company-info">
+                                        <div class="footer-logo">
+                                            <a href="index.html">
+                                                <img src="~/homeassets/images/footer/footer-logo.png" alt="Awesome Logo"
+                                                     title="">
+                                            </a>
+                                        </div>
+                                        <div class="text-box">
+                                            <p>There are many variatio of lorem ipsum available.</p>
+                                        </div>
+                                        <div class="footer-widget-contact-info">
+                                            <ul>
+                                                <li>
+                                                    <div class="inner">
+                                                        <div class="icon phone">
+                                                            <span class="icon-email"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>
+                                                                <a href="mailto:yourmail@email.com">needhelp@company.com</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="inner">
+                                                        <div class="icon">
+                                                            <span class="icon-telephone"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>
+                                                                <a href="tel:123456789">+1-(246) 333-0089</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="inner">
+                                                        <div class="icon mapmarker">
+                                                            <span class="icon-pin"></span>
+                                                        </div>
+                                                        <div class="text">
+                                                            <p>88 broklyn silver street, USA</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End single footer widget-->
+                            <!--Start single footer widget-->
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                                <div class="single-footer-widget single-footer-widget--link-box margintop marbtm50">
+                                    <div class="title">
+                                        <h3>Links</h3>
+                                    </div>
+                                    <div class="footer-widget-links">
+                                        <ul>
+                                            <li><a href="about.html">About</a></li>
+                                            <li><a href="services.html">Our Services</a></li>
+                                            <li><a href="about.html">Flight Crews</a></li>
+                                            <li><a href="about.html">Medical Equipment</a></li>
+                                            <li><a href="about.html">Case Manager</a></li>
+                                            <li><a href="contact.html">Contact</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End single footer widget-->
+                            <!--Start single footer widget-->
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                                <div class="single-footer-widget margintop">
+                                    <div class="title">
+                                        <h3>Services</h3>
+                                    </div>
+                                    <div class="footer-widget-links">
+                                        <ul>
+                                            <li><a href="services-single-1.html">Ambulance Car</a></li>
+                                            <li><a href="services-single-2.html">Medical Flight Services</a></li>
+                                            <li><a href="services-single-3.html">Medical Escort</a></li>
+                                            <li><a href="services-single-4.html">Private Air Ambulance</a></li>
+                                            <li><a href="services-single-5.html">Advance Life Support</a></li>
+                                            <li><a href="services-single-6.html">General Services</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End single footer widget-->
+                            <!--Start single footer widget-->
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                                <div class="single-footer-widget margintop pdtop20">
+                                    <div class="footer-widget-quote-box">
+                                        <h3>We can help,<br> today.</h3>
+                                        <p>
+                                            24 hours a day,<br> 7 days a week support.<br> Free, no obligation<br> price
+                                            quotes.
+                                        </p>
+                                        <div class="btn-box">
+                                            <a class="btn-one" href="contact.html">
+                                                <span class="txt">Get a Free Quote</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End single footer widget-->
+
+                        </div>
+                    </div>
+                </div>
+                <!--End Footer-->
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="bottom-inner">
+                            <div class="copyright">
+                                <p>Copyright &copy; 2022 <a href="index.html">Ambons</a> All Rights Reserved.</p>
+                            </div>
+                            <div class="footer-social-link">
+                                <ul class="clearfix">
+                                    <li>
+                                        <a href="index.html#"><i class="icon-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="index.html#"><i class="icon-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="index.html#"><i class="icon-pinterest"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="index.html#"><i class="icon-instagram"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </footer>
+            <!--End footer area-->
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+
+        <button class="scroll-top scroll-to-target" data-target="html">
+            <span class="flaticon-up-arrow"></span>
+        </button>
+
+        <!-- search-popup -->
+        <div id="search-popup" class="search-popup">
+            <div class="close-search"><i class="icon-close"></i></div>
+            <div class="popup-inner">
+                <div class="overlay-layer"></div>
+                <div class="search-form">
+                    <form method="post" action="index.html">
+                        <div class="form-group">
+                            <fieldset>
+                                <input type="search" class="form-control" name="search-input" value=""
+                                       placeholder="Search Here" required>
+                                <input type="submit" value="Search Now!" class="theme-btn style-four">
+                            </fieldset>
+                        </div>
+                    </form>
+                    <h3>Recent Search Keywords</h3>
+                    <ul class="recent-searches">
+                        <li><a href="index.html">waste</a></li>
+                        <li><a href="index.html">Dumpster</a></li>
+                        <li><a href="index.html">Zerowaste</a></li>
+                        <li><a href="index.html">Garbage</a></li>
+                        <li><a href="index.html">trash</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- search-popup end -->
+    </div>
+
+
+
+    <script src="~/homeassets/js/jquery.js"></script>
+    <script src="~/homeassets/js/aos.js"></script>
+    <script src="~/homeassets/js/appear.js"></script>
+    <script src="~/homeassets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/homeassets/js/isotope.js"></script>
+    <script src="~/homeassets/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="~/homeassets/js/jquery.countTo.js"></script>
+    <script src="~/homeassets/js/jquery.easing.min.js"></script>
+    <script src="~/homeassets/js/jquery.event.move.js"></script>
+    <script src="~/homeassets/js/jquery.fancybox.js"></script>
+    <script src="~/homeassets/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/homeassets/js/jquery.nice-select.min.js"></script>
+    <script src="~/homeassets/js/jquery.paroller.min.js"></script>
+    <script src="~/homeassets/js/jquery-sidebar-content.js"></script>
+    <script src="~/homeassets/js/knob.js"></script>
+    <script src="~/homeassets/js/map-script.js"></script>
+    <script src="~/homeassets/js/owl.js"></script>
+    <script src="~/homeassets/js/pagenav.js"></script>
+    <script src="~/homeassets/js/scrollbar.js"></script>
+    <script src="~/homeassets/js/swiper.min.js"></script>
+    <script src="~/homeassets/js/tilt.jquery.js"></script>
+    <script src="~/homeassets/js/TweenMax.min.js"></script>
+    <script src="~/homeassets/js/validation.js"></script>
+    <script src="~/homeassets/js/wow.js"></script>
+
+    <script src="~/homeassets/js/jquery-1color-switcher.min.js"></script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM&callback=initMap">
+    </script>
+
+    <!-- thm custom script -->
+    <script src="~/homeassets/js/custom.js"></script>
+
+
+
 </body>
+
 </html>

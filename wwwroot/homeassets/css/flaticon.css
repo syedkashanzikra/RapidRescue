@@ -1,0 +1,483 @@
+@font-face {
+    font-family: "Flaticon";
+    src: url("../fonts/flaticon.eot");
+    src: url("../fonts/flaticon.eot?#iefix") format("embedded-opentype"), url("../fonts/flaticon.woff") format("woff"), url("../fonts/flaticon.ttf") format("truetype"), url("../fonts/flaticon.svg#flaticon") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+        font-family: "Flaticon";
+        src: url("../fonts/flaticon.svg#flaticon") format("svg");
+    }
+}
+
+
+[class^="flaticon-"]:before,
+[class*=" flaticon-"]:before,
+[class^="flaticon-"]:after,
+[class*=" flaticon-"]:after {
+  font-family: Flaticon;
+  font-style: normal;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.flaticon-allah-word:before {
+  content: "\f101";
+}
+
+.flaticon-multiply:before {
+  content: "\f102";
+}
+
+.flaticon-clock:before {
+  content: "\f103";
+}
+
+.flaticon-plus:before {
+  content: "\f104";
+}
+
+.flaticon-minus:before {
+  content: "\f105";
+}
+
+.flaticon-play-button:before {
+  content: "\f106";
+}
+
+.flaticon-play-button-1:before {
+  content: "\f107";
+}
+
+.flaticon-star-of-favorites-outline:before {
+  content: "\f108";
+}
+
+.flaticon-next:before {
+  content: "\f109";
+}
+
+.flaticon-search:before {
+  content: "\f10a";
+}
+
+.flaticon-bag:before {
+  content: "\f10b";
+}
+
+.flaticon-quote:before {
+  content: "\f10c";
+}
+
+.flaticon-star:before {
+  content: "\f10d";
+}
+
+.flaticon-favourite:before {
+  content: "\f10e";
+}
+
+.flaticon-quote-1:before {
+  content: "\f10f";
+}
+
+.flaticon-next-1:before {
+  content: "\f110";
+}
+
+.flaticon-file:before {
+  content: "\f111";
+}
+
+.flaticon-doc:before {
+  content: "\f112";
+}
+
+.flaticon-link:before {
+  content: "\f113";
+}
+
+.flaticon-call:before {
+  content: "\f114";
+}
+
+.flaticon-pin:before {
+  content: "\f115";
+}
+
+.flaticon-calendar:before {
+  content: "\f116";
+}
+
+.flaticon-verified:before {
+  content: "\f117";
+}
+
+.flaticon-user:before {
+  content: "\f118";
+}
+
+.flaticon-maps-and-flags:before {
+  content: "\f119";
+}
+
+.flaticon-mail:before {
+  content: "\f11a";
+}
+
+.flaticon-tick:before {
+  content: "\f11b";
+}
+
+.flaticon-check:before {
+  content: "\f11c";
+}
+
+.flaticon-quote-2:before {
+  content: "\f11d";
+}
+
+.flaticon-confirmation:before {
+  content: "\f11e";
+}
+
+.flaticon-telephone:before {
+  content: "\f11f";
+}
+
+.flaticon-email:before {
+  content: "\f120";
+}
+
+.flaticon-pin-1:before {
+  content: "\f121";
+}
+
+.flaticon-placeholder:before {
+  content: "\f122";
+}
+
+.flaticon-down-arrow:before {
+  content: "\f123";
+}
+
+.flaticon-quote-3:before {
+  content: "\f124";
+}
+
+.flaticon-open-archive:before {
+  content: "\f125";
+}
+
+.flaticon-send:before {
+  content: "\f126";
+}
+
+.flaticon-phone:before {
+  content: "\f127";
+}
+
+.flaticon-envelope:before {
+  content: "\f128";
+}
+
+.flaticon-pin-2:before {
+  content: "\f129";
+}
+
+.flaticon-left-quotes-sign:before {
+  content: "\f12a";
+}
+
+.flaticon-phone-call:before {
+  content: "\f12b";
+}
+
+.flaticon-tag:before {
+  content: "\f12c";
+}
+
+.flaticon-search-interface-symbol:before {
+  content: "\f12d";
+}
+
+.flaticon-at:before {
+  content: "\f12e";
+}
+
+.flaticon-basket:before {
+  content: "\f12f";
+}
+
+.flaticon-chat:before {
+  content: "\f130";
+}
+
+.flaticon-reply:before {
+  content: "\f131";
+}
+
+.flaticon-earth-grid-symbol:before {
+  content: "\f132";
+}
+
+.flaticon-twitter:before {
+  content: "\f133";
+}
+
+.flaticon-up-arrow:before {
+  content: "\f134";
+}
+
+.flaticon-user-1:before {
+  content: "\f135";
+}
+
+.flaticon-speech-bubble-comment:before {
+  content: "\f136";
+}
+
+.flaticon-left-arrow-1:before {
+  content: "\f137";
+}
+
+.flaticon-map-marker:before {
+  content: "\f138";
+}
+
+.flaticon-comment:before {
+  content: "\f139";
+}
+
+.flaticon-phone-call-1:before {
+  content: "\f13a";
+}
+
+.flaticon-maps-and-flags-1:before {
+  content: "\f13b";
+}
+
+.flaticon-chat-1:before {
+  content: "\f13c";
+}
+
+.flaticon-chat-2:before {
+  content: "\f13d";
+}
+
+.flaticon-chat-3:before {
+  content: "\f13e";
+}
+
+.flaticon-phone-call-2:before {
+  content: "\f13f";
+}
+
+.flaticon-sharing:before {
+  content: "\f140";
+}
+
+.flaticon-quote-4:before {
+  content: "\f141";
+}
+
+.flaticon-quote-5:before {
+  content: "\f142";
+}
+
+.flaticon-user-2:before {
+  content: "\f143";
+}
+
+.flaticon-phone-receiver-silhouette:before {
+  content: "\f144";
+}
+
+.flaticon-check-mark:before {
+  content: "\f145";
+}
+
+.flaticon-down-arrow-2:before {
+  content: "\f146";
+}
+
+.flaticon-menu:before {
+  content: "\f147";
+}
+
+.flaticon-email-1:before {
+  content: "\f148";
+}
+
+.flaticon-search-1:before {
+  content: "\f149";
+}
+
+.flaticon-construction-and-tools:before {
+  content: "\f14a";
+}
+
+.flaticon-plus-1:before {
+  content: "\f14b";
+}
+
+.flaticon-play-button-2:before {
+  content: "\f14c";
+}
+
+.flaticon-headphone:before {
+  content: "\f14d";
+}
+
+.flaticon-placeholder-1:before {
+  content: "\f14e";
+}
+
+.flaticon-house-with-wooden-roof:before {
+  content: "\f14f";
+}
+
+.flaticon-placeholder-2:before {
+  content: "\f150";
+}
+
+.flaticon-insurance:before {
+  content: "\f151";
+}
+
+.flaticon-pdf:before {
+  content: "\f152";
+}
+
+.flaticon-zoom:before {
+  content: "\f153";
+}
+
+.flaticon-tooth:before {
+  content: "\f154";
+}
+
+.flaticon-smile:before {
+  content: "\f155";
+}
+
+.flaticon-smile-1:before {
+  content: "\f156";
+}
+
+.flaticon-smile-2:before {
+  content: "\f157";
+}
+
+.flaticon-smile-3:before {
+  content: "\f158";
+}
+
+.flaticon-tick-1:before {
+  content: "\f159";
+}
+
+.flaticon-tick-2:before {
+  content: "\f15a";
+}
+
+.flaticon-clock-1:before {
+  content: "\f15b";
+}
+
+.flaticon-chat-4:before {
+  content: "\f15c";
+}
+
+.flaticon-dental-review:before {
+  content: "\f15d";
+}
+
+.flaticon-dentist:before {
+  content: "\f15e";
+}
+
+.flaticon-tooth-whitening:before {
+  content: "\f15f";
+}
+
+.flaticon-cavities:before {
+  content: "\f160";
+}
+
+.flaticon-woman:before {
+  content: "\f161";
+}
+
+.flaticon-star-1:before {
+  content: "\f162";
+}
+
+.flaticon-star-2:before {
+  content: "\f163";
+}
+
+.flaticon-dentist-1:before {
+  content: "\f164";
+}
+
+.flaticon-next-2:before {
+  content: "\f165";
+}
+
+.flaticon-message:before {
+  content: "\f166";
+}
+
+.flaticon-magnifying-glass:before {
+  content: "\f167";
+}
+
+.flaticon-protection:before {
+  content: "\f168";
+}
+
+.flaticon-tooth-1:before {
+  content: "\f169";
+}
+
+.flaticon-apple:before {
+  content: "\f16a";
+}
+
+.flaticon-dental:before {
+  content: "\f16b";
+}
+
+.flaticon-medical-appointment:before {
+  content: "\f16c";
+}
+
+.flaticon-dentist-2:before {
+  content: "\f16d";
+}
+
+.flaticon-healthy-tooth:before {
+  content: "\f16e";
+}
+
+.flaticon-address:before {
+  content: "\f16f";
+}
+
+.flaticon-alarm-clock:before {
+  content: "\f170";
+}

@@ -13,14 +13,25 @@ namespace RapidRescue.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        public IActionResult Privacy()
-        {
+          [Route("/")]
+          [Route("/home")]  
+          public IActionResult Home() { 
+           
             return View();
+           }
+
+
+    
+        [Route("/contact")]
+        public IActionResult Contact()
+        {
+            var breadcrumbs = new List<Tuple<string, string>>()
+    {
+        new Tuple<string, string>("Home", Url.Action("Home", "Home")),
+        new Tuple<string, string>("Contact", "Home")
+    };
+            return View(breadcrumbs);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

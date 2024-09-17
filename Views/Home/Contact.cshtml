@@ -1,0 +1,161 @@
+﻿@model List<Tuple<string, string>>
+
+@{
+
+	ViewData["Title"] = "Contact-Us";
+
+}
+
+@await Html.PartialAsync("Breadcrumb", Model)
+
+
+
+
+
+
+<section class="contact-info-style2-area">
+    <div class="container">
+        <div class="row text-right-rtl">
+
+            <div class="col-xl-6">
+                <div class="contact-info-style2__image">
+                    <div class="inner">
+                        <img src="~/homeassets/images/resources/contact-info-style2__image.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6">
+                <div class="contact-info-style1__content">
+                    <div class="sec-title">
+                        <div class="icon">
+                            <span class="icon-heartbeat"></span>
+                        </div>
+                        <div class="sub-title">
+                            <h3>Contact us</h3>
+                        </div>
+                        <h2>Feel Free to Get in<br> Touch with us</h2>
+                    </div>
+                    <div class="inner-content">
+                        <div class="text">
+                            <p>
+                                Nulla quis commodo ligula. Curabitur bibendum ante at nibh lobortis, nec volutpat
+                                mauris faucibus. Praesent malesuada et tellus sed efficitur.
+                            </p>
+                        </div>
+                        <h3>Contact Details</h3>
+                        <p>66 Broklyn Golden Street.<br> New York United States of America</p>
+                        <h2>
+                            <a href="tel:123456789">+1-(246) 333-0089</a>
+                        </h2>
+                        <h4><a href="mailto:yourmail@email.com">needhelp@company.com</a></h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="main-contact-form-area">
+    <div class="container">
+        <div class="sec-title text-center">
+            <div class="icon">
+                <span class="icon-heartbeat"></span>
+            </div>
+            <div class="sub-title">
+                <h3>Send us Message</h3>
+            </div>
+            <h2>Write us Anytime</h2>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="contact-form">
+                    <form id="contact-form" name="contact_form" class="default-form2"
+                          action="https://mehedi.asiandevelopers.com/ambons/assets/inc/sendmail.php" method="post">
+
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="text" name="form_name" id="formName"
+                                               placeholder="Full Name" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="email" name="form_email" id="formEmail"
+                                               placeholder="Email Address" required="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="text" name="form_phone" value="" id="formPhone"
+                                               placeholder="Phone">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="text" name="form_subject" value="" id="formSubject"
+                                               placeholder="Subject">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <textarea name="form_message" id="formMessage"
+                                                  placeholder="Write a Message" required=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-12 text-center">
+                                <div class="button-box">
+                                    <input id="form_botcheck" name="form_botcheck" class="form-control"
+                                           type="hidden" value="">
+                                    <button class="btn-one" type="submit" data-loading-text="Please wait...">
+                                        <span class="txt">
+                                            send a message
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Main Contact Form Area-->
+<!--Start Google Map Style2 Area-->
+<section class="google-map-area">
+    <div class="auto-container">
+        <div class="contact-page-map-outer">
+            <!--Map Canvas-->
+            <div class="map-canvas" data-zoom="12" data-lat="-37.817085" data-lng="144.955631"
+                 data-type="roadmap" data-hue="#ffc400" data-title="Envato"
+                 data-icon-path=~/homeassets/images/icon/map-marker.png"
+                 data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@youremail.com'>info@youremail.com</a>">
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Google Map Style2 Area-->
