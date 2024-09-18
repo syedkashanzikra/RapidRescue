@@ -32,7 +32,8 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<RapidRescueContext>();
-    RolesSeeder.SeedRoles(dbContext); // Call the Roles seeder
+    RolesSeeder.SeedRoles(dbContext);
+    UsersSeeder.SeedUsers(dbContext);
 }
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
