@@ -148,10 +148,15 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">Main</li>
-                        <li class="submenu">
-                            <a asp-action="Admin" asp-controller="Admin"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-01.svg" alt></span> <span> Dashboard </span></a>
-                            
+                        <li>
+                            <span class="menu-side">
+                                <img src="~/assets/img/icons/menu-icon-01.svg">
+                            </span>
+                            <a asp-action="Admin" asp-controller="Admin">
+                                <span>Dashboard</span>
+                            </a>
                         </li>
+
                         <li class="submenu">
                             <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-02.svg" alt></span> <span> Doctors </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">

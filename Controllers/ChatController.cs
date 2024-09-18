@@ -4,6 +4,7 @@ namespace RapidRescue.Controllers
 {
     public class ChatController : Controller
     {
+        [Route("/chat")]
         public IActionResult Index()
         {
             var breadcrumbs = new List<Tuple<string, string>>()
