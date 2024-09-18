@@ -32,9 +32,15 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<RapidRescueContext>();
+
+    // Automatically apply pending migrations
+    dbContext.Database.Migrate();
+
+    // Now seed the roles and users
     RolesSeeder.SeedRoles(dbContext);
     UsersSeeder.SeedUsers(dbContext);
 }
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
