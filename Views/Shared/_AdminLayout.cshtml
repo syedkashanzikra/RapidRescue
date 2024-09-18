@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" type="image/x-icon" href="~/assets/img/favicon.png">
-    <title>Admin @ViewData["Title"] </title>
+    <title>Admin | @ViewData["Title"] </title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap.min.css">
@@ -162,29 +162,25 @@
                         
 
                         <li class="submenu">
-                            <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-02.svg" alt></span> <span> Doctors </span> <span class="menu-arrow"></span></a>
+                            <a ><span class="menu-side"><img src="~/assets/img/icons/menu-icon-02.svg" alt></span> <span> Drivers </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="doctors.html">Doctor List</a></li>
-                                <li><a href="add-doctor.html">Add Doctor</a></li>
-                                <li><a href="edit-doctor.html">Edit Doctor</a></li>
-                                <li><a href="doctor-profile.html">Doctor Profile</a></li>
+                                <li><a href="doctors.html">Drivers List</a></li>
+                                <li><a href="add-doctor.html">Add Drivers</a></li>
+                                
                             </ul>
                         </li>
                         <li class="submenu">
-                            <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-03.svg" alt></span> <span>Patients </span> <span class="menu-arrow"></span></a>
+                            <a asp-action="GetPatients" asp-controller="Patients"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-03.svg" alt></span> <span>Patients </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="patients.html">Patients List</a></li>
-                                <li><a href="add-patient.html">Add Patients</a></li>
-                                <li><a href="edit-patient.html">Edit Patients</a></li>
-                                <li><a href="patient-profile.html">Patients Profile</a></li>
+                                <li><a asp-action="GetPatients" asp-controller="Patients">Patients List</a></li>
+                                <li><a asp-action="CreatePatient" asp-controller="Patients">Add Patients</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
-                            <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-08.svg" alt></span> <span> Staff </span> <span class="menu-arrow"></span></a>
+                            <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-08.svg" alt></span> <span> EMT </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="staff-list.html">Staff List</a></li>
-                                <li><a href="add-staff.html">Add Staff</a></li>
-                                <li><a href="staff-profile.html">Staff Profile</a></li>
+                                <li><a href="staff-list.html">Add EMT</a></li>
+                               
                             </ul>
                         </li>
                         <li class="submenu">
@@ -434,6 +430,13 @@
             </div>
         </div>
         <div class="sidebar-overlay" data-reff></div>
+        <script>
+            document.getElementById("enablePasswordChange").addEventListener("change", function () {
+                const isChecked = this.checked;
+                document.getElementById("password").disabled = !isChecked;
+                document.getElementById("confirmPassword").disabled = !isChecked;
+            });
+        </script>
 
         <script src="~/assets/js/jquery-3.7.1.min.js" type="350181ec80dc51c00069179a-text/javascript"></script>
 

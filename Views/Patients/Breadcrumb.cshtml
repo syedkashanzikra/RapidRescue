@@ -1,0 +1,26 @@
+﻿@model List<Tuple<string, string>>
+
+<section class="page-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="breadcrumb">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    if (i == Model.Count - 1)
+                    {
+                        <li class="breadcrumb-item active">@Model[i].Item1</li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item">
+                            <a href="@Model[i].Item2">@Model[i].Item1</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <i class="feather-chevron-right"></i>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</section>

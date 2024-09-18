@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis.Scripting;
+﻿using Microsoft.AspNetCore.Identity;
 using RapidRescue.Context;
 using RapidRescue.Models;
 
@@ -10,6 +10,8 @@ namespace RapidRescue.Data.Seeders
         {
             if (!context.Users.Any()) // Check if any users already exist
             {
+                var passwordHasher = new PasswordHasher<Users>();
+
                 var users = new List<Users>
                 {
                     new Users
@@ -17,7 +19,7 @@ namespace RapidRescue.Data.Seeders
                         FirstName = "Admin",
                         LastName = "User",
                         Email = "admin@example.com",
-                        Password = BCrypt.Net.BCrypt.HashPassword("admin123"), // Hashing password
+                        Password = passwordHasher.HashPassword(null, "admin123"), // Using PasswordHasher
                         Role_Id = 1,  // Admin Role
                         IsActive = true,
                         RememberToken = "admin"
@@ -27,7 +29,7 @@ namespace RapidRescue.Data.Seeders
                         FirstName = "John",
                         LastName = "Doe",
                         Email = "patient@example.com",
-                        Password = BCrypt.Net.BCrypt.HashPassword("patient123"), // Hashing password
+                        Password = passwordHasher.HashPassword(null, "patient123"), // Using PasswordHasher
                         Role_Id = 2,  // Patient Role
                         IsActive = true,
                         RememberToken = "patient"
@@ -37,7 +39,7 @@ namespace RapidRescue.Data.Seeders
                         FirstName = "Jane",
                         LastName = "Smith",
                         Email = "driver@example.com",
-                        Password = BCrypt.Net.BCrypt.HashPassword("driver123"), // Hashing password
+                        Password = passwordHasher.HashPassword(null, "driver123"), // Using PasswordHasher
                         Role_Id = 3,  // Driver Role
                         IsActive = true,
                         RememberToken = "Driver"
@@ -47,7 +49,7 @@ namespace RapidRescue.Data.Seeders
                         FirstName = "Michael",
                         LastName = "Johnson",
                         Email = "emt@example.com",
-                        Password = BCrypt.Net.BCrypt.HashPassword("emt123"), // Hashing password
+                        Password = passwordHasher.HashPassword(null, "emt123"), // Using PasswordHasher
                         Role_Id = 4,  // EMT Role
                         IsActive = true,
                         RememberToken = "EMT"

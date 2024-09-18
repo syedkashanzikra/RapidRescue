@@ -83,50 +83,7 @@ namespace RapidRescue.Controllers
 
 
 
-        //[HttpPost]
-        //[Route("/register")]
-        //public async Task<IActionResult> Register_User(UserViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Check if the email already exists
-        //        var emailExists = await _context.Users.AnyAsync(u => u.Email == model.Email);
-        //        if (emailExists)
-        //        {
-        //            ModelState.AddModelError("Email", "An account with this email already exists.");
-
-        //            return View(model);
-        //        }
-
-        //        var user = new Users
-        //        {
-        //            FirstName = model.FirstName,
-        //            LastName = model.LastName,
-        //            Email = model.Email,
-
-        //            CreatedAt = DateTime.Now,
-        //            UpdatedAt = DateTime.Now,
-        //            IsActive = false,
-        //            RememberToken = "",  
-        //            Role_Id = 2,
-        //            Password =  model.Password,  
-
-        //        };
-
-        //        _context.Add(user);
-        //        await _context.SaveChangesAsync();
-
-        //        // Send verification email
-        //        await SendVerificationEmail(user);
-
-        //        TempData["Message"] = "Your Token Has been Generated Go to Your Email!";
-
-        //        return RedirectToAction("RegistrationConfirmation");
-        //    }
-
-        //    return View(model);
-        //}
-
+        
 
 
         [HttpPost]
@@ -242,14 +199,15 @@ namespace RapidRescue.Controllers
                     return View(model);
                 }
 
-                // Save the user ID in session after successful login
+               
                 HttpContext.Session.SetInt32("user_id", user.User_id);
+                HttpContext.Session.SetInt32("role_id", user.Role_Id);
 
-                // Redirect to a dashboard or any other page
+              
                 return RedirectToAction("Home", "Home");
             }
 
-            // If validation fails, return to the same view with errors
+            
             return View(model);
         }
 

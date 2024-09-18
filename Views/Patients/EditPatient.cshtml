@@ -1,0 +1,158 @@
+﻿@model CreatePatientViewModel
+@{
+    ViewData["Title"] = "Edit Patient";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@await Html.PartialAsync("Breadcrumb", (List<Tuple<string, string>>)ViewBag.Breadcrumbs)
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="EditPatient" method="post" id="edit-patient-form">
+                    <div class="row">
+                        <!-- Section: Patient Details -->
+                        <div class="col-12">
+                            <div class="form-heading">
+                                <h4>Edit Patient Details</h4>
+                            </div>
+                        </div>
+
+                        <!-- First Name -->
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block local-forms">
+                                <label>First Name <span class="login-danger">*</span></label>
+                                <input class="form-control" asp-for="FirstName" placeholder="Enter First Name">
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block local-forms">
+                                <label>Last Name <span class="login-danger">*</span></label>
+                                <input class="form-control" asp-for="LastName" placeholder="Enter Last Name">
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block local-forms">
+                                <label>Email <span class="login-danger">*</span></label>
+                                <input class="form-control" asp-for="Email" placeholder="Enter Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Mobile Number -->
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block local-forms">
+                                <label>Mobile Number <span class="login-danger">*</span></label>
+                                <input class="form-control" asp-for="MobileNumber" placeholder="Enter Mobile Number">
+                                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Pickup Location -->
+                        <div class="col-12 col-md-6 col-xl-6">
+                            <div class="input-block local-forms">
+                                <label>Pickup Location <span class="login-danger">*</span></label>
+                                <input class="form-control" asp-for="PickupLocation" placeholder="Enter Pickup Location">
+                                <span asp-validation-for="PickupLocation" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Situation -->
+                        <div class="col-12 col-md-6 col-xl-6">
+                            <div class="input-block local-forms">
+                                <label>Situation Description <span class="login-danger">*</span></label>
+                                <textarea class="form-control" asp-for="Situation" rows="3" placeholder="Describe the situation"></textarea>
+                                <span asp-validation-for="Situation" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="col-12 col-md-6 col-xl-6">
+                            <div class="input-block select-gender">
+                                <label class="gen-label">Gender <span class="login-danger">*</span></label>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" asp-for="Gender" value="Male" class="form-check-input">Male
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" asp-for="Gender" value="Female" class="form-check-input">Female
+                                    </label>
+                                </div>
+                                <span asp-validation-for="Gender" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Is Emergency -->
+                        <div class="col-12 col-md-6 col-xl-6">
+                            <div class="input-block select-gender">
+                                <label class="gen-label">Is Emergency? <span class="login-danger">*</span></label>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" asp-for="IsEmergency" value="True" class="form-check-input">Yes
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" asp-for="IsEmergency" value="False" class="form-check-input">No
+                                    </label>
+                                </div>
+                                <span asp-validation-for="IsEmergency" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Additional Details -->
+                        <div class="col-12 col-md-6 col-xl-6">
+                            <div class="input-block local-forms">
+                                <label>Additional Details</label>
+                                <textarea class="form-control" asp-for="AdditionalDetails" rows="3" placeholder="Enter additional details"></textarea>
+                                <span asp-validation-for="AdditionalDetails" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-6">
+                            <div class="input-block local-forms">
+                                <label>Password</label>
+                                <input class="form-control" asp-for="Password" type="password" placeholder="Enter Password" id="password" disabled>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-6">
+                            <div class="input-block local-forms">
+                                <label>Confirm Password</label>
+                                <input class="form-control" asp-for="ConfirmPassword" type="password" placeholder="Confirm Password" id="confirmPassword" disabled>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Checkbox to enable password change -->
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="enablePasswordChange">
+                                <label class="form-check-label" for="enablePasswordChange">Change Password</label>
+                            </div>
+                        </div>
+
+                        <!-- Submit and Cancel Buttons -->
+                        <div class="col-12">
+                            <div class="doctor-submit text-end">
+                                <button type="submit" class="btn btn-primary submit-form me-2">Save Changes</button>
+                                <button type="button" class="btn btn-primary cancel-form">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

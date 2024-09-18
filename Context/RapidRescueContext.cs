@@ -17,6 +17,7 @@ namespace RapidRescue.Context
 
         public DbSet<Users> Users { get; set; }
 
+        public DbSet<PatientsInfo> PatientsInfo { get; set; }
 
     }
 }
