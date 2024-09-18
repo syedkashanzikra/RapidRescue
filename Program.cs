@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RapidRescue.Context;
 using RapidRescue.Data.Seeders;
+using RapidRescue.Filters;
 using RapidRescue.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,18 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<RapidRescueContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dbcon")));
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); 
+    options.Cookie.HttpOnly = true;                 
+    options.Cookie.IsEssential = true;              
+});
+// Add HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
+// Register the filter as a service
+builder.Services.AddScoped<IsAdminLoggedIn>();
 
 builder.Services.AddHttpClient();
 
@@ -33,11 +46,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Home}/{id?}");
 
 app.Run();

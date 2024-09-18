@@ -14,12 +14,14 @@ namespace RapidRescue.Data.Seeders
                     new Roles {  RoleName = "Admin", Status = true },
                     new Roles {  RoleName = "Patients", Status = true },
                     new Roles {  RoleName = "Drivers", Status = true },
-                    new Roles {  RoleName = "EMT", Status = true }, 
+                    new Roles {  RoleName = "EMT", Status = true },
+                    new Roles {  RoleName = "Dispatcher", Status = true },
+
 
                 };
 
                 context.Roles.AddRange(roles);
-                context.SaveChanges(); // Save the roles to the database
+                context.SaveChanges(); 
             }
         }
     }

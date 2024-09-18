@@ -2,6 +2,7 @@
 
 namespace RapidRescue.Controllers
 {
+
     public class AdminController : Controller
     {
         [Route("/admin")]

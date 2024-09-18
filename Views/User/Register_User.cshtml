@@ -1,4 +1,5 @@
-﻿@{
+﻿@model UserViewModel
+@{
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_AdminLayoutEmpty.cshtml";
 }
@@ -26,34 +27,50 @@
                                 </div>
                                 <h2>Getting Started</h2>
 
-                                <form action="login.html">
+                                <form asp-action="Register_User" asp-controller="User" method="post">
+                                    @* Add the validation summary for model errors *@
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+
                                     <div class="input-block">
-                                        <label>Full Name <span class="login-danger">*</span></label>
-                                        <input class="form-control" type="text">
+                                        <label asp-for="FirstName"></label>
+                                        <input class="form-control" asp-for="FirstName" />
+                                        <span class="text-danger" asp-validation-for="FirstName"></span>
                                     </div>
+
                                     <div class="input-block">
-                                        <label>Email <span class="login-danger">*</span></label>
-                                        <input class="form-control" type="text">
+                                        <label asp-for="LastName"></label>
+                                        <input class="form-control" asp-for="LastName" />
+                                        <span class="text-danger" asp-validation-for="LastName"></span>
                                     </div>
+
                                     <div class="input-block">
-                                        <label>Password <span class="login-danger">*</span></label>
-                                        <input class="form-control pass-input" type="password">
-                                        <span class="profile-views feather-eye-off toggle-password"></span>
+                                        <label asp-for="Email"></label>
+                                        <input class="form-control" asp-for="Email" />
+                                        <span class="text-danger" asp-validation-for="Email"></span>
                                     </div>
+
                                     <div class="input-block">
-                                        <label>Confirm Password <span class="login-danger">*</span></label>
-                                        <input class="form-control pass-input-confirm" type="password">
-                                        <span class="profile-views feather-eye-off confirm-password"></span>
+                                        <label asp-for="Password"></label>
+                                        <input class="form-control" asp-for="Password" type="password" />
+                                        <span class="text-danger" asp-validation-for="Password"></span>
                                     </div>
+
+                                    <div class="input-block">
+                                        <label asp-for="ConfirmPassword"></label>
+                                        <input class="form-control" asp-for="ConfirmPassword" type="password" />
+                                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                                    </div>
+
                                     <div class="forgotpass">
                                         <div class="remember-me">
                                             <label class="custom_check mr-2 mb-0 d-inline-flex remember-me">
-                                                I agree to the <a href="javascript:;">&nbsp terms of service </a>&nbsp and <a href="javascript:;">&nbsp privacy policy </a>
-                                                <input type="checkbox" name="radio">
+                                                I agree to the <a href="#">terms of service</a> and <a href="#">privacy policy</a>
+                                                <input type="checkbox" name="terms" required />
                                                 <span class="checkmark"></span>
                                             </label>
                                         </div>
                                     </div>
+
                                     <div class="input-block login-btn">
                                         <button class="btn btn-primary btn-block" type="submit">Sign up</button>
                                     </div>

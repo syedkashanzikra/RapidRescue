@@ -12,6 +12,7 @@ namespace RapidRescue.Models
         [Required]
         public string RoleName { get; set; } 
 
+
         [AllowNull]
         public bool Status { get; set; }
 

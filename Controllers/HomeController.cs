@@ -19,6 +19,7 @@ namespace RapidRescue.Controllers
           public IActionResult Home() { 
            
             return View();
+
            }
 
 
