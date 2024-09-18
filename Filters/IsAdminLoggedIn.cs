@@ -9,7 +9,7 @@ namespace RapidRescue.Filters
     public class IsAdminLoggedIn : IAsyncActionFilter
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly RapidRescueContext _context;  // Your database context
+        private readonly RapidRescueContext _context;
 
         public IsAdminLoggedIn(IHttpContextAccessor httpContextAccessor, RapidRescueContext context)
         {

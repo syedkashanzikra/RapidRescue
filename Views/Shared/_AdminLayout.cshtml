@@ -25,7 +25,7 @@
         <div class="header">
             <div class="header-left">
                 <a href="index.html" class="logo">
-                    <img src="~/assets/img/logo.png" width="35" height="35" alt> <span>Pre Clinic</span>
+                    <img src="~/assets/img/login-logo.jpg" width="25" height="25" alt> <span>Rapid Rescue</span>
                 </a>
             </div>
             <a id="toggle_btn" href="javascript:void(0);"><img src="~/assets/img/icons/bar-icon.svg" alt></a>
@@ -148,14 +148,18 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">Main</li>
+                     
+
                         <li>
-                            <span class="menu-side">
-                                <img src="~/assets/img/icons/menu-icon-01.svg">
-                            </span>
-                            <a asp-action="Admin" asp-controller="Admin">
-                                <span>Dashboard</span>
+
+                            <a asp-action="Admin" asp-controller="Admin" class="active subdrop">
+                                <span class="menu-side">
+                                    <img src="assets/img/icons/menu-icon-01.svg" alt="">
+                                </span> <span> Dashboard </span> 
                             </a>
-                        </li>
+                            </a>
+</li>
+                        
 
                         <li class="submenu">
                             <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-02.svg" alt></span> <span> Doctors </span> <span class="menu-arrow"></span></a>
