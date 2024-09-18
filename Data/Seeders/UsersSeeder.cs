@@ -20,7 +20,7 @@ namespace RapidRescue.Data.Seeders
                         Password = BCrypt.Net.BCrypt.HashPassword("admin123"), // Hashing password
                         Role_Id = 1,  // Admin Role
                         IsActive = true,
-                        RememberToken = null
+                        RememberToken = "admin"
                     },
                     new Users
                     {
@@ -30,7 +30,7 @@ namespace RapidRescue.Data.Seeders
                         Password = BCrypt.Net.BCrypt.HashPassword("patient123"), // Hashing password
                         Role_Id = 2,  // Patient Role
                         IsActive = true,
-                        RememberToken = null
+                        RememberToken = "patient"
                     },
                     new Users
                     {
@@ -40,7 +40,7 @@ namespace RapidRescue.Data.Seeders
                         Password = BCrypt.Net.BCrypt.HashPassword("driver123"), // Hashing password
                         Role_Id = 3,  // Driver Role
                         IsActive = true,
-                        RememberToken = null
+                        RememberToken = "Driver"
                     },
                     new Users
                     {
@@ -50,7 +50,7 @@ namespace RapidRescue.Data.Seeders
                         Password = BCrypt.Net.BCrypt.HashPassword("emt123"), // Hashing password
                         Role_Id = 4,  // EMT Role
                         IsActive = true,
-                        RememberToken = null
+                        RememberToken = "EMT"
                     }
                 };
 
