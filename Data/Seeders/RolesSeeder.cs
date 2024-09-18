@@ -15,7 +15,7 @@ namespace RapidRescue.Data.Seeders
                     new Roles {  RoleName = "Patients", Status = true },
                     new Roles {  RoleName = "Drivers", Status = true },
                     new Roles {  RoleName = "EMT", Status = true },
-                    new Roles {  RoleName = "Dispatcher", Status = true },
+                    
 
 
                 };

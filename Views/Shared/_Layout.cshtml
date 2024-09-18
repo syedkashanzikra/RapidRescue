@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    var userId = Context.Session.GetInt32("user_id");
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -189,11 +195,55 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="header-button-style1">
-                                <a class="btn-one" asp-action="Login_User" asp-controller="User">
-                                    <span class="txt">Login</span>
-                                </a>
-                            </div>
+
+                            @if (userId == null)
+                            {
+                                // Agar user login nahi hai, tab login button dikhaye
+                                <div class="header-button-style1">
+                                    <a class="btn-one" asp-action="Login_User" asp-controller="User">
+                                        <span class="txt">Login</span>
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                switch (userId)
+                                {
+                                    case 1:
+                                        // Admin ke liye dashboard button
+                                        <div class="header-button-style1">
+                                            <a class="btn-one" asp-action="Admin" asp-controller="Admin">
+                                                <span class="txt">Admin Dashboard</span>
+                                            </a>
+                                        </div>
+                                        break;
+                                    case 2:
+                                        // Patient ke liye dashboard button
+                                        <div class="header-button-style1">
+                                            <a class="btn-one" asp-action="PatientDashboard" asp-controller="Patient">
+                                                <span class="txt">Patient Dashboard</span>
+                                            </a>
+                                        </div>
+                                        break;
+                                    case 3:
+                                        // Driver ke liye dashboard button
+                                        <div class="header-button-style1">
+                                            <a class="btn-one" asp-action="DriverDashboard" asp-controller="Driver">
+                                                <span class="txt">Driver Dashboard</span>
+                                            </a>
+                                        </div>
+                                        break;
+                                    case 4:
+                                        // EMT ke liye dashboard button
+                                        <div class="header-button-style1">
+                                            <a class="btn-one" asp-action="EMTDashboard" asp-controller="EMT">
+                                                <span class="txt">EMT Dashboard</span>
+                                            </a>
+                                        </div>
+                                        break;
+                                    
+                                }
+                            }
                         </div>
 
                     </div>
