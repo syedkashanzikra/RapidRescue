@@ -100,10 +100,8 @@ namespace RapidRescue.Controllers
                     return View(model);
                 }
 
-                // Initialize the password hasher
                 var passwordHasher = new PasswordHasher<Users>();
 
-                // Create the user object
                 var user = new Users
                 {
                     FirstName = model.FirstName,
@@ -116,21 +114,17 @@ namespace RapidRescue.Controllers
                     Role_Id = 2,
                 };
 
-                // Hash the password and store it in the user object
                 user.Password = passwordHasher.HashPassword(user, model.Password);
 
-                // Save the user to the database
                 _context.Add(user);
                 await _context.SaveChangesAsync();
 
-                // Send verification email
                 await SendVerificationEmail(user);
 
                 TempData["Message"] = "Your Token Has been Generated Go to Your Email!";
                 return RedirectToAction("RegistrationConfirmation");
             }
 
-            // Return the view with validation errors
             return View(model);
         }
 
@@ -181,7 +175,7 @@ namespace RapidRescue.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Check if the user exists
+
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
                 if (user == null)
                 {
@@ -189,7 +183,6 @@ namespace RapidRescue.Controllers
                     return View(model);
                 }
 
-                // Verify the password
                 var passwordHasher = new PasswordHasher<Users>();
                 var passwordVerificationResult = passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
 

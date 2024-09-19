@@ -20,7 +20,7 @@ namespace RapidRescue.Controllers
             _context = context;
         }
 
-        // Helper method to create breadcrumbs
+
         private List<Tuple<string, string>> GetBreadcrumbs(string currentPage, string action, string controller = "Ambulance", string parentBreadcrumbAction = null)
         {
             var breadcrumbs = new List<Tuple<string, string>>
@@ -38,7 +38,7 @@ namespace RapidRescue.Controllers
             return breadcrumbs;
         }
 
-        // GET: GetAmbulances
+
         [Route("/get-ambulances")]
         public async Task<IActionResult> GetAmbulances()
         {
@@ -55,7 +55,6 @@ namespace RapidRescue.Controllers
             return View(model);
         }
 
-        // GET: CreateAmbulance
         [Route("/create-ambulance")]
         [HttpGet]
         public IActionResult CreateAmbulance()
@@ -67,7 +66,6 @@ namespace RapidRescue.Controllers
             return View();
         }
 
-        // POST: CreateAmbulance
         [Route("/create-ambulance")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -95,7 +93,6 @@ namespace RapidRescue.Controllers
             return RedirectToAction("GetAmbulances");
         }
 
-        // GET: EditAmbulance
         [Route("/edit-ambulance/{id}")]
         [HttpGet]
         public async Task<IActionResult> EditAmbulance(int id)
@@ -120,7 +117,6 @@ namespace RapidRescue.Controllers
             return View(model);
         }
 
-        // POST: EditAmbulance
         [Route("/edit-ambulance/{id}")]
         [HttpPost, ActionName("EditAmbulance")]
         [ValidateAntiForgeryToken]
@@ -151,7 +147,6 @@ namespace RapidRescue.Controllers
             return RedirectToAction("GetAmbulances");
         }
 
-        // GET: DeleteAmbulance
         [Route("/delete-ambulance/{id}")]
         public async Task<IActionResult> DeleteAmbulance(int? id)
         {
@@ -171,7 +166,6 @@ namespace RapidRescue.Controllers
             return View(ambulance);
         }
 
-        // POST: DeleteAmbulance
         [HttpPost, ActionName("DeleteAmbulance")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

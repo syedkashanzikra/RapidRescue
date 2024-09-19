@@ -7,7 +7,7 @@ namespace RapidRescue.Data.Seeders
     {
         public static void SeedRoles(RapidRescueContext context)
         {
-            if (!context.Roles.Any()) // Check if any roles already exist
+            if (!context.Roles.Any()) 
             {
                 var roles = new List<Roles>
                 {

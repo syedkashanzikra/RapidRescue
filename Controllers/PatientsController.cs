@@ -28,10 +28,10 @@ namespace RapidRescue.Controllers
         new Tuple<string, string>("Patients", "")
     };
 
-            // Fetching users with Role_Id == 2
+            
             var patients = _context.Users.Where(u => u.Role_Id == 2).ToList();
 
-            // Create a ViewModel to pass both patients and breadcrumbs
+            
             var model = new PatientsViewModel
             {
                 Breadcrumbs = breadcrumbs,
@@ -77,37 +77,37 @@ namespace RapidRescue.Controllers
         new Tuple<string, string>("Create Patient", "")
     };
 
-                // Store breadcrumbs in ViewBag
+            
                 ViewBag.Breadcrumbs = breadcrumbs;
-                // Return the same view with validation errors if the model state is invalid
+            
                 return View(model);
             }
 
-            // Initialize the password hasher
+            
             var passwordHasher = new PasswordHasher<Users>();
 
-            // Create a new User instance
+            
             var user = new Users
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
-                Password = passwordHasher.HashPassword(null, model.Password), // Use the password hasher here
-                Role_Id = 2, // Patient role
+                Password = passwordHasher.HashPassword(null, model.Password), 
+                Role_Id = 2, 
                 IsActive = true,
                 RememberToken = "Patient Created by Admin",
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
 
-            // Save the User to the database
+            
             _context.Users.Add(user);
-            _context.SaveChanges();  // Save user first to get the User ID for the PatientsInfo record
+            _context.SaveChanges(); 
 
-            // Create a new PatientsInfo instance
+            
             var patientInfo = new PatientsInfo
             {
-                User_id = user.User_id,  // Use the ID of the recently created user
+                User_id = user.User_id,  
                 MobileNumber = model.MobileNumber,
                 Situation = model.Situation,
                 PickupLocation = model.PickupLocation,
@@ -118,11 +118,10 @@ namespace RapidRescue.Controllers
                 
             };
 
-            // Save the PatientsInfo to the database
+            
             _context.PatientsInfo.Add(patientInfo);
             _context.SaveChanges();
             TempData["Message"] = "Patient is Added to The System Succesfully.";
-            // Redirect to the patient list or success page
             return RedirectToAction("GetPatients");
         }
 
@@ -139,28 +138,24 @@ namespace RapidRescue.Controllers
         new Tuple<string, string>("Edit Patient", "")
     };
 
-            // Store breadcrumbs in ViewBag
-            ViewBag.Breadcrumbs = breadcrumbs;
 
-            // Fetch the user information
+            ViewBag.Breadcrumbs = breadcrumbs;
             var user = _context.Users.FirstOrDefault(u => u.User_id == userId);
 
-            // Check if user exists
             if (user == null)
             {
                 return NotFound("User not found.");
             }
 
-            // Fetch the patient info using the User_id
+
             var patientInfo = _context.PatientsInfo.FirstOrDefault(p => p.User_id == userId);
 
-            // Check if patient info exists
             if (patientInfo == null)
             {
                 return NotFound("Patient information not found.");
             }
 
-            // Populate the view model with existing data
+            
             var model = new CreatePatientViewModel
             {
                 FirstName = user.FirstName,
@@ -205,21 +200,19 @@ namespace RapidRescue.Controllers
             var patientInfo = _context.PatientsInfo.FirstOrDefault(p => p.User_id == userId);
             if (patientInfo == null) return NotFound("Patient information not found.");
 
-            // Update user details
+            
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Email = model.Email;
             user.UpdatedAt = DateTime.UtcNow;
 
-            // Only update the password if the model has a new password
+            
             if (!string.IsNullOrEmpty(model.Password))
             {
                 var passwordHasher = new PasswordHasher<Users>();
                 user.Password = passwordHasher.HashPassword(user, model.Password);
             }
-            // Otherwise, leave the password unchanged (use the old password)
-
-            // Update patient info
+            
             patientInfo.MobileNumber = model.MobileNumber;
             patientInfo.Situation = model.Situation;
             patientInfo.PickupLocation = model.PickupLocation;
@@ -227,7 +220,6 @@ namespace RapidRescue.Controllers
             patientInfo.IsEmergency = model.IsEmergency;
             patientInfo.AdditionalDetails = model.AdditionalDetails;
 
-            // Save changes
             _context.Users.Update(user);
             _context.PatientsInfo.Update(patientInfo);
             _context.SaveChanges();
@@ -240,31 +232,27 @@ namespace RapidRescue.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePatient(int userId)
         {
-            // Find the user by userId
+
             var user = _context.Users.FirstOrDefault(u => u.User_id == userId);
 
             if (user != null)
             {
-                // Find the related patient info
+
                 var patientInfo = _context.PatientsInfo.FirstOrDefault(p => p.User_id == userId);
 
-                // If patient info exists, remove it
+
                 if (patientInfo != null)
                 {
                     _context.PatientsInfo.Remove(patientInfo);
                 }
 
-                // Remove the user
                 _context.Users.Remove(user);
 
-                // Save changes to the database
-                _context.SaveChanges();
 
-                // Optionally: add a success message for feedback
+                _context.SaveChanges();
                 TempData["Message"] = "Patient and user information deleted successfully.";
             }
 
-            // Redirect back to the patients list
             return RedirectToAction("GetPatients");
         }
 

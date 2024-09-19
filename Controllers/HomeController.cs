@@ -2,22 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using RapidRescue.Context;
 using RapidRescue.Models;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System;
 
 namespace RapidRescue.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly RapidRescueContext _context; // Add the DbContext
+        private readonly RapidRescueContext _context; 
 
         public HomeController(ILogger<HomeController> logger, RapidRescueContext context)
         {
             _logger = logger;
-            _context = context; // Initialize the context
+            _context = context; 
         }
 
         // Home page
@@ -56,16 +52,16 @@ namespace RapidRescue.Controllers
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = "Your message has been submitted successfully!";
-                return RedirectToAction("Contact"); // Redirect to avoid form re-submission
+                return RedirectToAction("Contact"); 
             }
 
-            return View(model); // Return view with validation errors
+            return View(model); 
         }
 
 
 
 
-        // Services page (View All Services)
+        
         [Route("/services")]
         public IActionResult Services()
         {
@@ -77,7 +73,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        // Ambulance Car Service
+        
         [Route("/ambulance-car")]
         public IActionResult AmbulanceCar()
         {
@@ -90,7 +86,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        // Medical Flight Services
+        
         [Route("/medical-flight-services")]
         public IActionResult MedicalFlightServices()
         {
@@ -103,7 +99,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        // Medical Escort Service
+        
         [Route("/medical-escort")]
         public IActionResult MedicalEscort()
         {
@@ -116,7 +112,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        // Private Air Ambulance Service
+        
         [Route("/private-air-ambulance")]
         public IActionResult PrivateAirAmbulance()
         {
@@ -129,7 +125,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        // Advanced Life Support Service
+        
         [Route("/advanced-life-support")]
         public IActionResult AdvancedLifeSupport()
         {
@@ -142,7 +138,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        // General Services
+        
         [Route("/general-services")]
         public IActionResult GeneralServices()
         {
@@ -155,7 +151,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        // New Route: About Our Company
+        
         [Route("/about")]
         public IActionResult About()
         {
@@ -167,7 +163,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        // New Route: Team
+        
         [Route("/team")]
         public IActionResult Team()
         {
@@ -179,7 +175,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        // New Route: Testimonials
+        
         [Route("/testimonials")]
         public IActionResult Testimonials()
         {
@@ -191,7 +187,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        // New Route: FAQ
+        
         [Route("/faq")]
         public IActionResult Faq()
         {

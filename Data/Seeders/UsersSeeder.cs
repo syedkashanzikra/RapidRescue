@@ -8,7 +8,7 @@ namespace RapidRescue.Data.Seeders
     {
         public static void SeedUsers(RapidRescueContext context)
         {
-            if (!context.Users.Any()) // Check if any users already exist
+            if (!context.Users.Any()) 
             {
                 var passwordHasher = new PasswordHasher<Users>();
 
@@ -19,8 +19,8 @@ namespace RapidRescue.Data.Seeders
                         FirstName = "Admin",
                         LastName = "User",
                         Email = "admin@example.com",
-                        Password = passwordHasher.HashPassword(null, "admin123"), // Using PasswordHasher
-                        Role_Id = 1,  // Admin Role
+                        Password = passwordHasher.HashPassword(null, "admin123"), 
+                        Role_Id = 1,  
                         IsActive = true,
                         RememberToken = "admin"
                     },
@@ -29,8 +29,8 @@ namespace RapidRescue.Data.Seeders
                         FirstName = "John",
                         LastName = "Doe",
                         Email = "patient@example.com",
-                        Password = passwordHasher.HashPassword(null, "patient123"), // Using PasswordHasher
-                        Role_Id = 2,  // Patient Role
+                        Password = passwordHasher.HashPassword(null, "patient123"), 
+                        Role_Id = 2,  
                         IsActive = true,
                         RememberToken = "patient"
                     },
@@ -39,8 +39,8 @@ namespace RapidRescue.Data.Seeders
                         FirstName = "Jane",
                         LastName = "Smith",
                         Email = "driver@example.com",
-                        Password = passwordHasher.HashPassword(null, "driver123"), // Using PasswordHasher
-                        Role_Id = 3,  // Driver Role
+                        Password = passwordHasher.HashPassword(null, "driver123"), 
+                        Role_Id = 3, 
                         IsActive = true,
                         RememberToken = "Driver"
                     },
@@ -49,8 +49,8 @@ namespace RapidRescue.Data.Seeders
                         FirstName = "Michael",
                         LastName = "Johnson",
                         Email = "emt@example.com",
-                        Password = passwordHasher.HashPassword(null, "emt123"), // Using PasswordHasher
-                        Role_Id = 4,  // EMT Role
+                        Password = passwordHasher.HashPassword(null, "emt123"), 
+                        Role_Id = 4,  
                         IsActive = true,
                         RememberToken = "EMT"
                     }

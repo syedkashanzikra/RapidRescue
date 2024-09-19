@@ -27,7 +27,6 @@ namespace RapidRescue.Controllers
     };
             var drivers = _context.Users.Where(u => u.Role_Id == 3).ToList();
 
-            // Create a ViewModel to pass both patients and breadcrumbs
             var model = new DriverViewModel
             {
                 Breadcrumbs = breadcrumbs,
@@ -75,14 +74,13 @@ namespace RapidRescue.Controllers
 
             var passwordHasher = new PasswordHasher<Users>();
 
-            // Create the user record
             var user = new Users
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
                 Password = passwordHasher.HashPassword(null, model.Password),
-                Role_Id = 3, // Assuming role 3 is for drivers
+                Role_Id = 3,
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
@@ -91,11 +89,9 @@ namespace RapidRescue.Controllers
 
             _context.Users.Add(user);
             _context.SaveChanges();
-
-            // Create the driver info record
             var driverInfo = new DriverInfo
             {
-                User_id = user.User_id, // Use the user ID from the newly created user
+                User_id = user.User_id,
                 PhoneNumber = model.PhoneNumber,
                 LicenseNumber = model.LicenseNumber,
                 LicenseExpiryDate = model.LicenseExpiryDate,
@@ -119,35 +115,32 @@ namespace RapidRescue.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteDriver(int userId)
         {
-            // Find the user by userId
+     
             var user = _context.Users.FirstOrDefault(u => u.User_id == userId);
 
             if (user == null)
             {
-                // If no user found, return an error or redirect with an error message
+                
                 TempData["Error"] = "User not found.";
                 return RedirectToAction("GetDrivers");
             }
 
-            // Find all the related driver info entries by userId
+            
             var driverInfo = _context.DriverInfo.Where(d => d.User_id == userId).ToList();
 
-            // If driver info exists, remove it
+            
             if (driverInfo.Any())
             {
                 _context.DriverInfo.RemoveRange(driverInfo);
             }
 
-            // Remove the user
+            
             _context.Users.Remove(user);
 
-            // Save changes to the database
             _context.SaveChanges();
 
-            // Optionally: add a success message for feedback
             TempData["Message"] = "User and driver information deleted successfully.";
 
-            // Redirect back to the drivers list
             return RedirectToAction("GetDrivers");
         }
 
@@ -220,7 +213,6 @@ namespace RapidRescue.Controllers
                 return NotFound();
             }
 
-            // Update user information
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Email = model.Email;
@@ -232,7 +224,6 @@ namespace RapidRescue.Controllers
                 user.Password = passwordHasher.HashPassword(null, model.Password);
             }
 
-            // Update driver information
             driverInfo.PhoneNumber = model.PhoneNumber;
             driverInfo.LicenseNumber = model.LicenseNumber;
             driverInfo.LicenseExpiryDate = model.LicenseExpiryDate;

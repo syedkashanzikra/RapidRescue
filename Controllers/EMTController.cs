@@ -25,8 +25,6 @@ namespace RapidRescue.Controllers
         new Tuple<string, string>("Emt", "")
     };
             var emt = _context.Users.Where(u => u.Role_Id == 4).ToList();
-
-            // Create a ViewModel to pass both patients and breadcrumbs
             var model = new EMTViewModel
             {
                 Breadcrumbs = breadcrumbs,
@@ -73,12 +71,8 @@ namespace RapidRescue.Controllers
             };
 
                 ViewBag.Breadcrumbs = breadcrumbs;
-
-                // Return the same view with validation errors
                 return View(model);
             }
-
-            // Create a new User instance
             var user = new Users
             {
                 FirstName = model.FirstName,
@@ -92,11 +86,10 @@ namespace RapidRescue.Controllers
                 UpdatedAt = DateTime.UtcNow
             };
 
-            // Save the user to the database
+            
             _context.Users.Add(user);
-            _context.SaveChanges(); // Save the user first to get User ID
+            _context.SaveChanges();
 
-            // Create a new EMT instance
             var emt = new EMT
             {
                 User_id = user.User_id,
@@ -110,7 +103,6 @@ namespace RapidRescue.Controllers
                 UpdatedAt = DateTime.UtcNow
             };
 
-            // Save the EMT info to the database
             _context.EMTs.Add(emt);
             _context.SaveChanges();
 
@@ -123,31 +115,29 @@ namespace RapidRescue.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteEMT(int userId)
         {
-            // Find the EMT user by userId
+
             var user = _context.Users.FirstOrDefault(u => u.User_id == userId);
 
             if (user != null)
             {
-                // Find the related EMT info if exists
+
                 var emtInfo = _context.EMTs.FirstOrDefault(e => e.User_id == userId);
 
-                // If EMT info exists, remove it
                 if (emtInfo != null)
                 {
                     _context.EMTs.Remove(emtInfo);
                 }
 
-                // Remove the user record
                 _context.Users.Remove(user);
 
-                // Save the changes to the database
+
                 _context.SaveChanges();
 
-                // Optionally: add a success message for feedback
+
                 TempData["Message"] = "EMT and user information deleted successfully.";
             }
 
-            // Redirect back to the EMT list
+
             return RedirectToAction("GetEMTs");
         }
 
