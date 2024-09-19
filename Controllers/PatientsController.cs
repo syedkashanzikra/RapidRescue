@@ -69,6 +69,16 @@ namespace RapidRescue.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var breadcrumbs = new List<Tuple<string, string>>()
+    {
+        new Tuple<string, string>("Home", Url.Action("Home", "Home")),
+        new Tuple<string, string>("Admin", Url.Action("Admin", "Admin")),
+        new Tuple<string, string>("Patient", Url.Action("GetPatients", "Patients")),
+        new Tuple<string, string>("Create Patient", "")
+    };
+
+                // Store breadcrumbs in ViewBag
+                ViewBag.Breadcrumbs = breadcrumbs;
                 // Return the same view with validation errors if the model state is invalid
                 return View(model);
             }

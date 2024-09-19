@@ -21,6 +21,7 @@ namespace RapidRescue.Context
 
         public DbSet<DriverInfo> DriverInfo { get; set; }
 
+        public DbSet<EMT> EMTs { get; set; }
 
     }
 }

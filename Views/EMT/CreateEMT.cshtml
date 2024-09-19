@@ -1,0 +1,111 @@
+﻿@model CreateEMTViewModel
+@{
+    ViewData["Title"] = "Create EMT";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@await Html.PartialAsync("Breadcrumb", (List<Tuple<string, string>>)ViewBag.Breadcrumbs)
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="CreateEMT" asp-controller="EMT" method="post">
+                    <div class="row">
+                        <!-- Section: User Account Details -->
+                        <div class="col-12">
+                            <h4>Account Details</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input class="form-control" asp-for="FirstName" placeholder="Enter First Name" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input class="form-control" asp-for="LastName" placeholder="Enter Last Name" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input class="form-control" asp-for="Email" placeholder="Enter Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input class="form-control" asp-for="Password" type="password" placeholder="Enter Password" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input class="form-control" asp-for="ConfirmPassword" type="password" placeholder="Confirm Password" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Section: EMT Details -->
+                        <div class="col-12">
+                            <h4>EMT Details</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Certification Number</label>
+                                <input class="form-control" asp-for="CertificationNumber" placeholder="Enter Certification Number" />
+                                <span asp-validation-for="CertificationNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Certification Expiry Date</label>
+                                <input class="form-control" asp-for="CertificationExpiryDate" type="date" />
+                                <span asp-validation-for="CertificationExpiryDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Contact Number</label>
+                                <input class="form-control" asp-for="ContactNumber" placeholder="Enter Contact Number" />
+                                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>License Number</label>
+                                <input class="form-control" asp-for="LicenseNumber" placeholder="Enter License Number" />
+                                <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Is Available?</label>
+                                <input type="checkbox" asp-for="IsAvailable" />
+                                <span asp-validation-for="IsAvailable" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input class="form-control" asp-for="Address" placeholder="Enter Address" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="col-12 mt-5">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
