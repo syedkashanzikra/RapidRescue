@@ -48,9 +48,10 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <!-- Pass the user_id in the route -->
-                                                <a class="dropdown-item" asp-action="EditPatient" asp-controller="Patients" asp-route-userId="@driver.User_id">
+                                                <a class="dropdown-item" asp-action="EditDriver" asp-controller="Driver" asp-route-id="@driver.User_id">
                                                     <i class="fa-solid fa-pen-to-square m-r-5"></i> Edit
                                                 </a>
+
                                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_driver" onclick="setDeleteUserId(@driver.User_id)">
                 Delete
             </button>

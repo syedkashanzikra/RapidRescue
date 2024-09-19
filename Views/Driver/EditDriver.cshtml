@@ -1,0 +1,131 @@
+﻿@model EditDriverViewModel
+@{
+    ViewData["Title"] = "Edit Driver";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@await Html.PartialAsync("Breadcrumb", (List<Tuple<string, string>>)ViewBag.Breadcrumbs)
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="EditDriver" asp-controller="Driver" method="post">
+                    <input type="hidden" asp-for="User_id" />
+                    <input type="hidden" asp-for="DriverInfo_id" />
+
+                    <div class="row">
+                        <!-- Section: User Details (From Users) -->
+                        <div class="col-12">
+                            <div class="form-heading">
+                                <h4>Edit Driver Account Details</h4>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>First Name <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="FirstName" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>Last Name <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="LastName" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>Email <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-6">
+                            <div class="input-block">
+                                <label>Password</label>
+                                <input class="form-control" asp-for="Password" type="password" placeholder="Leave blank if not changing" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-6">
+                            <div class="input-block">
+                                <label>Confirm Password</label>
+                                <input class="form-control" asp-for="ConfirmPassword" type="password" placeholder="Leave blank if not changing" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Section: Driver Details (From DriverInfo) -->
+                        <div class="col-12">
+                            <div class="form-heading">
+                                <h4>Edit Driver Details</h4>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>Phone Number <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="PhoneNumber" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>License Number <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="LicenseNumber" />
+                                <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>License Expiry Date <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="LicenseExpiryDate" type="date" />
+                                <span asp-validation-for="LicenseExpiryDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>Address <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="Address" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>Vehicle Assigned <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="VehicleAssigned" />
+                                <span asp-validation-for="VehicleAssigned" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>Date of Hire <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="DateOfHire" type="date" />
+                                <span asp-validation-for="DateOfHire" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="col-12">
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Update Driver</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

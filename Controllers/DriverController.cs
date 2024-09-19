@@ -141,6 +141,101 @@ namespace RapidRescue.Controllers
             return RedirectToAction("GetDrivers");
         }
 
+        
+        [HttpGet]
+        [Route("/edit-driver/{id}")]
+        public IActionResult EditDriver(int id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.User_id == id);
+            var driverInfo = _context.DriverInfo.FirstOrDefault(d => d.User_id == id);
+
+            if (user == null || driverInfo == null)
+            {
+                return NotFound();
+            }
+
+            var model = new EditDriverViewModel
+            {
+                User_id = user.User_id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = driverInfo.PhoneNumber,
+                LicenseNumber = driverInfo.LicenseNumber,
+                LicenseExpiryDate = driverInfo.LicenseExpiryDate,
+                Address = driverInfo.Address,
+                VehicleAssigned = driverInfo.VehicleAssigned,
+                DateOfHire = driverInfo.DateOfHire,
+                DriverInfo_id = driverInfo.DriverId
+            };
+
+            var breadcrumbs = new List<Tuple<string, string>>()
+    {
+        new Tuple<string, string>("Home", Url.Action("Home", "Home")),
+        new Tuple<string, string>("Admin", Url.Action("Admin", "Admin")),
+        new Tuple<string, string>("Drivers", Url.Action("GetDrivers", "Drivers")),
+        new Tuple<string, string>("Edit Driver", "")
+    };
+
+            ViewBag.Breadcrumbs = breadcrumbs;
+
+            return View(model);
+        }
+
+        [Route("/edit-driver/{id}")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditDriver(EditDriverViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var breadcrumbs = new List<Tuple<string, string>>()
+
+    {
+        new Tuple<string, string>("Home", Url.Action("Home", "Home")),
+        new Tuple<string, string>("Admin", Url.Action("Admin", "Admin")),
+        new Tuple<string, string>("Drivers", Url.Action("GetDrivers", "Drivers")),
+        new Tuple<string, string>("Edit Driver", "")
+    };
+
+                ViewBag.Breadcrumbs = breadcrumbs;
+                return View(model);
+            }
+
+            var user = _context.Users.FirstOrDefault(u => u.User_id == model.User_id);
+            var driverInfo = _context.DriverInfo.FirstOrDefault(d => d.DriverId == model.DriverInfo_id);
+
+            if (user == null || driverInfo == null)
+            {
+                return NotFound();
+            }
+
+            // Update user information
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.UpdatedAt = DateTime.UtcNow;
+
+            if (!string.IsNullOrEmpty(model.Password))
+            {
+                var passwordHasher = new PasswordHasher<Users>();
+                user.Password = passwordHasher.HashPassword(null, model.Password);
+            }
+
+            // Update driver information
+            driverInfo.PhoneNumber = model.PhoneNumber;
+            driverInfo.LicenseNumber = model.LicenseNumber;
+            driverInfo.LicenseExpiryDate = model.LicenseExpiryDate;
+            driverInfo.Address = model.Address;
+            driverInfo.VehicleAssigned = model.VehicleAssigned;
+            driverInfo.DateOfHire = model.DateOfHire;
+            driverInfo.UpdatedAt = DateTime.UtcNow;
+
+            _context.SaveChanges();
+
+            TempData["Message"] = "Driver details updated successfully.";
+            return RedirectToAction("GetDrivers");
+        }
 
 
     }
