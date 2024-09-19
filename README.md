@@ -1,11 +1,9 @@
-Got it! Here’s an improved README file incorporating the use of icons, enhanced interactivity, and making the app more user-friendly for everyone:
 
----
+
 
 # RAPID RESCUE - E-Ambulance Web Application
 
 ![image](https://github.com/user-attachments/assets/2e02cb55-7ae2-4ece-bf21-9b550fd63d81)
-
 
 ## Project Overview
 
@@ -38,7 +36,7 @@ Got it! Here’s an improved README file incorporating the use of icons, enhance
 - **Zayaan Zubair**
 - **Prem Kumar**
 - **Ahsan Hussain**
-- **Muhammad Faiq**
+
 
 ---
 
@@ -127,6 +125,46 @@ To set up and run **RAPID RESCUE** locally, follow the steps below:
 
 ---
 
+## Database Seeding
+
+To quickly set up your local database with roles and users, follow these steps:
+
+1. **Seed Roles**:
+   The application includes predefined roles for Admins, Patients, Drivers, and EMTs. To seed these roles into your database, you can run the following method in your `Program.cs` or `Startup.cs` after migrations:
+
+   ```csharp
+   using RapidRescue.Data.Seeders;
+   using RapidRescue.Context;
+
+   var context = app.ApplicationServices.GetService<RapidRescueContext>();
+   RolesSeeder.SeedRoles(context);
+   ```
+
+2. **Seed Users**:
+   After seeding the roles, seed the users for each role. This includes an admin, a patient, a driver, and an EMT with preset credentials.
+
+   ```csharp
+   UsersSeeder.SeedUsers(context);
+   ```
+
+3. **Dummy Users and Credentials**:
+   You can use the following credentials to log in to the application:
+
+   - **Admin**: 
+     - Email: `admin@example.com`
+     - Password: `admin123`
+   - **Patient**: 
+     - Email: `patient@example.com`
+     - Password: `patient123`
+   - **Driver**: 
+     - Email: `driver@example.com`
+     - Password: `driver123`
+   - **EMT**: 
+     - Email: `emt@example.com`
+     - Password: `emt123`
+
+---
+
 ## Icons & User Interactivity
 
 We’ve integrated **FontAwesome** and **Bootstrap Icons** to enhance user interactivity with clear visual cues:
@@ -147,29 +185,6 @@ To make the application more engaging and interactive, we implemented:
 - **Real-Time Notifications**: Users and drivers receive instant updates using **SignalR**.
 - **Interactive Maps**: Google Maps API is used for real-time ambulance tracking.
 - **Live Status Updates**: Drivers can update their status (e.g., "On the way", "Arrived") instantly.
-
----
-
-## Contribution Guidelines
-
-We welcome contributions from the community to help improve **RAPID RESCUE**. Please follow the steps below to contribute:
-
-1. **Fork the repository**:
-   ```bash
-   git checkout -b feature/your-feature
-   ```
-
-2. **Commit your changes**:
-   ```bash
-   git commit -m "Add new feature"
-   ```
-
-3. **Push to your branch**:
-   ```bash
-   git push origin feature/your-feature
-   ```
-
-4. **Create a Pull Request** on GitHub.
 
 ---
 
@@ -196,9 +211,8 @@ For any inquiries or support, please contact the project team:
 - **Zayaan Zubair**
 - **Prem Kumar**
 - **Ahsan Hussain**
-- **Muhammad Faiq**
+
 
 We hope **RAPID RESCUE** helps improve emergency response times and saves lives. Stay safe!
 
 ---
-
