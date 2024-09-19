@@ -28,7 +28,7 @@ namespace RapidRescue.Controllers
             return View();
         }
 
-        // Contact page (GET)
+       
         [Route("/contact")]
         public IActionResult Contact()
         {
@@ -43,39 +43,27 @@ namespace RapidRescue.Controllers
             return View();
         }
 
-        // Contact page (POST) to submit the form
+
+
         [HttpPost]
         [Route("/contact")]
-        public async Task<IActionResult> SubmitContact(Contact contact)
+        public IActionResult Contact(Contact model)
         {
             if (ModelState.IsValid)
             {
-                contact.SubmittedOn = DateTime.Now;
-                _context.Contact.Add(contact); // Add the contact entry to the database
-                await _context.SaveChangesAsync(); // Save the changes asynchronously
 
-                // Redirect to a success page or show a success message
-                return RedirectToAction("ContactSuccess");
+                _context.Contact.Add(model);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "Your message has been submitted successfully!";
+                return RedirectToAction("Contact"); // Redirect to avoid form re-submission
             }
 
-            // If the model is invalid, return the Contact page with the form data and validation errors
-            var breadcrumbs = new List<Tuple<string, string>>()
-            {
-                new Tuple<string, string>("Home", Url.Action("Home", "Home")),
-                new Tuple<string, string>("Contact", "")
-            };
-
-            ViewBag.Breadcrumbs = breadcrumbs;
-
-            return View("Contact");
+            return View(model); // Return view with validation errors
         }
 
-        // Success page after form submission
-        [Route("/contact-success")]
-        public IActionResult ContactSuccess()
-        {
-            return View();
-        }
+
+
 
         // Services page (View All Services)
         [Route("/services")]

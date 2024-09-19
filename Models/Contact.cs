@@ -28,6 +28,8 @@ namespace RapidRescue.Models
         [StringLength(500)]
         public string Message { get; set; }
 
-        public DateTime SubmittedOn { get; set; }
+        
+        [DataType(DataType.Date)]
+        public DateTime SubmittedOn { get; set; } = DateTime.UtcNow;
     }
 }

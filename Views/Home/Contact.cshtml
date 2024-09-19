@@ -51,6 +51,8 @@
     </div>
 </section>
 
+
+
 <section class="main-contact-form-area">
     <div class="container">
         <div class="sec-title text-center">
@@ -58,50 +60,50 @@
                 <span class="icon-heartbeat"></span>
             </div>
             <div class="sub-title">
-                <h3>Send us a Message</h3>
+                <h3>Send us Message</h3>
             </div>
             <h2>Write us Anytime</h2>
         </div>
         <div class="row">
             <div class="col-xl-12">
                 <div class="contact-form">
-                    @using (Html.BeginForm("SubmitContact", "Home", FormMethod.Post, new { id = "contact-form" }))
-                    {
-                        @Html.AntiForgeryToken()
+                    <form asp-action="Contact" asp-controller="Home" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Full Name" })
-                                        @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+                                        <input asp-for="FullName" class="form-control" placeholder="Full Name" />
+                                        <span asp-validation-for="FullName" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email Address" })
-                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                        <input asp-for="Email" class="form-control" placeholder="Email Address" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
+                          
                             <div class="col-xl-6">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Phone" })
-                                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                                        <input asp-for="Phone" class="form-control" placeholder="Phone" />
+                                        <span asp-validation-for="Phone" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", placeholder = "Subject" })
-                                        @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+                                        <input asp-for="Subject" class="form-control" placeholder="Subject" />
+                                        <span asp-validation-for="Subject" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -111,8 +113,8 @@
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", placeholder = "Write a Message", rows = 5 })
-                                        @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+                                        <textarea asp-for="Message" class="form-control" placeholder="Write a Message"></textarea>
+                                        <span asp-validation-for="Message" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -121,18 +123,25 @@
                         <div class="row">
                             <div class="col-xl-12 text-center">
                                 <div class="button-box">
-                                    <button class="btn-one" type="submit" data-loading-text="Please wait...">
+                                    <button class="btn-one" type="submit">
                                         <span class="txt">Send a Message</span>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    }
+
+                    </form>
                 </div>
+
             </div>
         </div>
     </div>
 </section>
+
+
+
+
+
 
 <!-- Google Map Style2 Area -->
 <section class="google-map-area">
