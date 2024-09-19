@@ -24,7 +24,7 @@ namespace RapidRescue.Controllers
         new Tuple<string, string>("Admin", Url.Action("Admin", "Admin")),
         new Tuple<string, string>("Emt", "")
     };
-            var emt = _context.Users.Where(u => u.Role_Id == 3).ToList();
+            var emt = _context.Users.Where(u => u.Role_Id == 4).ToList();
 
             // Create a ViewModel to pass both patients and breadcrumbs
             var model = new EMTViewModel
@@ -85,7 +85,7 @@ namespace RapidRescue.Controllers
                 LastName = model.LastName,
                 Email = model.Email,
                 Password = _passwordHasher.HashPassword(null, model.Password), // Hash the password
-                Role_Id = 3, // EMT role
+                Role_Id = 4, // EMT role
                 IsActive = true,
                 RememberToken="Added by Admin",
                 CreatedAt = DateTime.UtcNow,
@@ -118,6 +118,38 @@ namespace RapidRescue.Controllers
             return RedirectToAction("GetEMTs");
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteEMT(int userId)
+        {
+            // Find the EMT user by userId
+            var user = _context.Users.FirstOrDefault(u => u.User_id == userId);
+
+            if (user != null)
+            {
+                // Find the related EMT info if exists
+                var emtInfo = _context.EMTs.FirstOrDefault(e => e.User_id == userId);
+
+                // If EMT info exists, remove it
+                if (emtInfo != null)
+                {
+                    _context.EMTs.Remove(emtInfo);
+                }
+
+                // Remove the user record
+                _context.Users.Remove(user);
+
+                // Save the changes to the database
+                _context.SaveChanges();
+
+                // Optionally: add a success message for feedback
+                TempData["Message"] = "EMT and user information deleted successfully.";
+            }
+
+            // Redirect back to the EMT list
+            return RedirectToAction("GetEMTs");
+        }
 
 
     }
