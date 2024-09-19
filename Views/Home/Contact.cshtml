@@ -1,16 +1,10 @@
-﻿@model List<Tuple<string, string>>
-
+﻿
+@model Contact;
 @{
-
-	ViewData["Title"] = "Contact-Us";
-
+    ViewData["Title"] = "Contact Us";
 }
 
-@await Html.PartialAsync("Breadcrumb", Model)
-
-
-
-
+@await Html.PartialAsync("Breadcrumb", (List<Tuple<string, string>>)ViewBag.Breadcrumbs)
 
 
 <section class="contact-info-style2-area">
@@ -64,30 +58,31 @@
                 <span class="icon-heartbeat"></span>
             </div>
             <div class="sub-title">
-                <h3>Send us Message</h3>
+                <h3>Send us a Message</h3>
             </div>
             <h2>Write us Anytime</h2>
         </div>
         <div class="row">
             <div class="col-xl-12">
                 <div class="contact-form">
-                    <form id="contact-form" name="contact_form" class="default-form2"
-                          action="https://mehedi.asiandevelopers.com/ambons/assets/inc/sendmail.php" method="post">
+                    @using (Html.BeginForm("SubmitContact", "Home", FormMethod.Post, new { id = "contact-form" }))
+                    {
+                        @Html.AntiForgeryToken()
 
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        <input type="text" name="form_name" id="formName"
-                                               placeholder="Full Name" required="">
+                                        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Full Name" })
+                                        @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        <input type="email" name="form_email" id="formEmail"
-                                               placeholder="Email Address" required="">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email Address" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -97,16 +92,16 @@
                             <div class="col-xl-6">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        <input type="text" name="form_phone" value="" id="formPhone"
-                                               placeholder="Phone">
+                                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Phone" })
+                                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        <input type="text" name="form_subject" value="" id="formSubject"
-                                               placeholder="Subject">
+                                        @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", placeholder = "Subject" })
+                                        @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -116,8 +111,8 @@
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        <textarea name="form_message" id="formMessage"
-                                                  placeholder="Write a Message" required=""></textarea>
+                                        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", placeholder = "Write a Message", rows = 5 })
+                                        @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -126,36 +121,28 @@
                         <div class="row">
                             <div class="col-xl-12 text-center">
                                 <div class="button-box">
-                                    <input id="form_botcheck" name="form_botcheck" class="form-control"
-                                           type="hidden" value="">
                                     <button class="btn-one" type="submit" data-loading-text="Please wait...">
-                                        <span class="txt">
-                                            send a message
-                                        </span>
+                                        <span class="txt">Send a Message</span>
                                     </button>
                                 </div>
                             </div>
                         </div>
-
-                    </form>
+                    }
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-<!--End Main Contact Form Area-->
-<!--Start Google Map Style2 Area-->
+
+<!-- Google Map Style2 Area -->
 <section class="google-map-area">
     <div class="auto-container">
         <div class="contact-page-map-outer">
-            <!--Map Canvas-->
             <div class="map-canvas" data-zoom="12" data-lat="-37.817085" data-lng="144.955631"
                  data-type="roadmap" data-hue="#ffc400" data-title="Envato"
-                 data-icon-path=~/homeassets/images/icon/map-marker.png"
+                 data-icon-path="~/homeassets/images/icon/map-marker.png"
                  data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@youremail.com'>info@youremail.com</a>">
             </div>
         </div>
     </div>
 </section>
-<!--End Google Map Style2 Area-->
