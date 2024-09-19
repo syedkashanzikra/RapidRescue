@@ -46,7 +46,7 @@
                         <div class="col-12 col-md-6 col-xl-6">
                             <div class="input-block">
                                 <label>Password</label>
-                                <input class="form-control" asp-for="Password" type="password" placeholder="Leave blank if not changing" />
+                                <input class="form-control" asp-for="Password" type="password" placeholder=" Password" />
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                         <div class="col-12 col-md-6 col-xl-6">
                             <div class="input-block">
                                 <label>Confirm Password</label>
-                                <input class="form-control" asp-for="ConfirmPassword" type="password" placeholder="Leave blank if not changing" />
+                                <input class="form-control" asp-for="ConfirmPassword" type="password" placeholder="Confirm Password" />
                                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                             </div>
                         </div>
@@ -81,12 +81,13 @@
                                 <span asp-validation-for="LicenseNumber" class="text-danger"></span>
                             </div>
                         </div>
+                   
 
                         <div class="col-12 col-md-6 col-xl-4">
                             <div class="input-block">
                                 <label>License Expiry Date <span class="text-danger">*</span></label>
-                                <input class="form-control" asp-for="LicenseExpiryDate" type="date" />
-                                <span asp-validation-for="LicenseExpiryDate" class="text-danger"></span>
+                                <input class="form-control" asp-for="DateOfHire" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                <span asp-validation-for="DateOfHire" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -109,7 +110,7 @@
                         <div class="col-12 col-md-6 col-xl-4">
                             <div class="input-block">
                                 <label>Date of Hire <span class="text-danger">*</span></label>
-                                <input class="form-control" asp-for="DateOfHire" type="date" />
+                                <input class="form-control" asp-for="DateOfHire" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                                 <span asp-validation-for="DateOfHire" class="text-danger"></span>
                             </div>
                         </div>

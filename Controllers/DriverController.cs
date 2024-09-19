@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RapidRescue.Context;
 using RapidRescue.Models;
 using RapidRescue.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace RapidRescue.Controllers
 {
@@ -60,6 +61,15 @@ namespace RapidRescue.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var breadcrumbs = new List<Tuple<string, string>>()
+    {
+        new Tuple<string, string>("Home", Url.Action("Home", "Home")),
+        new Tuple<string, string>("Admin", Url.Action("Admin", "Admin")),
+        new Tuple<string, string>("Drivers", Url.Action("GetDrivers", "Drivers")),
+        new Tuple<string, string>("Create Driver", "")
+    };
+
+                ViewBag.Breadcrumbs = breadcrumbs;
                 return View(model);
             }
 
@@ -235,8 +245,9 @@ namespace RapidRescue.Controllers
 
             TempData["Message"] = "Driver details updated successfully.";
             return RedirectToAction("GetDrivers");
+
         }
 
-
+      
     }
 }

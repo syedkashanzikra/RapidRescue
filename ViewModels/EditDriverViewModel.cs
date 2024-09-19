@@ -15,8 +15,12 @@ public class EditDriverViewModel
     public int DriverInfo_id { get; set; }
     [Required]
     public string PhoneNumber { get; set; }
-    [Required]
+
+    [Required(ErrorMessage = "License Number is required.")]
+    [RegularExpression(@"^[A-Z0-9]{8,10}$", ErrorMessage = "License number must be alphanumeric and between 8 to 10 characters.")]
     public string LicenseNumber { get; set; }
+
+
     [Required]
     public DateTime LicenseExpiryDate { get; set; }
     [Required]

@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var roleID = Context.Session.GetInt32("role_id");
+
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -149,40 +155,78 @@
                     <ul>
                         <li class="menu-title">Main</li>
                      
-
+  @if (roleID == 2)
+                        {
                         <li>
 
                             <a asp-action="Admin" asp-controller="Admin" class="active subdrop">
                                 <span class="menu-side">
-                                    <img src="assets/img/icons/menu-icon-01.svg" alt="">
-                                </span> <span> Dashboard </span> 
+                                    <img src="~/assets/img/icons/menu-icon-01.svg" alt="">
+                                </span> <span> Patient  Dashboard </span> 
                             </a>
-                            </a>
+                         
 </li>
-                        
+                        }
+                          @if (roleID == 3)
+                        {
+                        <li>
 
-                        <li class="submenu">
-                            <a ><span class="menu-side"><img src="~/assets/img/icons/menu-icon-02.svg" alt></span> <span> Drivers </span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="doctors.html">Drivers List</a></li>
-                                <li><a href="add-doctor.html">Add Drivers</a></li>
-                                
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a asp-action="GetPatients" asp-controller="Patients"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-03.svg" alt></span> <span>Patients </span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a asp-action="GetPatients" asp-controller="Patients">Patients List</a></li>
-                                <li><a asp-action="CreatePatient" asp-controller="Patients">Add Patients</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-08.svg" alt></span> <span> EMT </span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="staff-list.html">Add EMT</a></li>
-                               
-                            </ul>
-                        </li>
+                            <a asp-action="Admin" asp-controller="Admin" class="active subdrop">
+                                <span class="menu-side">
+                                    <img src="~/assets/img/icons/menu-icon-01.svg" alt="">
+                                </span> <span> Driver  Dashboard </span> 
+                            </a>
+                         
+</li>
+                        }
+
+                          @if (roleID == 4)
+                        {
+                        <li>
+
+                            <a asp-action="Admin" asp-controller="Admin" class="active subdrop">
+                                <span class="menu-side">
+                                    <img src="~/assets/img/icons/menu-icon-01.svg" alt="">
+                                </span> <span> EMT  Dashboard </span> 
+                            </a>
+                         
+</li>
+                        }
+  
+
+
+                        @if (roleID == 1)
+                        {
+                            <li>
+        <a asp-action="Admin" asp-controller="Admin" class="active subdrop">
+            <span class="menu-side">
+                <img src="~/assets/img/icons/menu-icon-01.svg" alt="">
+            </span> 
+            <span> Dashboard </span> 
+        </a>
+    </li>
+        <li class="submenu">
+            <a><span class="menu-side"><img src="~/assets/img/icons/menu-icon-02.svg" alt></span> <span> Drivers </span> <span class="menu-arrow"></span></a>
+            <ul style="display: none;">
+                <li><a asp-action="GetDrivers" asp-controller="Driver">Drivers List</a></li>
+                <li><a asp-action="CreateDriver" asp-controller="Driver">Add Drivers</a></li>
+            </ul>
+        </li>
+        <li class="submenu">
+            <a asp-action="GetPatients" asp-controller="Patients"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-03.svg" alt></span> <span>Patients </span> <span class="menu-arrow"></span></a>
+            <ul style="display: none;">
+                <li><a asp-action="GetPatients" asp-controller="Patients">Patients List</a></li>
+                <li><a asp-action="CreatePatient" asp-controller="Patients">Add Patients</a></li>
+            </ul>
+        </li>
+        <li class="submenu">
+            <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-08.svg" alt></span> <span> EMT </span> <span class="menu-arrow"></span></a>
+            <ul style="display: none;">
+                <li><a asp-action="CreateEMT" asp-controller="EMT">Add EMT</a></li>
+                <li><a asp-action="GetEMTs" asp-controller="EMT">EMT List</a></li>
+            </ul>
+        </li>
+                        }
                         <li class="submenu">
                             <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-04.svg" alt></span> <span> Appointments </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
