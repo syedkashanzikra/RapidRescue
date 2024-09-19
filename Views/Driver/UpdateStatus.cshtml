@@ -1,0 +1,44 @@
+﻿@model DriverInfo
+
+@{
+    ViewData["Title"] = "Update Status";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var userId = Context.Session.GetInt32("user_id");
+}
+
+@await Html.PartialAsync("Breadcrumb", (List<Tuple<string, string>>)ViewBag.Breadcrumbs)
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="container text-center mt-5">
+                    <h1 class="display-5">Update Driver Status</h1>
+
+                    @if (@ViewBag.IsActive)
+                    {
+                        <p class="lead">You are currently active. Click the button below to go inactive.</p>
+
+                        <form method="post" asp-controller="Driver" asp-action="DeactivateDriver">
+                            <input type="hidden" name="userId" value="@userId" />
+                            <button type="submit" class="btn btn-lg btn-danger">
+                                Go Inactive
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <p class="lead">You are currently inactive. Click the button below to go active and start live tracking.</p>
+
+                        <form method="post" asp-controller="Driver" asp-action="ActivateDriver">
+                            <input type="hidden" name="userId" value="@userId" />
+                            <button type="submit" class="btn btn-lg btn-success">
+                                Go Active
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

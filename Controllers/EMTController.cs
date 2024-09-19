@@ -43,15 +43,14 @@ namespace RapidRescue.Controllers
         public IActionResult CreateEMT()
         {
             var breadcrumbs = new List<Tuple<string, string>>()
-            {
-                new Tuple<string, string>("Home", Url.Action("Home", "Home")),
-                new Tuple<string, string>("Admin", Url.Action("Admin", "Admin")),
-                new Tuple<string, string>("EMT", Url.Action("GetEMTs", "EMT")),
-                new Tuple<string, string>("Create EMT", "")
-            };
+    {
+        new Tuple<string, string>("Home", Url.Action("Home", "Home")),
+        new Tuple<string, string>("Admin", Url.Action("Admin", "Admin")),
+        new Tuple<string, string>("EMT", Url.Action("GetEMTs", "EMT")),
+        new Tuple<string, string>("Create EMT", "")
+    };
 
             ViewBag.Breadcrumbs = breadcrumbs;
-           
             return View();
         }
 
@@ -63,12 +62,12 @@ namespace RapidRescue.Controllers
             if (!ModelState.IsValid)
             {
                 var breadcrumbs = new List<Tuple<string, string>>()
-            {
-                new Tuple<string, string>("Home", Url.Action("Home", "Home")),
-                new Tuple<string, string>("Admin", Url.Action("Admin", "Admin")),
-                new Tuple<string, string>("EMT", Url.Action("GetEMTs", "EMT")),
-                new Tuple<string, string>("Create EMT", "")
-            };
+    {
+        new Tuple<string, string>("Home", Url.Action("Home", "Home")),
+        new Tuple<string, string>("Admin", Url.Action("Admin", "Admin")),
+        new Tuple<string, string>("EMT", Url.Action("GetEMTs", "EMT")),
+        new Tuple<string, string>("Create EMT", "")
+    };
 
                 ViewBag.Breadcrumbs = breadcrumbs;
                 return View(model);

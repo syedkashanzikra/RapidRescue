@@ -19,7 +19,7 @@ namespace RapidRescue.Models
         [StringLength(100)]
         public string LicenseNumber { get; set; }  // Driver's license number
 
-        [Required]
+        [Required(ErrorMessage = "License Expiry Date is required.")]
         public DateTime LicenseExpiryDate { get; set; }  // License expiry date
 
         [Required]
@@ -30,7 +30,8 @@ namespace RapidRescue.Models
         [StringLength(100)]
         public string VehicleAssigned { get; set; }  // Vehicle assigned to the driver
 
-        [Required]
+
+        [Required(ErrorMessage = "Date of Hire is required.")]
         public DateTime DateOfHire { get; set; }  // Date when the driver was hired
 
         [Required]
@@ -48,5 +49,8 @@ namespace RapidRescue.Models
 
         [DataType(DataType.Date)]
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;  // Record update time
+
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
     }
 }

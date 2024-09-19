@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RapidRescue.Context;
 using RapidRescue.Models;
 using RapidRescue.ViewModels;
-using System.ComponentModel.DataAnnotations;
+
 
 namespace RapidRescue.Controllers
 {
@@ -81,7 +81,7 @@ namespace RapidRescue.Controllers
                 Email = model.Email,
                 Password = passwordHasher.HashPassword(null, model.Password),
                 Role_Id = 3,
-                IsActive = true,
+                IsActive = false,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 RememberToken="Added By Admin"
@@ -185,9 +185,10 @@ namespace RapidRescue.Controllers
             return View(model);
         }
 
-        [Route("/edit-driver/{id}")]
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("/edit-driver/{id}")]
         public IActionResult EditDriver(EditDriverViewModel model)
         {
             if (!ModelState.IsValid)
@@ -239,6 +240,74 @@ namespace RapidRescue.Controllers
 
         }
 
-      
+        [HttpGet]
+        public IActionResult UpdateStatus(int userId)
+        {
+            // Fetch the driver info based on User_id passed from the URL
+            var driver = _context.DriverInfo.SingleOrDefault(d => d.User_id == userId);
+
+         
+
+            var breadcrumbs = new List<Tuple<string, string>>()
+    {
+        new Tuple<string, string>("Home", Url.Action("Home", "Home")),
+        new Tuple<string, string>("Driver", Url.Action("Admin", "Admin")),
+        new Tuple<string, string>("Update Status", "")
+    };
+
+            ViewBag.Breadcrumbs = breadcrumbs;
+            ViewBag.Driver = driver;
+            ViewBag.IsActive = driver.IsActive;
+            return View(driver);
+        }
+
+        //[HttpPost]
+        //public IActionResult ActivateDriver(int userId)
+        //{
+        //    // Fetch the driver info based on the User_id passed from the form
+        //    var driver = _context.DriverInfo.SingleOrDefault(d => d.User_id == userId);
+
+        //    if (driver != null)
+        //    {
+        //        driver.IsActive = true;  // Set driver as active
+        //        driver.UpdatedAt = DateTime.UtcNow;  // Update timestamp
+        //        _context.SaveChanges();  // Save changes to database
+        //    }
+
+        //    return RedirectToAction("UpdateStatus");
+        //}
+
+        [HttpPost]
+        public IActionResult ActivateDriver(int userId)
+        {
+            // Fetch the driver info based on the User_id passed from the form
+            var driver = _context.DriverInfo.SingleOrDefault(d => d.User_id == userId);
+
+            if (driver != null)
+            {
+                driver.IsActive = true;  // Set driver as active
+                driver.UpdatedAt = DateTime.UtcNow;  // Update timestamp
+                _context.SaveChanges();  // Save changes to database
+            }
+
+            return RedirectToAction("UpdateStatus", new { userId });
+        }
+
+        [HttpPost]
+        public IActionResult DeactivateDriver(int userId)
+        {
+            // Fetch the driver info based on the User_id passed from the form
+            var driver = _context.DriverInfo.SingleOrDefault(d => d.User_id == userId);
+
+            if (driver != null)
+            {
+                driver.IsActive = false;  // Set driver as inactive
+                driver.UpdatedAt = DateTime.UtcNow;  // Update timestamp
+                _context.SaveChanges();  // Save changes to database
+            }
+
+            return RedirectToAction("UpdateStatus", new { userId });
+        }
+
     }
 }

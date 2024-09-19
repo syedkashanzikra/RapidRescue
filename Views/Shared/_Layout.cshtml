@@ -1,6 +1,7 @@
 ﻿
 @{
     var userId = Context.Session.GetInt32("user_id");
+    var roleId = Context.Session.GetInt32("role_id");
 }
 
 
@@ -196,7 +197,7 @@
                                 </ul>
                             </div>
 
-                            @if (userId == null)
+                            @if (roleId == null)
                             {
                                 // Agar user login nahi hai, tab login button dikhaye
                                 <div class="header-button-style1">
@@ -207,7 +208,7 @@
                             }
                             else
                             {
-                                switch (userId)
+                                switch (roleId)
                                 {
                                     case 1:
                                         // Admin ke liye dashboard button
@@ -220,7 +221,7 @@
                                     case 2:
                                         // Patient ke liye dashboard button
                                         <div class="header-button-style1">
-                                            <a class="btn-one" asp-action="PatientDashboard" asp-controller="Patient">
+                                            <a class="btn-one" asp-action="Admin" asp-controller="Admin">
                                                 <span class="txt">Patient Dashboard</span>
                                             </a>
                                         </div>
@@ -228,7 +229,7 @@
                                     case 3:
                                         // Driver ke liye dashboard button
                                         <div class="header-button-style1">
-                                            <a class="btn-one" asp-action="DriverDashboard" asp-controller="Driver">
+                                            <a class="btn-one" asp-action="Admin" asp-controller="Admin">
                                                 <span class="txt">Driver Dashboard</span>
                                             </a>
                                         </div>
@@ -236,7 +237,7 @@
                                     case 4:
                                         // EMT ke liye dashboard button
                                         <div class="header-button-style1">
-                                            <a class="btn-one" asp-action="EMTDashboard" asp-controller="EMT">
+                                            <a class="btn-one" asp-action="Admin" asp-controller="Admin">
                                                 <span class="txt">EMT Dashboard</span>
                                             </a>
                                         </div>

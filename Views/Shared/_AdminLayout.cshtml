@@ -1,6 +1,6 @@
 ﻿@{
     var roleID = Context.Session.GetInt32("role_id");
-
+    var userId = Context.Session.GetInt32("user_id");
 }
 
 
@@ -226,6 +226,20 @@
                 <li><a asp-action="GetEMTs" asp-controller="EMT">EMT List</a></li>
             </ul>
         </li>
+                        }
+
+                          @if (roleID == 3)
+                        {
+                            
+                        
+                        <li>
+                                <a href="@Url.Action("UpdateStatus", "Driver", new { userId = userId })" class="active subdrop">
+                                <span class="menu-side">
+                                    <img src="~/assets/img/icons/menu-icon-01.svg" alt="">
+                                </span>
+                                <span> Update Status </span>
+                            </a>
+                        </li> 
                         }
                         <li class="submenu">
                             <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-04.svg" alt></span> <span> Appointments </span> <span class="menu-arrow"></span></a>

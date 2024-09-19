@@ -2,9 +2,10 @@
 @{
     ViewData["Title"] = "Edit Driver";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var breadcrumbs = ViewBag.Breadcrumbs as List<Tuple<string, string>>;
 }
 
-@await Html.PartialAsync("Breadcrumb", (List<Tuple<string, string>>)ViewBag.Breadcrumbs)
+@await Html.PartialAsync("Breadcrumb", breadcrumbs)
 
 <div class="row">
     <div class="col-sm-12">

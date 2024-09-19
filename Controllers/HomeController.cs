@@ -54,6 +54,13 @@ namespace RapidRescue.Controllers
                 TempData["SuccessMessage"] = "Your message has been submitted successfully!";
                 return RedirectToAction("Contact"); 
             }
+            var breadcrumbs = new List<Tuple<string, string>>()
+            {
+                new Tuple<string, string>("Home", Url.Action("Home", "Home")),
+                new Tuple<string, string>("Contact", "")
+            };
+
+            ViewBag.Breadcrumbs = breadcrumbs;
 
             return View(model); 
         }
