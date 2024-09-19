@@ -436,6 +436,30 @@
                 document.getElementById("password").disabled = !isChecked;
                 document.getElementById("confirmPassword").disabled = !isChecked;
             });
+            function setDeleteUserId(userId) {
+                document.getElementById('deleteUserId').value = userId;
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var message = '@TempData["Message"]';
+                var errorMessage = '@TempData["ErrorMessage"]';
+
+                if (errorMessage) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: errorMessage,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                } else if (message) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
         </script>
 
         <script src="~/assets/js/jquery-3.7.1.min.js" type="350181ec80dc51c00069179a-text/javascript"></script>
@@ -457,6 +481,8 @@
         <script src="~/assets/plugins/apexchart/apexcharts.min.js" type="350181ec80dc51c00069179a-text/javascript"></script>
         <script src="~/assets/plugins/apexchart/chart-data.js" type="350181ec80dc51c00069179a-text/javascript"></script>
 
+        <script src="~/assets/plugins/sweetalert/sweetalert2.all.min.js" type="606359de15a7c824716adcaf-text/javascript"></script>
+        <script src="~/assets/plugins/sweetalert/sweetalerts.min.js" type="606359de15a7c824716adcaf-text/javascript"></script>
         <script src="~/assets/js/app.js" type="350181ec80dc51c00069179a-text/javascript"></script>
         <script src="~/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="350181ec80dc51c00069179a-|49" defer></script>
 </body>

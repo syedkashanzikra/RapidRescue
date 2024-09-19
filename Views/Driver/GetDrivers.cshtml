@@ -1,7 +1,7 @@
-﻿@model PatientsViewModel
+﻿@model DriverViewModel
 
 @{
-    ViewData["Title"] = "Patients Table ";
+    ViewData["Title"] = "Drivers Table ";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -12,35 +12,35 @@
     <div class="col-sm-12">
         <div class="card card-table show-entire">
             <div class="card-body">
-              
+
 
                 <!-- The rest of your table code here for displaying patients -->
                 <div class="table-responsive">
                     <table class="table border-0 custom-table comman-table datatable mb-0">
                         <thead>
                             <tr>
-                              
+
                                 <th>Full Name</th>
-                                
+
                                 <th>Email</th>
                                 <th>Joining Date</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var patient in Model.Patients)
+                            @foreach (var driver in Model.Drivers)
                             {
                                 <tr>
-                                  
+
                                     <td class="profile-image">
                                         <a href="profile.html">
                                             <img width="28" height="28" src="~/assets/img/user.jpg" class="rounded-circle m-r-5" alt="">
-                                            @patient.FirstName @patient.LastName
+                                            @driver.FirstName @driver.LastName
                                         </a>
                                     </td>
-                       
-                                    <td>@patient.Email</td>
-                                    <td>@patient.CreatedAt.ToShortDateString()</td>
+
+                                    <td>@driver.Email</td>
+                                    <td>@driver.CreatedAt.ToShortDateString()</td>
                                     <td class="text-end">
                                         <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,10 +48,10 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <!-- Pass the user_id in the route -->
-                                                <a class="dropdown-item" asp-action="EditPatient" asp-controller="Patients" asp-route-userId="@patient.User_id" >
+                                                <a class="dropdown-item" asp-action="EditPatient" asp-controller="Patients" asp-route-userId="@driver.User_id">
                                                     <i class="fa-solid fa-pen-to-square m-r-5"></i> Edit
                                                 </a>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_patient" onclick="setDeleteUserId(@patient.User_id)">
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_driver" onclick="setDeleteUserId(@driver.User_id)">
                                                     <i class="fa fa-trash-alt m-r-5"></i> Delete
                                                 </a>
 
@@ -74,17 +74,14 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body text-center">
-                <img src="~/assets/img/sent.png" alt width="50" height="46">
-                <h3>Are you sure you want to delete this patient?</h3>
+                <img src="assets/img/sent.png" alt width="50" height="46">
+                <h3>Are you sure want to delete this ?</h3>
                 <div class="m-t-20">
-                    <a href="#" class="btn btn-white" data-bs-dismiss="modal">Close</a>
-                    <!-- The delete button will trigger a form submission -->
-                    <form method="post" asp-action="DeletePatient" asp-controller="Patients">
-                        <input type="hidden" id="deleteUserId" name="userId" value="" />
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    <a href="departments.html#" class="btn btn-white" data-bs-dismiss="modal">Close</a>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

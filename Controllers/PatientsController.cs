@@ -111,7 +111,7 @@ namespace RapidRescue.Controllers
             // Save the PatientsInfo to the database
             _context.PatientsInfo.Add(patientInfo);
             _context.SaveChanges();
-
+            TempData["Message"] = "Patient is Added to The System Succesfully.";
             // Redirect to the patient list or success page
             return RedirectToAction("GetPatients");
         }
@@ -225,6 +225,38 @@ namespace RapidRescue.Controllers
             return RedirectToAction("GetPatients");
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePatient(int userId)
+        {
+            // Find the user by userId
+            var user = _context.Users.FirstOrDefault(u => u.User_id == userId);
+
+            if (user != null)
+            {
+                // Find the related patient info
+                var patientInfo = _context.PatientsInfo.FirstOrDefault(p => p.User_id == userId);
+
+                // If patient info exists, remove it
+                if (patientInfo != null)
+                {
+                    _context.PatientsInfo.Remove(patientInfo);
+                }
+
+                // Remove the user
+                _context.Users.Remove(user);
+
+                // Save changes to the database
+                _context.SaveChanges();
+
+                // Optionally: add a success message for feedback
+                TempData["Message"] = "Patient and user information deleted successfully.";
+            }
+
+            // Redirect back to the patients list
+            return RedirectToAction("GetPatients");
+        }
 
 
     }
