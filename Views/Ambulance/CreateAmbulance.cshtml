@@ -1,0 +1,61 @@
+﻿@model RapidRescue.ViewModels.CreateAmbulanceViewModel
+
+@{
+    ViewData["Title"] = "Create Ambulance";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@await Html.PartialAsync("Breadcrumb", (List<Tuple<string, string>>)ViewBag.Breadcrumbs)
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="CreateAmbulance" method="post">
+                    <div class="row">
+                        <!-- Section: Ambulance Details -->
+                        <div class="col-12">
+                            <div class="form-heading">
+                                <h4>Ambulance Details</h4>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>Vehicle Number <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="VehicleNumber" />
+                                <span asp-validation-for="VehicleNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>Equipment Level <span class="text-danger">*</span></label>
+                                <input class="form-control" asp-for="EquipmentLevel" />
+                                <span asp-validation-for="EquipmentLevel" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="input-block">
+                                <label>Driver <span class="text-danger">*</span></label>
+                                <select class="form-select" asp-for="DriverId" asp-items="ViewBag.Drivers">
+                                    <option value="">Select Driver</option>
+                                </select>
+                                <span asp-validation-for="DriverId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="col-12">
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Create Ambulance</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
