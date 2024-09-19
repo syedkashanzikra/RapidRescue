@@ -1,0 +1,189 @@
+﻿@model List<Tuple<string, string>>
+
+@{
+    ViewData["Title"] = "Faq";
+}
+@await Html.PartialAsync("Breadcrumb", Model)
+
+<section class="faq-page-one">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xl-6">
+                <div class="faq-style1-content">
+                    <ul class="accordion-box">
+                        <li class="accordion block active-block">
+                            <div class="acc-btn active">
+                                <div class="icon-outer">
+                                    <i class="flaticon-down-arrow-2"></i>
+                                </div>
+                                <h3>
+                                    Interdum et malesuada fames ac ante ipsum
+                                </h3>
+                            </div>
+                            <div class="acc-content current">
+                                <p>
+                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
+                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="accordion block">
+                            <div class="acc-btn">
+                                <div class="icon-outer">
+                                    <i class="flaticon-down-arrow-2"></i>
+                                </div>
+                                <h3>
+                                    Maecenas condimentum sollicitudin ligula,
+                                </h3>
+                            </div>
+                            <div class="acc-content">
+                                <p>
+                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
+                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="accordion block">
+                            <div class="acc-btn">
+                                <div class="icon-outer">
+                                    <i class="flaticon-down-arrow-2"></i>
+                                </div>
+                                <h3>
+                                    Duis rhoncus orci ut metus rhoncus
+                                </h3>
+                            </div>
+                            <div class="acc-content">
+                                <p>
+                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
+                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-xl-6">
+                <div class="faq-style1-content faq-style1-content--margintop">
+                    <ul class="accordion-box">
+                        <li class="accordion block active-block">
+                            <div class="acc-btn active">
+                                <div class="icon-outer">
+                                    <i class="flaticon-down-arrow-2"></i>
+                                </div>
+                                <h3>
+                                    Interdum et malesuada fames ac ante ipsum
+                                </h3>
+                            </div>
+                            <div class="acc-content current">
+                                <p>
+                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
+                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="accordion block">
+                            <div class="acc-btn">
+                                <div class="icon-outer">
+                                    <i class="flaticon-down-arrow-2"></i>
+                                </div>
+                                <h3>
+                                    Maecenas condimentum sollicitudin ligula,
+                                </h3>
+                            </div>
+                            <div class="acc-content">
+                                <p>
+                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
+                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="accordion block">
+                            <div class="acc-btn">
+                                <div class="icon-outer">
+                                    <i class="flaticon-down-arrow-2"></i>
+                                </div>
+                                <h3>
+                                    Duis rhoncus orci ut metus rhoncus
+                                </h3>
+                            </div>
+                            <div class="acc-content">
+                                <p>
+                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
+                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--End Faq Page One-->
+<!--Start Faq Form Area-->
+<section class="faq-form-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="faq-form-box">
+                    <div class="sec-title text-center">
+                        <div class="icon">
+                            <span class="icon-heartbeat"></span>
+                        </div>
+                        <div class="sub-title">
+                            <h3>Send us Message</h3>
+                        </div>
+                        <h2>Write us Anytime</h2>
+                    </div>
+                    <form id="faq-form" name="faq_form" class="default-form1" action="faq.html#" method="post">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="input-box">
+                                    <input type="text" name="form_name" value="" placeholder="Full name"
+                                           required="">
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="input-box">
+                                    <input type="email" name="form_email" value="" placeholder="Email address"
+                                           required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="input-box">
+                                    <input type="text" name="form_phone" value="" placeholder="Phone">
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="input-box">
+                                    <input type="text" name="form_subject" value="" placeholder="Subject">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="input-box">
+                                    <textarea name="form_message" placeholder="Your Question ..."
+                                              required=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-box">
+                            <button class="btn-one" type="submit" data-loading-text="Please wait...">
+                                <span class="txt">Send Request</span>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

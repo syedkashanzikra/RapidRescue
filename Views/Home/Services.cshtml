@@ -1,0 +1,157 @@
+﻿@model List<Tuple<string, string>>
+
+@{
+    ViewData["Title"] = "Services";
+}
+
+@await Html.PartialAsync("Breadcrumb", Model)
+
+<section class="service-details-area">
+    <div class="container">
+        <div class="row">
+
+            <!--Start Service Details Sidebar -->
+            <div class="col-xl-4 col-lg-5 order-box-2">
+                <div class="service-details__sidebar">
+
+                    <div class="view-all-service" data-aos="slide-up" data-aos-easing="linear" data-aos-duration="1000">
+                        <ul class="service-pages">
+                            <li class="active">
+                                <a asp-action="AmbulanceCar" asp-controller="Home">
+                                    Ambulance Car <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="MedicalFlightServices" asp-controller="Home">
+                                    Medical Flight Services <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="MedicalEscort" asp-controller="Home">
+                                    Medical Escort <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="PrivateAirAmbulance" asp-controller="Home">
+                                    Private Air Ambulance <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="AdvancedLifeSupport" asp-controller="Home">
+                                    Advanced Life Support <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="GeneralServices" asp-controller="Home">
+                                    General Services <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="service-details-contact-info" data-aos="slide-up" data-aos-easing="linear" data-aos-duration="1000">
+                        <div class="sidebar-info-box-bg" style="background-image: url('~/homeassets/images/sidebar/sidebar-info-box-bg.jpg');"></div>
+                        <h3>Need Help?</h3>
+                        <p>
+                            Speak with a human to fill out a form? Call our corporate office, and we will connect
+                            you with a team member who can help.
+                        </p>
+                        <h2><a href="tel:+50033333">+ 1- (246) 333-0089</a></h2>
+                    </div>
+
+                    <div class="info-download-box" data-aos="slide-up" data-aos-easing="linear" data-aos-duration="1000">
+                        <ul>
+                            <li>
+                                <div class="icon">
+                                    <span class="icon-checked-1"></span>
+                                </div>
+                                <div class="title">
+                                    <h5><a asp-action="DownloadBrochure" asp-controller="Home">Download our Brochure</a></h5>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--End Service Details Sidebar -->
+            <!--Start Service Details Content -->
+            <div class="col-xl-8 col-lg-7 order-box-1">
+                <div class="service-details__content">
+                    <!-- Image loading in Services page similar to Contact page -->
+                    <div class="img-box1">
+                        <img src="~/homeassets/images/services/service-details-1-img1.jpg" alt="Service Image" />
+                    </div>
+
+                    <div class="text-box1">
+                        <h2>Ambulance Car</h2>
+                        <p>
+                            Lorem ipsum is simply free text used by copytyping refreshing. Neque porro est qui
+                            dolorem ipsum quia quaed inventore veritatis et quasi architecto beatae vitae dicta
+                            sunt explicabo.
+                        </p>
+                    </div>
+
+                    <!-- Additional Service Content -->
+                    <div class="text-box2">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="text-box2-single" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="2500">
+                                    <h4>
+                                        <span class="icon-right-arrow"></span> Help us Save a Life
+                                    </h4>
+                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6">
+                                <div class="text-box2-single" data-aos="fade-left" data-aos-easing="linear" data-aos-duration="2500">
+                                    <h4>
+                                        <span class="icon-right-arrow"></span> Join our Big Family
+                                    </h4>
+                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-style1__content">
+                        <ul class="accordion-box">
+                            <li class="accordion block active-block">
+                                <div class="acc-btn active">
+                                    <div class="icon-outer">
+                                        <i class="icon-down-arrow"></i>
+                                    </div>
+                                    <h3>Interdum et malesuada fames ac ante ipsum</h3>
+                                </div>
+                                <div class="acc-content current">
+                                    <p>
+                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
+                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- Add more accordion items if necessary -->
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <!--End Service Details Content -->
+
+        </div>
+    </div>
+</section>
+
+<!-- Google Map Area (Optional, similar to Contact page) -->
+<section class="google-map-area">
+    <div class="auto-container">
+        <div class="contact-page-map-outer">
+            <!--Map Canvas-->
+            <div class="map-canvas" data-zoom="12" data-lat="-37.817085" data-lng="144.955631"
+                 data-type="roadmap" data-hue="#ffc400" data-title="Envato"
+                 data-icon-path="~/homeassets/images/icon/map-marker.png"
+                 data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@youremail.com'>info@youremail.com</a>">
+            </div>
+        </div>
+    </div>
+</section>

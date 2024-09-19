@@ -1,0 +1,230 @@
+﻿@model List<Tuple<string, string>>
+
+@{
+    ViewData["Title"] = "AdvancedLifeSupport";
+}
+
+@await Html.PartialAsync("Breadcrumb", Model)
+
+<section class="service-details-area">
+    <div class="container">
+        <div class="row">
+
+            <!-- Start Service Details Sidebar -->
+            <div class="col-xl-4 col-lg-5 order-box-2">
+                <div class="service-details__sidebar">
+
+                    <div class="view-all-service" data-aos="slide-up" data-aos-easing="linear"
+                         data-aos-duration="1000">
+                        <ul class="service-pages">
+                            <li>
+                                <a asp-action="AmbulanceCar" asp-controller="Home">
+                                    Ambulance Car <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="MedicalFlightServices" asp-controller="Home">
+                                    Medical Flight Services <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="MedicalEscort" asp-controller="Home">
+                                    Medical Escort <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="PrivateAirAmbulance" asp-controller="Home">
+                                    Private Air Ambulance <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a asp-action="AdvancedLifeSupport" asp-controller="Home">
+                                    Advanced Life Support <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="GeneralServices" asp-controller="Home">
+                                    General Services <span class="icon-next-1"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="service-details-contact-info" data-aos="slide-up" data-aos-easing="linear"
+                         data-aos-duration="1000">
+                        <div class="sidebar-info-box-bg"
+                             style="background-image: url('~/homeassets/images/sidebar/sidebar-info-box-bg.jpg');"></div>
+                        <h3>Need Help?</h3>
+                        <p>
+                            Speak with a human to fill out a form? Call our corporate office, and we will connect
+                            you with a team member who can help.
+                        </p>
+                        <h2><a href="tel:+50033333">+ 1- (246) 333-0089</a></h2>
+                    </div>
+
+                    <div class="info-download-box" data-aos="slide-up" data-aos-easing="linear"
+                         data-aos-duration="1000">
+                        <ul>
+                            <li>
+                                <div class="icon">
+                                    <span class="icon-checked-1"></span>
+                                </div>
+                                <div class="title">
+                                    <h5><a asp-action="AdvancedLifeSupport" asp-controller="Home">Download our Brochure</a></h5>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- End Service Details Sidebar -->
+            <!-- Start Service Details Content -->
+            <div class="col-xl-8 col-lg-7 order-box-1">
+                <div class="service-details__content">
+                    <div class="img-box1">
+                        <img src="~/homeassets/images/services/service-details-5-img1.jpg" alt="Advanced Life Support Image" />
+                    </div>
+
+                    <div class="text-box1">
+                        <h2>Advanced Life Support</h2>
+                        <p>
+                            Lorem ipsum is simply free text used by copytyping refreshing. Neque porro est qui
+                            dolorem ipsum quia quaed inventore veritatis et quasi architecto beatae vitae dicta
+                            sunt explicabo. Aelltes port lacus quis enim var sed efficitur turpis gilla sed sit
+                            amet finibus eros. Lorem Ipsum is simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s.
+                        </p>
+                        <p>
+                            It has survived not only five centuries. Lorem Ipsum is simply dummy text of the new
+                            design printing and type setting Ipsum take a look at our round. When an unknown
+                            printer took a galley of type and scrambled it to make a type specimen book. It has
+                            survived not only five centuries, but also the leap into electronic typesetting.
+                        </p>
+                    </div>
+
+                    <div class="text-box2">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="text-box2-single" data-aos="fade-right" data-aos-easing="linear"
+                                     data-aos-duration="2500">
+                                    <h4>
+                                        <span class="icon-right-arrow"></span> Help us Save a Life
+                                    </h4>
+                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6">
+                                <div class="text-box2-single" data-aos="fade-left" data-aos-easing="linear"
+                                     data-aos-duration="2500">
+                                    <h4>
+                                        <span class="icon-right-arrow"></span> Join our Big Family
+                                    </h4>
+                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-box3">
+                        <p>
+                            When an unknown printer took a galley of type and scrambled it to make a type
+                            specimen book. It has survived not only five centuries, but also the leap into
+                            electronic typesetting. Lorem Ipsum has been the industry standard dummy text ever
+                            since the 1500s.
+                        </p>
+                    </div>
+
+                    <div class="text-box4">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="content-box">
+                                    <h2>Service Benefits</h2>
+                                    <p>
+                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
+                                    </p>
+
+                                    <ul>
+                                        <li>
+                                            <span class="icon-checked"></span> In id diam nec nisi
+                                            congue tincidunt
+                                        </li>
+                                        <li>
+                                            <span class="icon-checked"></span> Pn malesuada purus a ligula
+                                            dapibus
+                                        </li>
+                                        <li>
+                                            <span class="icon-checked"></span> Vestibulum tincidunt arcu vel
+                                            nisl
+                                        </li>
+                                        <li>
+                                            <span class="icon-checked"></span> Sed tristique lorem non
+                                            tesque
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6">
+                                <div class="img-box">
+                                    <img src="~/homeassets/images/services/service-details-img2.jpg" alt="Service Benefits Image" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="faq-style1__content">
+                        <ul class="accordion-box">
+                            <li class="accordion block active-block">
+                                <div class="acc-btn active">
+                                    <div class="icon-outer">
+                                        <i class="icon-down-arrow"></i>
+                                    </div>
+                                    <h3>Interdum et malesuada fames ac ante ipsum</h3>
+                                </div>
+                                <div class="acc-content current">
+                                    <p>
+                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
+                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="accordion block">
+                                <div class="acc-btn">
+                                    <div class="icon-outer">
+                                        <i class="icon-down-arrow"></i>
+                                    </div>
+                                    <h3>Maecenas condimentum sollicitudin ligula.</h3>
+                                </div>
+                                <div class="acc-content">
+                                    <p>
+                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
+                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="accordion block">
+                                <div class="acc-btn">
+                                    <div class="icon-outer">
+                                        <i class="icon-down-arrow"></i>
+                                    </div>
+                                    <h3>Duis rhoncus orci ut metus rhoncus.</h3>
+                                </div>
+                                <div class="acc-content">
+                                    <p>
+                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
+                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Service Details Content -->
+
+        </div>
+    </div>
+</section>

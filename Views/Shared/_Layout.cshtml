@@ -277,33 +277,29 @@
                                             </li>
                                           
                                             <li class="dropdown">
-                                                <a href="index.html#">Services</a>
+                                                <a asp-action="Services" asp-controller="Home">Services</a>
                                                 <ul>
-                                                    <li><a href="services.html">View All Services</a></li>
-                                                    <li><a href="services-single-1.html">Ambulance Car</a></li>
-                                                    <li>
-                                                        <a href="services-single-2.html">Medical Flight Services</a>
-                                                    </li>
-                                                    <li><a href="services-single-3.html">Medical Escort</a></li>
-                                                    <li><a href="services-single-4.html">Private Air Ambulance</a></li>
-                                                    <li><a href="services-single-5.html">Advance Life Support</a></li>
-                                                    <li><a href="services-single-6.html">General Services</a></li>
+                                                    <li><a asp-action="Services" asp-controller="Home">View All Services</a></li>
+                                                    <li><a asp-action="AmbulanceCar" asp-controller="Home">Ambulance Car</a></li>
+                                                    <li><a asp-action="MedicalFlightServices" asp-controller="Home">Medical Flight Services</a></li>
+                                                    <li><a asp-action="MedicalEscort" asp-controller="Home">Medical Escort</a></li>
+                                                    <li><a asp-action="PrivateAirAmbulance" asp-controller="Home">Private Air Ambulance</a></li>
+                                                    <li><a asp-action="AdvancedLifeSupport" asp-controller="Home">Advanced Life Support</a></li>
+                                                    <li><a asp-action="GeneralServices" asp-controller="Home">General Services</a></li>
                                                 </ul>
+
                                             </li>
                                             <li class="dropdown">
                                                 <a href="index.html#">Pages</a>
                                                 <ul>
-                                                    <li><a href="about.html">About Our Company</a></li>
-                                                    <li><a href="team.html">Team</a></li>
-                                                    <li><a href="testimonials.html">Testimonials</a></li>
-                                                    <li><a href="faq.html">FAQ’s</a></li>
-                                                    
+                                                    <li><a asp-action="About" asp-controller="Home">About Our Company</a></li>
+                                                    <li><a asp-action="Team" asp-controller="Home">Team</a></li>
+                                                    <li><a asp-action="Testimonials" asp-controller="Home">Testimonials</a></li>
+                                                    <li><a asp-action="Faq" asp-controller="Home">FAQ’s</a></li>
                                                 </ul>
+
                                             </li>
-                                            <li >
-                                                <a >Blog</a>
-                                              
-                                            </li>
+                                           
                                             <li class ="@IsActive("Home", "Contact")"><a asp-action="Contact" asp-controller="Home">Contact</a></li>
                                         </ul>
                                     </div>
