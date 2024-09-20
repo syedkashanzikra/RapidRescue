@@ -132,7 +132,7 @@
                         <a class="dropdown-item" href="profile.html">My Profile</a>
                         <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
                         <a class="dropdown-item" href="settings.html">Settings</a>
-                        <a class="dropdown-item" asp-action="Logout_User" asp-controller="User">Logout</a>
+                        <a class="dropdown-item" id="logout-link" asp-action="Logout_User" asp-controller="User">Logout</a>
                     </div>
                 </li>
                 <li class="nav-item ">
@@ -145,7 +145,7 @@
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
                     <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" asp-action="Logout_User" asp-controller="User">Logout</a>
+                    <a class="dropdown-item" id="logout-link" asp-action="Logout_User" asp-controller="User">Logout</a>
                 </div>
             </div>
         </div>
@@ -262,8 +262,15 @@
                         </li>
                     </ul>
                     <div class="logout-btn">
-                        <a asp-action="Logout_User" asp-controller="User"><span class="menu-side"><img src="~/assets/img/icons/logout.svg" alt></span> <span>Logout</span></a>
+                        <a href="javascript:void(0)" id="logout-link">
+                            <span class="menu-side">
+                                <img src="~/assets/img/icons/logout.svg" alt>
+                            </span>
+                            <span>Logout</span>
+                        </a>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -489,6 +496,39 @@
         </div>
         <div class="sidebar-overlay" data-reff></div>
         <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var logoutLink = document.getElementById('logout-link');
+
+                logoutLink.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent the default link action
+
+                    // Create a new XMLHttpRequest object
+                    var xhr = new XMLHttpRequest();
+
+                    // Configure it: POST-request for the URL /User/Logout_User
+                    xhr.open('POST', '/logout', true);
+
+                    // Set the request header if you need to add CSRF tokens or other headers
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                    // Handle the response
+                    xhr.onload = function () {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            // On success, redirect to the login page or any other page
+                            window.location.href = '/login'; // Adjust this path to your login route
+                        } else {
+                            console.error('Logout failed:', xhr.statusText);
+                            // Optionally, you can show an error message to the user here
+                        }
+                    };
+
+                    // Send the request
+                    xhr.send();
+                });
+            });
+
+
             document.getElementById("enablePasswordChange").addEventListener("change", function () {
                 const isChecked = this.checked;
                 document.getElementById("password").disabled = !isChecked;
@@ -500,6 +540,8 @@
                  function setDeleteAmbulanceId(id) {
         document.getElementById('deleteAmbulanceId').value = id;
     }
+
+
            
 
      
@@ -523,6 +565,7 @@
                     });
                 }
             });
+
 
         </script>
      

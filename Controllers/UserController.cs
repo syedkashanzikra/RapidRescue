@@ -211,12 +211,13 @@ namespace RapidRescue.Controllers
             // Clear the session to log the user out
             HttpContext.Session.Clear();
 
-            // Optionally, you can also remove cookies if you're using them for authentication
+            // Optionally, delete session cookies
             Response.Cookies.Delete(".AspNetCore.Session");
 
-            // Redirect to the login page or any other desired page
-            return RedirectToAction("Login_User", "User");
+            // You can return a status code or an empty result for the AJAX success handler
+            return Ok();
         }
+
 
 
 
