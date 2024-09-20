@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using RapidRescue.Context;
+using RapidRescue.Hubs;
 using RapidRescue.Models;
 
 namespace RapidRescue.Controllers
@@ -8,12 +10,14 @@ namespace RapidRescue.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly RapidRescueContext _context; 
+        private readonly RapidRescueContext _context;
+        private readonly IHubContext<DriverLocationHub> _hubContext;
 
-        public HomeController(ILogger<HomeController> logger, RapidRescueContext context)
+        public HomeController(ILogger<HomeController> logger, RapidRescueContext context, IHubContext<DriverLocationHub> hubContext)
         {
             _logger = logger;
-            _context = context; 
+            _context = context;
+            _hubContext = hubContext;
         }
 
         // Home page
@@ -24,7 +28,69 @@ namespace RapidRescue.Controllers
             return View();
         }
 
-       
+        [HttpPost]
+        [Route("/request-ambulance")]
+        public async Task<IActionResult> RequestAmbulance(double patientLatitude, double patientLongitude)
+        {
+            // Check if the latitude and longitude are properly received
+            Console.WriteLine($"Received latitude: {patientLatitude}, longitude: {patientLongitude}");
+
+            // Fetch active drivers who are not currently handling a request (status is not "Dropped the Patient")
+            var activeDrivers = _context.DriverInfo
+                .Where(d => d.IsActive)
+                .Where(d => !_context.Requests.Any(r => r.DriverId == d.DriverId && r.DriverStatus != "Dropped the Patient"))
+                .ToList();
+
+            if (activeDrivers.Count == 0)
+            {
+                return NotFound("No free drivers available at the moment. Please try again later.");
+            }
+
+            // Find the nearest driver
+            var nearestDriver = activeDrivers
+                .Select(driver => new {
+                    Driver = driver,
+                    Distance = GetDistance(patientLatitude, patientLongitude, driver.Latitude.Value, driver.Longitude.Value)
+                })
+                .OrderBy(d => d.Distance)
+                .First().Driver;
+
+            // Create a new request entry in the database
+            var newRequest = new Request
+            {
+                DriverId = nearestDriver.DriverId,
+                PatientLatitude = patientLatitude,  // Save exact latitude received from the frontend
+                PatientLongitude = patientLongitude, // Save exact longitude received from the frontend
+                RequestedAt = DateTime.UtcNow,
+                DriverStatus = "Going to Patient"  // Initial status when the request is created
+            };
+
+            // Save the request to the database
+            _context.Requests.Add(newRequest);
+            await _context.SaveChangesAsync();
+
+            // Broadcast the location update via SignalR
+            await _hubContext.Clients.All.SendAsync("AssignDriver", nearestDriver.DriverId, patientLatitude, patientLongitude);
+
+            return Ok(nearestDriver);
+        }
+
+
+        // Method to calculate distance between two lat-long coordinates
+        private double GetDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            var R = 6371; // Earth radius in kilometers
+            var dLat = (lat2 - lat1) * Math.PI / 180;
+            var dLon = (lon2 - lon1) * Math.PI / 180;
+            var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                    Math.Cos(lat1 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180) *
+                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var distance = R * c; // Distance in kilometers
+            return distance;
+        }
+
+
         [Route("/contact")]
         public IActionResult Contact()
         {

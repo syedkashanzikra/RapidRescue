@@ -4,12 +4,13 @@ using RapidRescue.Context;
 using RapidRescue.Data.Seeders;
 using RapidRescue.Filters;
 using RapidRescue.Services;
+using RapidRescue.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddSignalR();
 builder.Services.AddDbContext<RapidRescueContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dbcon")));
 
@@ -30,6 +31,7 @@ builder.Services.AddScoped<UserSessionCheckAttribute>();
 builder.Services.AddHttpClient();
 
 builder.Services.AddTransient<EmailService>();
+builder.Services.AddHostedService<DriverLocationUpdaterService>();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -59,6 +61,7 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
 
+app.MapHub<DriverLocationHub>("/driverLocationHub");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Home}/{id?}");

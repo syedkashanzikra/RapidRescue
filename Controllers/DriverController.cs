@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SignalR;
 using RapidRescue.Context;
 using RapidRescue.Models;
 using RapidRescue.ViewModels;
+using static System.Net.WebRequestMethods;
 
 
 namespace RapidRescue.Controllers
@@ -99,7 +100,7 @@ namespace RapidRescue.Controllers
                 Address = model.Address,
                 VehicleAssigned = model.VehicleAssigned,
                 DateOfHire = model.DateOfHire,
-                IsActive = true,
+                IsActive = false,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
@@ -309,5 +310,91 @@ namespace RapidRescue.Controllers
 
             return RedirectToAction("UpdateStatus", new { userId });
         }
+
+
+
+        // View that lists the driver's requests
+        [HttpGet]
+        public IActionResult DriverRequests(int userId)
+        {
+            // Fetch the driver's information based on the userId
+            var driver = _context.DriverInfo.FirstOrDefault(d => d.User_id == userId);
+
+            if (driver == null)
+            {
+                return NotFound("Driver not found");
+            }
+
+            // Fetch all requests associated with the driver
+            var requests = _context.Requests.Where(r => r.DriverId == driver.DriverId).ToList();
+
+            var breadcrumbs = new List<Tuple<string, string>>()
+        {
+            new Tuple<string, string>("Home", Url.Action("Home", "Home")),
+            new Tuple<string, string>("Admin", Url.Action("Admin", "Admin")),
+            new Tuple<string, string>("Driver", Url.Action("GetDrivers", "Driver")),
+            new Tuple<string, string>("Requests", "")
+        };
+
+            ViewBag.Breadcrumbs = breadcrumbs;
+
+            // Return the view with the list of requests
+            return View(requests);
+        }
+
+        // POST action to update the request status
+        [HttpPost]
+        public async Task<IActionResult> UpdateRequestStatus(int requestId, string status)
+        {
+            // Find the request in the database
+            var request = _context.Requests.FirstOrDefault(r => r.RequestId == requestId);
+            var userId = HttpContext.Session.GetInt32("user_id");
+
+
+            if (request == null)
+            {
+                return NotFound("Request not found");
+            }
+
+            // Update the driver status
+            request.DriverStatus = status;
+
+            // Save changes to the database
+            _context.Requests.Update(request);
+            await _context.SaveChangesAsync();
+
+
+            // Redirect back to the driver's requests page
+            return RedirectToAction("DriverRequests", new { userId =userId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteRequest(int requestId)
+        {
+            var request = await _context.Requests.FindAsync(requestId);
+            var userId = HttpContext.Session.GetInt32("user_id");
+
+            if (request == null)
+            {
+                return NotFound("Request not found.");
+            }
+
+            _context.Requests.Remove(request);
+            await _context.SaveChangesAsync();
+
+            // Redirect back to the driver's requests list after deletion
+            return RedirectToAction("DriverRequests", new { userId =userId });
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }

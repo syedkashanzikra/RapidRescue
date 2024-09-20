@@ -5,7 +5,7 @@ using RapidRescue.Filters;
 
 namespace RapidRescue.Controllers
 {
-    [ServiceFilter(typeof(UserSessionCheckAttribute))]
+    //[ServiceFilter(typeof(UserSessionCheckAttribute))]
     public class AdminController : Controller
     {
         private readonly RapidRescueContext _context;
@@ -65,7 +65,11 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-
+        [Route("/admin/get-drivers-map")]
+        public IActionResult DriversLocation()
+        {
+            return View();
+        }
 
     }
 }

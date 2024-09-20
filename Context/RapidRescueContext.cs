@@ -19,6 +19,7 @@ namespace RapidRescue.Context
 
         public DbSet<Ambulance> Ambulances { get; set; }
 
+        public DbSet<Request> Requests { get; set; }
 
 
     }

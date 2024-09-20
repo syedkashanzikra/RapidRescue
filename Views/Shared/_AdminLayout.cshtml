@@ -178,6 +178,8 @@
                             </a>
                          
 </li>
+
+
                         }
 
                           @if (roleID == 4)
@@ -240,6 +242,15 @@
                                 <span> Update Status </span>
                             </a>
                         </li> 
+
+                            <li>
+                                <a href="@Url.Action("DriverRequests", "Driver", new { userId = userId })" class="active subdrop">
+                                    <span class="menu-side">
+                                        <img src="~/assets/img/icons/menu-icon-01.svg" alt="">
+                                    </span>
+                                    <span> Requests </span>
+                                </a>
+                            </li>
                         }
                         <li class="submenu">
                             <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-04.svg" alt></span> <span> Appointments </span> <span class="menu-arrow"></span></a>
@@ -540,7 +551,10 @@
                  function setDeleteAmbulanceId(id) {
         document.getElementById('deleteAmbulanceId').value = id;
     }
-
+            function setDeleteRequestId(requestId) {
+                // Set the requestId to delete
+                document.getElementById("deleteRequestId").value = requestId;
+            }
 
            
 

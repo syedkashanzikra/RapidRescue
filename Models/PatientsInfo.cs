@@ -25,7 +25,7 @@ namespace RapidRescue.Models
 
         [Required]
         [StringLength(255)]
-        public string PickupLocation { get; set; }  // Where the patient is currently located
+        public string? PickupLocation { get; set; }  // Where the patient is currently located
 
 
         [DataType(DataType.DateTime)]
