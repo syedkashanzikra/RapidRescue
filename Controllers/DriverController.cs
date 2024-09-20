@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using RapidRescue.Context;
+using RapidRescue.Hubs;
 using RapidRescue.Models;
 using RapidRescue.ViewModels;
 
@@ -10,10 +12,12 @@ namespace RapidRescue.Controllers
     public class DriverController : Controller
     {
         private readonly RapidRescueContext _context;
+        private readonly IHubContext<AmbulanceHub> _hubContext;
 
-        public DriverController(RapidRescueContext context) 
+        public DriverController(RapidRescueContext context, IHubContext<AmbulanceHub> hubContext) 
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         [Route("/get-drivers")]
@@ -330,6 +334,29 @@ namespace RapidRescue.Controllers
             return distance;
         }
 
+        public DriverController(IHubContext<AmbulanceHub> hubContext)
+        {
+            _hubContext = hubContext;
+        }
 
+        // This method is called when the driver's location is updated
+        [HttpPost]
+        public async Task<IActionResult> UpdateDriverLocation(int driverId, double latitude, double longitude)
+        {
+            // Update the driver's location in the database (optional)
+            var driver = _context.DriverInfo.FirstOrDefault(d => d.DriverId == driverId);
+            if (driver != null)
+            {
+                driver.Latitude = latitude;
+                driver.Longitude = longitude;
+                driver.UpdatedAt = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+            }
+
+            // Broadcast the driver's location to all clients
+            await _hubContext.Clients.All.SendAsync("ReceiveLocationUpdate", driverId, latitude, longitude);
+
+            return Ok();
+        }
     }
 }
