@@ -1,13 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 using RapidRescue.Context;
 using RapidRescue.Data.Seeders;
 using RapidRescue.Filters;
+using RapidRescue.Hubs;
 using RapidRescue.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add SignalR service
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<RapidRescueContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dbcon")));
@@ -58,6 +63,8 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
 
+// Map SignalR hubs
+app.MapHub<AmbulanceHub>("/ambulanceHub");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Home}/{id?}");
