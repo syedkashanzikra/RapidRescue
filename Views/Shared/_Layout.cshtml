@@ -283,31 +283,28 @@
                                               
                                             </li>
                                           
-                                            <li class="dropdown">
-                                                <a asp-action="Services" asp-controller="Home">Services</a>
+                                            <li class="@IsMultipleActive("Home", "Services", "AmbulanceCar", "MedicalEscort", "AdvancedLifeSupport", "GeneralServices") dropdown">
+                                                <a  asp-action="Services" asp-controller="Home">Services</a>
                                                 <ul>
                                                     <li><a asp-action="Services" asp-controller="Home">View All Services</a></li>
                                                     <li><a asp-action="AmbulanceCar" asp-controller="Home">Ambulance Car</a></li>
-                                                    <li><a asp-action="MedicalFlightServices" asp-controller="Home">Medical Flight Services</a></li>
                                                     <li><a asp-action="MedicalEscort" asp-controller="Home">Medical Escort</a></li>
-                                                    <li><a asp-action="PrivateAirAmbulance" asp-controller="Home">Private Air Ambulance</a></li>
                                                     <li><a asp-action="AdvancedLifeSupport" asp-controller="Home">Advanced Life Support</a></li>
                                                     <li><a asp-action="GeneralServices" asp-controller="Home">General Services</a></li>
                                                 </ul>
 
                                             </li>
-                                            <li class="dropdown">
-                                                <a href="index.html#">Pages</a>
+                                            <li class="@IsMultipleActive("Home", "About","Team","Faq") dropdown">
+                                                <a>Pages</a>
                                                 <ul>
-                                                    <li><a asp-action="About" asp-controller="Home">About Our Company</a></li>
+                                                    <li ><a asp-action="About" asp-controller="Home">About Our Company</a></li>
                                                     <li><a asp-action="Team" asp-controller="Home">Team</a></li>
-                                                    <li><a asp-action="Testimonials" asp-controller="Home">Testimonials</a></li>
                                                     <li><a asp-action="Faq" asp-controller="Home">FAQ’s</a></li>
                                                 </ul>
 
                                             </li>
                                            
-                                            <li class ="@IsActive("Home", "Contact")"><a asp-action="Contact" asp-controller="Home">Contact</a></li>
+                                            <li class="@IsActive("Home", "Contact")"><a asp-action="Contact" asp-controller="Home">Contact</a></li>
                                         </ul>
                                     </div>
                                 </nav>
@@ -411,7 +408,7 @@
                                 <div class="single-footer-widget marbtm50">
                                     <div class="our-company-info">
                                         <div class="footer-logo">
-                                            <a href="index.html">
+                                            <a href="@Url.Action("Home", "Home")">
                                                 <img src="~/homeassets/images/footer/footer-logo.jpg" alt="Awesome Logo"
                                                      title="">
                                             </a>
@@ -470,12 +467,12 @@
                                     </div>
                                     <div class="footer-widget-links">
                                         <ul>
-                                            <li><a href="about.html">About</a></li>
-                                            <li><a href="services.html">Our Services</a></li>
-                                            <li><a href="about.html">Flight Crews</a></li>
-                                            <li><a href="about.html">Medical Equipment</a></li>
-                                            <li><a href="about.html">Case Manager</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a asp-action="About" asp-controller="Home">About</a></li>
+                                            <li><a asp-action="Services" asp-controller="Home">Our Services</a></li>
+                                            <li><a asp-action="Team" asp-controller="Home">Team</a></li>
+                                            
+                                            <li><a asp-action="Faq" asp-controller="Home">FAQ’s</a></li>
+                                            <li><a asp-action="Contact" asp-controller="Home">Contact</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -489,12 +486,10 @@
                                     </div>
                                     <div class="footer-widget-links">
                                         <ul>
-                                            <li><a href="services-single-1.html">Ambulance Car</a></li>
-                                            <li><a href="services-single-2.html">Medical Flight Services</a></li>
-                                            <li><a href="services-single-3.html">Medical Escort</a></li>
-                                            <li><a href="services-single-4.html">Private Air Ambulance</a></li>
-                                            <li><a href="services-single-5.html">Advance Life Support</a></li>
-                                            <li><a href="services-single-6.html">General Services</a></li>
+                                            <li><a asp-action="AmbulanceCar" asp-controller="Home">Ambulance Car</a></li>
+                                            <li><a asp-action="MedicalEscort" asp-controller="Home">Medical Escort</a></li>
+                                            <li><a asp-action="AdvancedLifeSupport" asp-controller="Home">Advanced Life Support</a></li>
+                                            <li><a asp-action="GeneralServices" asp-controller="Home">General Services</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -510,7 +505,7 @@
                                             quotes.
                                         </p>
                                         <div class="btn-box">
-                                            <a class="btn-one" href="contact.html">
+                                            <a class="btn-one" asp-action="Contact" asp-controller="Home">
                                                 <span class="txt">Get a Free Quote</span>
                                             </a>
                                         </div>
@@ -527,7 +522,7 @@
                     <div class="container">
                         <div class="bottom-inner">
                             <div class="copyright">
-                                <p>Copyright &copy; 2022 <a href="index.html">Ambons</a> All Rights Reserved.</p>
+                                <p>Copyright &copy; 2022 <a href="@Url.Action("Home", "Home")">Ambons</a> All Rights Reserved.</p>
                             </div>
                             <div class="footer-social-link">
                                 <ul class="clearfix">
@@ -548,10 +543,10 @@
                         </div>
                     </div>
                 </div>
-
             </footer>
             <!--End footer area-->
         </div>
+
 
 
         <button class="scroll-top scroll-to-target" data-target="html">

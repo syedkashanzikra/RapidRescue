@@ -1,7 +1,7 @@
 ﻿@model List<Tuple<string, string>>
 
 @{
-    ViewData["Title"] = "AdvancedLifeSupport";
+    ViewData["Title"] = "Advanced Life Support";
 }
 
 @await Html.PartialAsync("Breadcrumb", Model)
@@ -14,17 +14,11 @@
             <div class="col-xl-4 col-lg-5 order-box-2">
                 <div class="service-details__sidebar">
 
-                    <div class="view-all-service" data-aos="slide-up" data-aos-easing="linear"
-                         data-aos-duration="1000">
+                    <div class="view-all-service" data-aos="slide-up" data-aos-easing="linear" data-aos-duration="1000">
                         <ul class="service-pages">
-                            <li>
+                            <li class="active">
                                 <a asp-action="AmbulanceCar" asp-controller="Home">
                                     Ambulance Car <span class="icon-next-1"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="MedicalFlightServices" asp-controller="Home">
-                                    Medical Flight Services <span class="icon-next-1"></span>
                                 </a>
                             </li>
                             <li>
@@ -33,11 +27,6 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-action="PrivateAirAmbulance" asp-controller="Home">
-                                    Private Air Ambulance <span class="icon-next-1"></span>
-                                </a>
-                            </li>
-                            <li class="active">
                                 <a asp-action="AdvancedLifeSupport" asp-controller="Home">
                                     Advanced Life Support <span class="icon-next-1"></span>
                                 </a>
@@ -56,8 +45,7 @@
                              style="background-image: url('~/homeassets/images/sidebar/sidebar-info-box-bg.jpg');"></div>
                         <h3>Need Help?</h3>
                         <p>
-                            Speak with a human to fill out a form? Call our corporate office, and we will connect
-                            you with a team member who can help.
+                            Need immediate assistance or have a question about our services? Call our office, and we will connect you with a team member who can help.
                         </p>
                         <h2><a href="tel:+50033333">+ 1- (246) 333-0089</a></h2>
                     </div>
@@ -86,19 +74,12 @@
                     </div>
 
                     <div class="text-box1">
-                        <h2>Advanced Life Support</h2>
+                        <h2>Advanced Life Support (ALS)</h2>
                         <p>
-                            Lorem ipsum is simply free text used by copytyping refreshing. Neque porro est qui
-                            dolorem ipsum quia quaed inventore veritatis et quasi architecto beatae vitae dicta
-                            sunt explicabo. Aelltes port lacus quis enim var sed efficitur turpis gilla sed sit
-                            amet finibus eros. Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s.
+                            Rapid Rescue’s Advanced Life Support (ALS) service is designed for critical emergencies where intensive medical interventions are required. Our ALS-equipped ambulances are staffed with highly trained paramedics and equipped with life-saving equipment to manage severe medical conditions during transport.
                         </p>
                         <p>
-                            It has survived not only five centuries. Lorem Ipsum is simply dummy text of the new
-                            design printing and type setting Ipsum take a look at our round. When an unknown
-                            printer took a galley of type and scrambled it to make a type specimen book. It has
-                            survived not only five centuries, but also the leap into electronic typesetting.
+                            The ALS service includes advanced airway management, intravenous medications, cardiac monitoring, defibrillation, and other critical care procedures. Whether you’re experiencing a heart attack, stroke, or other life-threatening conditions, our ALS team is prepared to provide the highest level of care during transportation.
                         </p>
                     </div>
 
@@ -108,9 +89,11 @@
                                 <div class="text-box2-single" data-aos="fade-right" data-aos-easing="linear"
                                      data-aos-duration="2500">
                                     <h4>
-                                        <span class="icon-right-arrow"></span> Help us Save a Life
+                                        <span class="icon-right-arrow"></span> Help Us Save Lives
                                     </h4>
-                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                    <p>
+                                        Our ALS services ensure that critical patients receive immediate, life-saving care on their way to the hospital. Your support helps us continue to provide high-quality emergency medical care.
+                                    </p>
                                 </div>
                             </div>
 
@@ -118,9 +101,11 @@
                                 <div class="text-box2-single" data-aos="fade-left" data-aos-easing="linear"
                                      data-aos-duration="2500">
                                     <h4>
-                                        <span class="icon-right-arrow"></span> Join our Big Family
+                                        <span class="icon-right-arrow"></span> Join Our Mission
                                     </h4>
-                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                    <p>
+                                        Become a part of the Rapid Rescue family by supporting our mission to deliver life-saving medical transportation to those who need it most.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -128,10 +113,7 @@
 
                     <div class="text-box3">
                         <p>
-                            When an unknown printer took a galley of type and scrambled it to make a type
-                            specimen book. It has survived not only five centuries, but also the leap into
-                            electronic typesetting. Lorem Ipsum has been the industry standard dummy text ever
-                            since the 1500s.
+                            Our ALS team works in close coordination with healthcare facilities to ensure a smooth transition of care when patients arrive at the hospital. We understand that every second counts during critical medical emergencies, and we are committed to providing prompt, effective care.
                         </p>
                     </div>
 
@@ -141,25 +123,21 @@
                                 <div class="content-box">
                                     <h2>Service Benefits</h2>
                                     <p>
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
+                                        Rapid Rescue’s Advanced Life Support service offers several benefits for patients in critical conditions:
                                     </p>
 
                                     <ul>
                                         <li>
-                                            <span class="icon-checked"></span> In id diam nec nisi
-                                            congue tincidunt
+                                            <span class="icon-checked"></span> 24/7 availability for emergency response
                                         </li>
                                         <li>
-                                            <span class="icon-checked"></span> Pn malesuada purus a ligula
-                                            dapibus
+                                            <span class="icon-checked"></span> Highly trained paramedics and EMTs
                                         </li>
                                         <li>
-                                            <span class="icon-checked"></span> Vestibulum tincidunt arcu vel
-                                            nisl
+                                            <span class="icon-checked"></span> Equipped with advanced life-saving medical equipment
                                         </li>
                                         <li>
-                                            <span class="icon-checked"></span> Sed tristique lorem non
-                                            tesque
+                                            <span class="icon-checked"></span> Seamless coordination with hospitals for continued care
                                         </li>
                                     </ul>
                                 </div>
@@ -170,10 +148,10 @@
                                     <img src="~/homeassets/images/services/service-details-img2.jpg" alt="Service Benefits Image" />
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
+                    <!-- FAQ Section -->
                     <div class="faq-style1__content">
                         <ul class="accordion-box">
                             <li class="accordion block active-block">
@@ -181,12 +159,11 @@
                                     <div class="icon-outer">
                                         <i class="icon-down-arrow"></i>
                                     </div>
-                                    <h3>Interdum et malesuada fames ac ante ipsum</h3>
+                                    <h3>What is Advanced Life Support (ALS)?</h3>
                                 </div>
                                 <div class="acc-content current">
                                     <p>
-                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                        Advanced Life Support (ALS) is a critical emergency medical service provided by paramedics to treat life-threatening conditions such as cardiac arrest, respiratory failure, and major trauma. ALS ambulances are equipped with advanced medical equipment and staffed with highly trained professionals.
                                     </p>
                                 </div>
                             </li>
@@ -195,12 +172,11 @@
                                     <div class="icon-outer">
                                         <i class="icon-down-arrow"></i>
                                     </div>
-                                    <h3>Maecenas condimentum sollicitudin ligula.</h3>
+                                    <h3>When should I request ALS services?</h3>
                                 </div>
                                 <div class="acc-content">
                                     <p>
-                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                        ALS services are required in critical emergencies such as heart attacks, strokes, serious injuries, or when a patient requires advanced medical interventions during transport to a hospital.
                                     </p>
                                 </div>
                             </li>
@@ -209,12 +185,11 @@
                                     <div class="icon-outer">
                                         <i class="icon-down-arrow"></i>
                                     </div>
-                                    <h3>Duis rhoncus orci ut metus rhoncus.</h3>
+                                    <h3>How is ALS different from Basic Life Support (BLS)?</h3>
                                 </div>
                                 <div class="acc-content">
                                     <p>
-                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                        ALS provides more advanced care than BLS, including advanced airway management, cardiac monitoring, IV therapy, and the ability to administer medications. BLS services, on the other hand, handle non-invasive care such as CPR and basic airway management.
                                     </p>
                                 </div>
                             </li>

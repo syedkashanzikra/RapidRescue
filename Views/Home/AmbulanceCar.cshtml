@@ -14,36 +14,25 @@
             <div class="col-xl-4 col-lg-5 order-box-2">
                 <div class="service-details__sidebar">
 
-                    <div class="view-all-service" data-aos="slide-up" data-aos-easing="linear"
-                         data-aos-duration="1000">
+                    <div class="view-all-service" data-aos="slide-up" data-aos-easing="linear" data-aos-duration="1000">
                         <ul class="service-pages">
                             <li class="active">
-                                <a href="services-single-1.html">
+                                <a asp-action="AmbulanceCar" asp-controller="Home">
                                     Ambulance Car <span class="icon-next-1"></span>
                                 </a>
                             </li>
                             <li>
-                                <a href="services-single-2.html">
-                                    Medical Flight Services <span class="icon-next-1"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="services-single-3.html">
+                                <a asp-action="MedicalEscort" asp-controller="Home">
                                     Medical Escort <span class="icon-next-1"></span>
                                 </a>
                             </li>
                             <li>
-                                <a href="services-single-4.html">
-                                    Private Air Ambulance <span class="icon-next-1"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="services-single-5.html">
+                                <a asp-action="AdvancedLifeSupport" asp-controller="Home">
                                     Advanced Life Support <span class="icon-next-1"></span>
                                 </a>
                             </li>
                             <li>
-                                <a href="services-single-6.html">
+                                <a asp-action="GeneralServices" asp-controller="Home">
                                     General Services <span class="icon-next-1"></span>
                                 </a>
                             </li>
@@ -56,8 +45,8 @@
                              style="background-image: url('~/homeassets/images/sidebar/sidebar-info-box-bg.jpg');"></div>
                         <h3>Need Help?</h3>
                         <p>
-                            Speak with a human to fill out a form? Call our corporate office, and we will connect
-                            you with a team member who can help.
+                            Need assistance or have a question? Contact our support team, and we will connect
+                            you with a professional who can guide you through the process.
                         </p>
                         <h2><a href="tel:+50033333">+ 1- (246) 333-0089</a></h2>
                     </div>
@@ -89,9 +78,13 @@
                     <div class="text-box1">
                         <h2>Ambulance Car</h2>
                         <p>
-                            Lorem ipsum is simply free text used by copytyping refreshing. Neque porro est qui
-                            dolorem ipsum quia quaed inventore veritatis et quasi architecto beatae vitae dicta
-                            sunt explicabo.
+                            Rapid Rescue's Ambulance Car service is designed to provide fast, reliable emergency transportation for patients in critical conditions. With a network of well-equipped ambulances and trained medical professionals, we ensure that you receive medical assistance as soon as possible.
+                        </p>
+                        <p>
+                            Our Ambulance Car service is available 24/7, making it accessible whenever an emergency arises. By simply pressing a button, an ambulance is dispatched to your location with no delays or cumbersome paperwork to slow down the process. After the ambulance reaches you, any required documentation can be completed at a later stage, prioritizing your health and safety first.
+                        </p>
+                        <p>
+                            With state-of-the-art tracking systems, we ensure that you can monitor the ambulance’s progress in real-time, giving you peace of mind in those crucial moments. Whether it's transporting patients to hospitals or providing on-site medical care, our service aims to reduce response times and improve outcomes for those in need.
                         </p>
                     </div>
 
@@ -102,9 +95,11 @@
                                 <div class="text-box2-single" data-aos="fade-right" data-aos-easing="linear"
                                      data-aos-duration="2500">
                                     <h4>
-                                        <span class="icon-right-arrow"></span> Help us Save a Life
+                                        <span class="icon-right-arrow"></span> Help Us Save a Life
                                     </h4>
-                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                    <p>
+                                        Join our mission to make medical care accessible to everyone. With Rapid Rescue, your support helps us ensure that more people can get the emergency care they need when they need it the most.
+                                    </p>
                                 </div>
                             </div>
 
@@ -112,14 +107,17 @@
                                 <div class="text-box2-single" data-aos="fade-left" data-aos-easing="linear"
                                      data-aos-duration="2500">
                                     <h4>
-                                        <span class="icon-right-arrow"></span> Join our Big Family
+                                        <span class="icon-right-arrow"></span> Join Our Big Family
                                     </h4>
-                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                    <p>
+                                        Rapid Rescue is more than just a service – we’re a family. By becoming a part of our team or using our services, you're helping create a community where emergency care is always within reach.
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- FAQ Section -->
                     <div class="faq-style1__content">
                         <ul class="accordion-box">
                             <li class="accordion block active-block">
@@ -127,16 +125,40 @@
                                     <div class="icon-outer">
                                         <i class="icon-down-arrow"></i>
                                     </div>
-                                    <h3>Interdum et malesuada fames ac ante ipsum</h3>
+                                    <h3>How do I book an ambulance with Rapid Rescue?</h3>
                                 </div>
                                 <div class="acc-content current">
                                     <p>
-                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                        Simply press the "Book Ambulance" button on our app or website, and we will immediately dispatch an ambulance to your location. There's no need to fill out forms before booking – just focus on getting the help you need.
                                     </p>
                                 </div>
                             </li>
-                            <!-- Add more accordion items if necessary -->
+                            <li class="accordion block">
+                                <div class="acc-btn">
+                                    <div class="icon-outer">
+                                        <i class="icon-down-arrow"></i>
+                                    </div>
+                                    <h3>Is there a fee for using the Ambulance Car service?</h3>
+                                </div>
+                                <div class="acc-content">
+                                    <p>
+                                        Yes, the cost of the service depends on the distance traveled and the type of medical assistance provided. You will be given a clear cost estimate when booking the service.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="accordion block">
+                                <div class="acc-btn">
+                                    <div class="icon-outer">
+                                        <i class="icon-down-arrow"></i>
+                                    </div>
+                                    <h3>How can I track the ambulance?</h3>
+                                </div>
+                                <div class="acc-content">
+                                    <p>
+                                        Once your booking is confirmed, you can track the ambulance in real-time using our app or the link provided via SMS. You will also receive updates on the estimated arrival time.
+                                    </p>
+                                </div>
+                            </li>
                         </ul>
                     </div>
 

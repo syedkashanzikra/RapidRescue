@@ -1,7 +1,7 @@
 ﻿@model List<Tuple<string, string>>
 
 @{
-    ViewData["Title"] = "GeneralServices";
+    ViewData["Title"] = "General Services";
 }
 
 @await Html.PartialAsync("Breadcrumb", Model)
@@ -14,17 +14,11 @@
             <div class="col-xl-4 col-lg-5 order-box-2">
                 <div class="service-details__sidebar">
 
-                    <div class="view-all-service" data-aos="slide-up" data-aos-easing="linear"
-                         data-aos-duration="1000">
+                    <div class="view-all-service" data-aos="slide-up" data-aos-easing="linear" data-aos-duration="1000">
                         <ul class="service-pages">
-                            <li>
+                            <li class="active">
                                 <a asp-action="AmbulanceCar" asp-controller="Home">
                                     Ambulance Car <span class="icon-next-1"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="MedicalFlightServices" asp-controller="Home">
-                                    Medical Flight Services <span class="icon-next-1"></span>
                                 </a>
                             </li>
                             <li>
@@ -33,16 +27,11 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-action="PrivateAirAmbulance" asp-controller="Home">
-                                    Private Air Ambulance <span class="icon-next-1"></span>
-                                </a>
-                            </li>
-                            <li>
                                 <a asp-action="AdvancedLifeSupport" asp-controller="Home">
                                     Advanced Life Support <span class="icon-next-1"></span>
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a asp-action="GeneralServices" asp-controller="Home">
                                     General Services <span class="icon-next-1"></span>
                                 </a>
@@ -56,8 +45,7 @@
                              style="background-image: url('~/homeassets/images/sidebar/sidebar-info-box-bg.jpg');"></div>
                         <h3>Need Help?</h3>
                         <p>
-                            Speak with a human to fill out a form? Call our corporate office, and we will connect
-                            you with a team member who can help.
+                            Need help or more information about our general services? Contact us today and speak with one of our team members for assistance.
                         </p>
                         <h2><a href="tel:+50033333">+ 1- (246) 333-0089</a></h2>
                     </div>
@@ -88,15 +76,10 @@
                     <div class="text-box1">
                         <h2>General Services</h2>
                         <p>
-                            Lorem ipsum is simply free text used by copytyping refreshing. Neque porro est qui
-                            dolorem ipsum quia quaed inventore veritatis et quasi architecto beatae vitae dicta
-                            sunt explicabo. Aelltes port lacus quis enim var sed efficitur turpis gilla sed sit
-                            amet finibus eros. Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s.
+                            At Rapid Rescue, we offer a wide range of emergency medical services tailored to meet the diverse needs of our community. Our general services include ambulance transportation, non-emergency medical transport, patient transfer between healthcare facilities, and more. Our dedicated team is committed to ensuring safe and efficient medical care in every situation.
                         </p>
                         <p>
-                            It has survived not only five centuries. Lorem Ipsum is simply dummy text of the new
-                            design printing and type setting Ipsum. When an unknown printer took a galley of type and scrambled it to make a type specimen book, it survived not only five centuries, but also the leap into electronic typesetting.
+                            Whether you need urgent care during an emergency or require a routine medical transfer, Rapid Rescue is here to help. We provide a seamless experience, focusing on patient safety and care coordination with hospitals and medical facilities. With our advanced technology and highly skilled personnel, we guarantee top-quality service and care.
                         </p>
                     </div>
 
@@ -108,7 +91,9 @@
                                     <h4>
                                         <span class="icon-right-arrow"></span> Help us Save a Life
                                     </h4>
-                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                    <p>
+                                        By utilizing our general services, you are contributing to saving lives. Every call we respond to is an opportunity to provide lifesaving medical care and transportation.
+                                    </p>
                                 </div>
                             </div>
 
@@ -116,9 +101,11 @@
                                 <div class="text-box2-single" data-aos="fade-left" data-aos-easing="linear"
                                      data-aos-duration="2500">
                                     <h4>
-                                        <span class="icon-right-arrow"></span> Join our Big Family
+                                        <span class="icon-right-arrow"></span> Join Our Big Family
                                     </h4>
-                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                    <p>
+                                        At Rapid Rescue, we consider our patients and their families part of our larger community. Join us in building a future where timely medical response is available to everyone.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -126,10 +113,7 @@
 
                     <div class="text-box3">
                         <p>
-                            When an unknown printer took a galley of type and scrambled it to make a type
-                            specimen book. It has survived not only five centuries, but also the leap into
-                            electronic typesetting. Lorem Ipsum has been the industry standard dummy text ever
-                            since the 1500s.
+                            Our general services are not limited to emergencies. We provide non-emergency medical transportation for patients requiring routine visits to hospitals, rehabilitation centers, or specialists. With our network of ambulances and medical professionals, we make sure that every patient receives the best care, no matter the situation.
                         </p>
                     </div>
 
@@ -139,25 +123,21 @@
                                 <div class="content-box">
                                     <h2>Service Benefits</h2>
                                     <p>
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
+                                        Our General Services offer a wide range of benefits for patients and healthcare providers:
                                     </p>
 
                                     <ul>
                                         <li>
-                                            <span class="icon-checked"></span> In id diam nec nisi
-                                            congue tincidunt
+                                            <span class="icon-checked"></span> Available for both emergency and non-emergency transport
                                         </li>
                                         <li>
-                                            <span class="icon-checked"></span> Pn malesuada purus a ligula
-                                            dapibus
+                                            <span class="icon-checked"></span> 24/7 availability and rapid response times
                                         </li>
                                         <li>
-                                            <span class="icon-checked"></span> Vestibulum tincidunt arcu vel
-                                            nisl
+                                            <span class="icon-checked"></span> Safe and reliable patient transfer services
                                         </li>
                                         <li>
-                                            <span class="icon-checked"></span> Sed tristique lorem non
-                                            tesque
+                                            <span class="icon-checked"></span> Highly trained medical professionals
                                         </li>
                                     </ul>
                                 </div>
@@ -171,6 +151,7 @@
                         </div>
                     </div>
 
+                    <!-- FAQ Section -->
                     <div class="faq-style1__content">
                         <ul class="accordion-box">
                             <li class="accordion block active-block">
@@ -178,12 +159,11 @@
                                     <div class="icon-outer">
                                         <i class="icon-down-arrow"></i>
                                     </div>
-                                    <h3>Interdum et malesuada fames ac ante ipsum</h3>
+                                    <h3>What types of general services do you provide?</h3>
                                 </div>
                                 <div class="acc-content current">
                                     <p>
-                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                        Our general services include emergency medical transportation, non-emergency medical transport, patient transfers between facilities, and more. We cater to a wide range of medical needs, ensuring patients receive timely and efficient care.
                                     </p>
                                 </div>
                             </li>
@@ -192,12 +172,11 @@
                                     <div class="icon-outer">
                                         <i class="icon-down-arrow"></i>
                                     </div>
-                                    <h3>Maecenas condimentum sollicitudin ligula.</h3>
+                                    <h3>Is your service available 24/7?</h3>
                                 </div>
                                 <div class="acc-content">
                                     <p>
-                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                        Yes, Rapid Rescue's services are available 24/7 to respond to both emergency and non-emergency needs. Our team is always ready to assist, no matter the time of day.
                                     </p>
                                 </div>
                             </li>
@@ -206,12 +185,11 @@
                                     <div class="icon-outer">
                                         <i class="icon-down-arrow"></i>
                                     </div>
-                                    <h3>Duis rhoncus orci ut metus rhoncus.</h3>
+                                    <h3>How do I book your general services?</h3>
                                 </div>
                                 <div class="acc-content">
                                     <p>
-                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                        You can book our general services by calling our helpline or using our online booking system. We will coordinate your transport and ensure you receive timely and professional care.
                                     </p>
                                 </div>
                             </li>
