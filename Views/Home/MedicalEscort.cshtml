@@ -1,7 +1,7 @@
 ﻿@model List<Tuple<string, string>>
 
 @{
-    ViewData["Title"] = "MedicalFlightServices";
+    ViewData["Title"] = "Medical Escort Services";
 }
 
 @await Html.PartialAsync("Breadcrumb", Model)
@@ -15,27 +15,16 @@
             <div class="col-xl-4 col-lg-5 order-box-2">
                 <div class="service-details__sidebar">
 
-                    <div class="view-all-service" data-aos="slide-up" data-aos-easing="linear"
-                         data-aos-duration="1000">
+                    <div class="view-all-service" data-aos="slide-up" data-aos-easing="linear" data-aos-duration="1000">
                         <ul class="service-pages">
-                            <li>
+                            <li class="active">
                                 <a asp-action="AmbulanceCar" asp-controller="Home">
                                     Ambulance Car <span class="icon-next-1"></span>
-                                </a>
-                            </li>
-                            <li class="active">
-                                <a asp-action="MedicalFlightServices" asp-controller="Home">
-                                    Medical Flight Services <span class="icon-next-1"></span>
                                 </a>
                             </li>
                             <li>
                                 <a asp-action="MedicalEscort" asp-controller="Home">
                                     Medical Escort <span class="icon-next-1"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="PrivateAirAmbulance" asp-controller="Home">
-                                    Private Air Ambulance <span class="icon-next-1"></span>
                                 </a>
                             </li>
                             <li>
@@ -57,8 +46,7 @@
                              style="background-image: url('~/homeassets/images/sidebar/sidebar-info-box-bg.jpg');"></div>
                         <h3>Need Help?</h3>
                         <p>
-                            Speak with a human to filling out a form? Call our corporate office, and we will connect
-                            you with a team member who can help.
+                            Need assistance with booking a medical escort service? Call our office, and we will connect you with a representative who can assist.
                         </p>
                         <h2><a href="tel:+50033333">+ 1- (246) 333-0089</a></h2>
                     </div>
@@ -71,7 +59,7 @@
                                     <span class="icon-checked-1"></span>
                                 </div>
                                 <div class="title">
-                                    <h5><a asp-action="MedicalFlightServices" asp-controller="Home">Download our Brochure</a></h5>
+                                    <h5><a asp-action="MedicalEscort" asp-controller="Home">Download our Brochure</a></h5>
                                 </div>
                             </li>
                         </ul>
@@ -83,21 +71,16 @@
             <div class="col-xl-8 col-lg-7 order-box-1">
                 <div class="service-details__content">
                     <div class="img-box1">
-                        <img src="~/homeassets/images/services/service-details-3-img1.jpg" alt="Medical Flight Services Image" />
+                        <img src="~/homeassets/images/services/service-details-3-img1.jpg" alt="Medical Escort Services Image" />
                     </div>
 
                     <div class="text-box1">
-                        <h2>Medical Escort</h2>
+                        <h2>Medical Escort Services</h2>
                         <p>
-                            Lorem ipsum is simply free text used by copytyping refreshing. Neque porro est qui
-                            dolorem ipsum quia quaed inventore veritatis et quasi architecto beatae vitae dicta
-                            sunt explicabo. Aelltes port lacus quis enim var sed efficitur turpis gilla sed sit
-                            amet finibus eros. Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the ndustry standard dummy text ever since the 1500s.
+                            Rapid Rescue's Medical Escort Services offer professional, trained medical personnel to accompany patients who need medical supervision during travel. Whether the patient is traveling by air, land, or sea, our highly qualified medical staff provides continuous care, ensuring the patient’s well-being throughout the journey.
                         </p>
                         <p>
-                            It has survived not only five centuries. Lorem Ipsum is simply dummy text of the new
-                            design printing and type setting Ipsum. When an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            This service is ideal for patients who require medical monitoring but do not need the full setup of an air ambulance. Our medical escorts are experienced in handling various medical conditions and emergencies, ensuring the patient arrives safely and comfortably at their destination.
                         </p>
                     </div>
 
@@ -109,7 +92,9 @@
                                     <h4>
                                         <span class="icon-right-arrow"></span> Help us Save a Life
                                     </h4>
-                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                    <p>
+                                        By choosing Rapid Rescue’s Medical Escort Services, you're helping us provide life-saving care and comfort to patients who need medical supervision while traveling.
+                                    </p>
                                 </div>
                             </div>
 
@@ -117,9 +102,11 @@
                                 <div class="text-box2-single" data-aos="fade-left" data-aos-easing="linear"
                                      data-aos-duration="2500">
                                     <h4>
-                                        <span class="icon-right-arrow"></span> Join our Big Family
+                                        <span class="icon-right-arrow"></span> Join Our Big Family
                                     </h4>
-                                    <p>Nullam mollis elit quis dusto is lacinia efficitur</p>
+                                    <p>
+                                        Be part of a community dedicated to making medical transport services accessible to all, ensuring every patient has a safe journey with continuous care.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -127,10 +114,7 @@
 
                     <div class="text-box3">
                         <p>
-                            When an unknown printer took a galley of type and scrambled it to make a type
-                            specimen book. It has survived not only five centuries, but also the leap into
-                            electronic typesetting. Lorem Ipsum has been the industry standard dummy text ever
-                            since the 1500s.
+                            Our medical escorts are highly trained professionals, including paramedics and nurses, capable of providing advanced medical care during the entire duration of the trip. With Rapid Rescue, patients can be assured that they are in safe hands every step of the way.
                         </p>
                     </div>
 
@@ -140,25 +124,21 @@
                                 <div class="content-box">
                                     <h2>Service Benefits</h2>
                                     <p>
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
+                                        Here are some of the benefits of using our Medical Escort Services:
                                     </p>
 
                                     <ul>
                                         <li>
-                                            <span class="icon-checked"></span> In id diam nec nisi
-                                            congue tincidunt
+                                            <span class="icon-checked"></span> Professional medical staff escorting patients during transport
                                         </li>
                                         <li>
-                                            <span class="icon-checked"></span> Pn malesuada purus a ligula
-                                            dapibus
+                                            <span class="icon-checked"></span> Continuous medical monitoring and support
                                         </li>
                                         <li>
-                                            <span class="icon-checked"></span> Vestibulum tincidunt arcu vel
-                                            nisl
+                                            <span class="icon-checked"></span> Suitable for non-emergency and stabilized patients
                                         </li>
                                         <li>
-                                            <span class="icon-checked"></span> Sed tristique lorem non
-                                            tesque
+                                            <span class="icon-checked"></span> Coordination with healthcare providers for seamless service
                                         </li>
                                     </ul>
                                 </div>
@@ -172,6 +152,7 @@
                         </div>
                     </div>
 
+                    <!-- FAQ Section -->
                     <div class="faq-style1__content">
                         <ul class="accordion-box">
                             <li class="accordion block active-block">
@@ -179,12 +160,11 @@
                                     <div class="icon-outer">
                                         <i class="icon-down-arrow"></i>
                                     </div>
-                                    <h3>Interdum et malesuada fames ac ante ipsum</h3>
+                                    <h3>What is a Medical Escort Service?</h3>
                                 </div>
                                 <div class="acc-content current">
                                     <p>
-                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                        A Medical Escort Service provides a trained medical professional to accompany patients during their travels, offering medical support and monitoring throughout the journey.
                                     </p>
                                 </div>
                             </li>
@@ -193,12 +173,11 @@
                                     <div class="icon-outer">
                                         <i class="icon-down-arrow"></i>
                                     </div>
-                                    <h3>Maecenas condimentum sollicitudin ligula.</h3>
+                                    <h3>When should I use a Medical Escort Service?</h3>
                                 </div>
                                 <div class="acc-content">
                                     <p>
-                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                        Medical Escort Services are ideal for patients who are stable but require medical supervision or support while traveling. This is often used for long-distance travel when a patient doesn't need an air ambulance.
                                     </p>
                                 </div>
                             </li>
@@ -207,12 +186,11 @@
                                     <div class="icon-outer">
                                         <i class="icon-down-arrow"></i>
                                     </div>
-                                    <h3>Duis rhoncus orci ut metus rhoncus.</h3>
+                                    <h3>What is the cost of a Medical Escort Service?</h3>
                                 </div>
                                 <div class="acc-content">
                                     <p>
-                                        Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                        ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                        The cost depends on factors like the distance, type of transportation, and level of medical care needed. Contact us for a detailed quote based on your specific situation.
                                     </p>
                                 </div>
                             </li>
@@ -227,4 +205,3 @@
     </div>
 </section>
 <!-- End Service Details area -->
-

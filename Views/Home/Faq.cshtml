@@ -1,7 +1,7 @@
 ﻿@model List<Tuple<string, string>>
 
 @{
-    ViewData["Title"] = "Faq";
+    ViewData["Title"] = "Frequently Asked Questions";
 }
 @await Html.PartialAsync("Breadcrumb", Model)
 
@@ -18,13 +18,12 @@
                                     <i class="flaticon-down-arrow-2"></i>
                                 </div>
                                 <h3>
-                                    Interdum et malesuada fames ac ante ipsum
+                                    How do I book an ambulance through Rapid Rescue?
                                 </h3>
                             </div>
                             <div class="acc-content current">
                                 <p>
-                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                    You can book an ambulance through our app or website by clicking the “Book Ambulance” button. The nearest ambulance will be dispatched to your location immediately, and you can fill in any additional details afterward.
                                 </p>
                             </div>
                         </li>
@@ -34,13 +33,12 @@
                                     <i class="flaticon-down-arrow-2"></i>
                                 </div>
                                 <h3>
-                                    Maecenas condimentum sollicitudin ligula,
+                                    Are your services available 24/7?
                                 </h3>
                             </div>
                             <div class="acc-content">
                                 <p>
-                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                    Yes, Rapid Rescue is available 24/7 to ensure that you receive emergency medical transportation whenever needed, no matter the time of day.
                                 </p>
                             </div>
                         </li>
@@ -50,13 +48,12 @@
                                     <i class="flaticon-down-arrow-2"></i>
                                 </div>
                                 <h3>
-                                    Duis rhoncus orci ut metus rhoncus
+                                    What information do I need to provide during an emergency booking?
                                 </h3>
                             </div>
                             <div class="acc-content">
                                 <p>
-                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                    In case of an emergency, simply provide your location and confirm the type of service you need. Detailed information can be provided after the ambulance arrives.
                                 </p>
                             </div>
                         </li>
@@ -73,13 +70,12 @@
                                     <i class="flaticon-down-arrow-2"></i>
                                 </div>
                                 <h3>
-                                    Interdum et malesuada fames ac ante ipsum
+                                    Do you offer non-emergency medical transport?
                                 </h3>
                             </div>
                             <div class="acc-content current">
                                 <p>
-                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                    Yes, we provide non-emergency medical transport for patients who need to be transported between hospitals, rehabilitation centers, or for scheduled appointments.
                                 </p>
                             </div>
                         </li>
@@ -89,13 +85,12 @@
                                     <i class="flaticon-down-arrow-2"></i>
                                 </div>
                                 <h3>
-                                    Maecenas condimentum sollicitudin ligula,
+                                    How do I track the ambulance after booking?
                                 </h3>
                             </div>
                             <div class="acc-content">
                                 <p>
-                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                    Once your booking is confirmed, you can track the ambulance in real-time through the app, and you will also receive notifications with the estimated time of arrival.
                                 </p>
                             </div>
                         </li>
@@ -105,13 +100,12 @@
                                     <i class="flaticon-down-arrow-2"></i>
                                 </div>
                                 <h3>
-                                    Duis rhoncus orci ut metus rhoncus
+                                    What payment methods do you accept?
                                 </h3>
                             </div>
                             <div class="acc-content">
                                 <p>
-                                    Suspendisse finibus urna mauris, vitae consequat quam vel. Vestibulum leo
-                                    ligula, vit commodo nisl Sed luctus venenatis pellentesque.
+                                    We accept various payment methods, including credit/debit cards, mobile payments, and direct billing with select insurance providers. Please check our payment options during booking.
                                 </p>
                             </div>
                         </li>
@@ -134,22 +128,20 @@
                             <span class="icon-heartbeat"></span>
                         </div>
                         <div class="sub-title">
-                            <h3>Send us Message</h3>
+                            <h3>Send us a Message</h3>
                         </div>
-                        <h2>Write us Anytime</h2>
+                        <h2>Write to Us Anytime</h2>
                     </div>
                     <form id="faq-form" name="faq_form" class="default-form1" action="faq.html#" method="post">
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="input-box">
-                                    <input type="text" name="form_name" value="" placeholder="Full name"
-                                           required="">
+                                    <input type="text" name="form_name" value="" placeholder="Full name" required="">
                                 </div>
                             </div>
                             <div class="col-xl-6">
                                 <div class="input-box">
-                                    <input type="email" name="form_email" value="" placeholder="Email address"
-                                           required="">
+                                    <input type="email" name="form_email" value="" placeholder="Email address" required="">
                                 </div>
                             </div>
                         </div>
@@ -168,8 +160,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="input-box">
-                                    <textarea name="form_message" placeholder="Your Question ..."
-                                              required=""></textarea>
+                                    <textarea name="form_message" placeholder="Your Question ..." required=""></textarea>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +169,6 @@
                                 <span class="txt">Send Request</span>
                             </button>
                         </div>
-
                     </form>
                 </div>
 
@@ -186,4 +176,4 @@
         </div>
     </div>
 </section>
-
+<!--End Faq Form Area-->
