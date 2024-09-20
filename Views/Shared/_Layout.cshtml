@@ -73,6 +73,12 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <script src="~/homeassets/js/html5shiv.js"></script>
     <![endif]-->
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
 
 </head>
 
@@ -617,9 +623,72 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM&callback=initMap">
     </script>
 
+    <script>
+
+        var map;
+        var driverMarkers = {};
+
+        function initMap() {
+            var patientLocation = { lat: 24.8607, lng: 67.0011 };  // Example patient coordinates
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: patientLocation
+            });
+
+            const connection = new signalR.HubConnectionBuilder().withUrl("/ambulanceHub").build();
+
+            connection.start().catch(err => console.error(err.toString()));
+
+            connection.on("ReceiveLocationUpdate", function (driverId, latitude, longitude) {
+                if (driverMarkers[driverId]) {
+                    driverMarkers[driverId].setPosition({ lat: latitude, lng: longitude });
+                } else {
+                    var marker = new google.maps.Marker({
+                        position: { lat: latitude, lng: longitude },
+                        map: map,
+                        title: "Driver " + driverId
+                    });
+                    driverMarkers[driverId] = marker;
+                }
+            });
+        }
+
+        // Request Ambulance button logic
+        document.getElementById('requestAmbulanceBtn').addEventListener('click', function () {
+            var userLat = 24.8607;  // Example user's latitude
+            var userLng = 67.0011;  // Example user's longitude
+
+            // Make an AJAX request to the server to request an ambulance
+            fetch('/Ambulance/RequestAmbulance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: JSON.stringify({ patientLat: userLat, patientLng: userLng })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.driverId) {
+                        alert("Ambulance is on the way! Nearest driver ID: " + data.driverId + " ETA: " + data.eta + " minutes.");
+                        // Real-time location will be handled by SignalR, no need to manually update the map here
+                    } else {
+                        alert("No active drivers available.");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+
     <!-- thm custom script -->
     <script src="~/homeassets/js/custom.js"></script>
 
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_pOFVReydm5XRyae2wxzFEPyWnEUzOf4&callback=initMap">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.9/signalr.min.js"></script>
 
 
 </body>

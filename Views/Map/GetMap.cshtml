@@ -1,112 +1,42 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Google Maps View</title>
-    <style>
-        #map {
-            height: 600px;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="row text-right-rtl">
-            <div class="col-xl-6">
-                <div class="about-style3__image">
-                    <div class="inner">
-                        
-                    </div>
+﻿@{
+    ViewData["Title"] = "Map Page";
+
+}
+
+
+<section class="about-style1-area">
+
+    <div class="row text-right-rtl">
+        <div class="col-xl-6">
+            <div class="about-style3__image">
+                <div class="inner">
                 </div>
             </div>
-            <div class="col-xl-6">
-                <div class="about-style3__content">
-                    <div class="sec-title">
-                        <div class="icon">
-                            <span class="icon-heartbeat"></span>
-                        </div>
-                        <div class="sub-title">
-                            <form method="post">
-    @Html.AntiForgeryToken()
+        </div>
+        <div class="col-xl-6">
+            <div class="about-style3__content">
+                <div class="sec-title">
+                    <div class="icon">
+                        <span class="icon-heartbeat"></span>
+                    </div>
+                    <div class="sub-title">
+                        <form method="post">
+                            @Html.AntiForgeryToken()
                             <button id="requestAmbulanceBtn" style="position: absolute; top: 20px; left: 20px; z-index: 5;">
                                 Request Ambulance
                             </button>
-                            </form>
-                        </div>
+                        </form>
                     </div>
-
                 </div>
-         </div>
-    <!-- Request Ambulance Button -->
-    
-     <div id="map"></div>
- 
-    
 
-    <script>
-        var map;
-        var driverMarkers = {};
+            </div>
+        </div>
+        <!-- Request Ambulance Button -->
 
-        function initMap() {
-            var patientLocation = { lat: 24.8607, lng: 67.0011 };  // Example patient coordinates
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 13,
-                center: patientLocation
-            });
+        <div id="map"></div>
 
-            const connection = new signalR.HubConnectionBuilder().withUrl("/ambulanceHub").build();
+        </section>
 
-            connection.start().catch(err => console.error(err.toString()));
 
-            connection.on("ReceiveLocationUpdate", function (driverId, latitude, longitude) {
-                if (driverMarkers[driverId]) {
-                    driverMarkers[driverId].setPosition({ lat: latitude, lng: longitude });
-                } else {
-                    var marker = new google.maps.Marker({
-                        position: { lat: latitude, lng: longitude },
-                        map: map,
-                        title: "Driver " + driverId
-                    });
-                    driverMarkers[driverId] = marker;
-                }
-            });
-        }
-
-                // Request Ambulance button logic
-                document.getElementById('requestAmbulanceBtn').addEventListener('click', function () {
-                    var userLat = 24.8607;  // Example user's latitude
-                    var userLng = 67.0011;  // Example user's longitude
-
-                    // Make an AJAX request to the server to request an ambulance
-                    fetch('/Ambulance/RequestAmbulance', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('input[name="__RequestVerificationToken"]').value
-                        },
-                        body: JSON.stringify({ patientLat: userLat, patientLng: userLng })
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.driverId) {
-                                alert("Ambulance is on the way! Nearest driver ID: " + data.driverId + " ETA: " + data.eta + " minutes.");
-                                // Real-time location will be handled by SignalR, no need to manually update the map here
-                            } else {
-                                alert("No active drivers available.");
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-                });
-    </script>
-
-    <!-- Include the Google Maps API -->
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_pOFVReydm5XRyae2wxzFEPyWnEUzOf4&callback=initMap">
-    </script>
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.9/signalr.min.js"></script>
-
-</body>
-</html>
+        <!-- Include the Google Maps API -->
+       
