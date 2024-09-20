@@ -14,10 +14,14 @@ namespace RapidRescue.Controllers
     public class AmbulanceController : Controller
     {
         private readonly RapidRescueContext _context;
+        private readonly DriverInfo _driverInfo;
 
-        public AmbulanceController(RapidRescueContext context)
+
+
+        public AmbulanceController(RapidRescueContext context, DriverInfo driverInfo)
         {
             _context = context;
+            _driverInfo = driverInfo;
         }
 
 
@@ -185,5 +189,69 @@ namespace RapidRescue.Controllers
         {
             return _context.Ambulances.Any(e => e.AmbulanceId == id);
         }
+
+        // Handles the ambulance request and returns the nearest driver without patient info
+        [HttpPost]
+        public IActionResult RequestAmbulance([FromBody] AmbulanceRequest model)
+        {
+            // Generate a unique request ID
+            var requestId = Guid.NewGuid().ToString();
+
+            // Find nearest driver using latitude and longitude
+            var nearestDriver = _context.DriverInfo
+                .Where(d => d.IsActive && d.Latitude != null && d.Longitude != null)
+                .OrderBy(d => GetDistance(d.Latitude.Value, d.Longitude.Value, model.PatientLat, model.PatientLng))
+                .FirstOrDefault();
+
+            if (nearestDriver != null)
+            {
+                // Create and save the AmbulanceRequest in the database (without patient info)
+                var ambulanceRequest = new AmbulanceRequest
+                {
+                    RequestId = requestId,
+                    DriverId = nearestDriver.DriverId.ToString(),
+                    PatientLat = model.PatientLat,
+                    PatientLng = model.PatientLng,
+                    RequestTime = DateTime.UtcNow
+                };
+
+                _context.AmbulanceRequests.Add(ambulanceRequest);
+                _context.SaveChanges();
+
+                // Return driver information and request ID to the client
+                return Ok(new
+                {
+                    driverId = nearestDriver.DriverId,
+                    eta = CalculateEstimatedArrival(nearestDriver, model.PatientLat, model.PatientLng),
+                    requestId = requestId
+                });
+            }
+
+            return NotFound("No active drivers available.");
+        }
+
+        // Helper method to calculate the estimated arrival time of the ambulance
+        private double CalculateEstimatedArrival(DriverInfo driver, double patientLat, double patientLng)
+        {
+            double distance = GetDistance(driver.Latitude.Value, driver.Longitude.Value, patientLat, patientLng);
+            double averageSpeed = 50;  // Example speed in km/h
+            return (distance / averageSpeed) * 60;  // Return ETA in minutes
+        }
+
+        // Haversine formula to calculate distance between two lat/lng points
+        private double GetDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            var R = 6371;  // Radius of the Earth in km
+            var dLat = (lat2 - lat1) * Math.PI / 180;
+            var dLon = (lon2 - lon1) * Math.PI / 180;
+            var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                    Math.Cos(lat1 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180) *
+                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var distance = R * c;
+            return distance;
+        }
+
+
     }
 }

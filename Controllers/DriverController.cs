@@ -312,11 +312,9 @@ namespace RapidRescue.Controllers
         public DriverInfo GetNearestDriver(double patientLat, double patientLng)
         {
             return _context.DriverInfo
-                .Where(d => d.IsActive)
-                .OrderBy(d => GetDistance(d.Latitude ?? 0.0,  // Handle nullable latitude
-                                          d.Longitude ?? 0.0, // Handle nullable longitude
-                                          patientLat,
-                                          patientLng)).FirstOrDefault();
+            .Where(d => d.IsActive)
+            .OrderBy(d => GetDistance(d.Latitude ?? 0.0, d.Longitude ?? 0.0, patientLat, patientLng))
+            .FirstOrDefault();
         }
 
         public double GetDistance(double lat1, double lon1, double lat2, double lon2)
