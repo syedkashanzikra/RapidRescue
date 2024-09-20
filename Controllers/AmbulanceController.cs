@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RapidRescue.Context;
 using RapidRescue.Models;
@@ -15,12 +16,10 @@ namespace RapidRescue.Controllers
     {
         private readonly RapidRescueContext _context;
 
-        private readonly ILogger<AmbulanceController> _logger;
 
-        public AmbulanceController(RapidRescueContext context, ILogger<AmbulanceController> logger)
+        public AmbulanceController(RapidRescueContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
 
@@ -188,86 +187,5 @@ namespace RapidRescue.Controllers
         {
             return _context.Ambulances.Any(e => e.AmbulanceId == id);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> RequestAmbulance([FromBody] AmbulanceRequest model)
-        {
-            try
-            {
-                var requestId = Guid.NewGuid().ToString();
-
-                // First fetch all active drivers from the database (this will execute the query in SQL)
-                var activeDrivers = _context.DriverInfo
-                    .Where(d => d.IsActive && d.Latitude != null && d.Longitude != null)
-                    .AsEnumerable();  // This pulls the data into memory, allowing us to use GetDistance
-
-                // Now perform the distance calculation in memory
-                var nearestDriver = activeDrivers
-                    .OrderBy(d => GetDistance(d.Latitude.Value, d.Longitude.Value, model.PatientLat, model.PatientLng))
-                    .FirstOrDefault();
-
-                if (nearestDriver != null)
-                {
-                    // Save the ambulance request in the database
-                    var ambulanceRequest = new AmbulanceRequest
-                    {
-                        RequestId = requestId,
-                        DriverId = nearestDriver.DriverId.ToString(),
-                        PatientLat = model.PatientLat,
-                        PatientLng = model.PatientLng,
-                        RequestTime = DateTime.UtcNow
-                    };
-
-                    _context.AmbulanceRequests.Add(ambulanceRequest);
-                    await _context.SaveChangesAsync();
-
-                    // Return driver information and request ID to the client
-                    return Ok(new
-                    {
-                        driverId = nearestDriver.DriverId,
-                        eta = CalculateEstimatedArrival(nearestDriver, model.PatientLat, model.PatientLng),
-                        requestId = requestId
-                    });
-                }
-
-                return NotFound("No active drivers available.");
-            }
-            catch (IOException ex)
-            {
-                // Log the IO exception with more context
-                _logger.LogWarning(ex, "Request was canceled by the client.");
-                return BadRequest("Request was canceled.");
-            }
-            catch (Exception ex)
-            {
-                // Log the detailed exception information
-                _logger.LogError(ex, "An error occurred while processing the ambulance request. Request data: {Model}", model);
-                return StatusCode(500, "An error occurred on the server.");
-            }
-        }
-
-
-        // Helper method to calculate the estimated arrival time of the ambulance
-        private double CalculateEstimatedArrival(DriverInfo driver, double patientLat, double patientLng)
-        {
-            double distance = GetDistance(driver.Latitude.Value, driver.Longitude.Value, patientLat, patientLng);
-            double averageSpeed = 50;  // Example speed in km/h
-            return (distance / averageSpeed) * 60;  // Return ETA in minutes
-        }
-
-        // Haversine formula to calculate distance between two lat/lng points
-        private double GetDistance(double lat1, double lon1, double lat2, double lon2)
-        {
-            var R = 6371;  // Radius of the Earth in km
-            var dLat = (lat2 - lat1) * Math.PI / 180;
-            var dLon = (lon2 - lon1) * Math.PI / 180;
-            var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                    Math.Cos(lat1 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180) *
-                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
-            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            var distance = R * c;
-            return distance;
-        }
-
     }
 }

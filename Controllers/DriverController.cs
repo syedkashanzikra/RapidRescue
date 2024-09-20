@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using RapidRescue.Context;
-using RapidRescue.Hubs;
 using RapidRescue.Models;
 using RapidRescue.ViewModels;
 
@@ -12,12 +11,10 @@ namespace RapidRescue.Controllers
     public class DriverController : Controller
     {
         private readonly RapidRescueContext _context;
-        private readonly IHubContext<AmbulanceHub> _hubContext;
 
-        public DriverController(RapidRescueContext context, IHubContext<AmbulanceHub> hubContext) 
+        public DriverController(RapidRescueContext context) 
         {
             _context = context;
-            _hubContext = hubContext;
         }
 
         [Route("/get-drivers")]
@@ -311,52 +308,6 @@ namespace RapidRescue.Controllers
             }
 
             return RedirectToAction("UpdateStatus", new { userId });
-        }
-
-        public DriverInfo GetNearestDriver(double patientLat, double patientLng)
-        {
-            return _context.DriverInfo
-            .Where(d => d.IsActive)
-            .OrderBy(d => GetDistance(d.Latitude ?? 0.0, d.Longitude ?? 0.0, patientLat, patientLng))
-            .FirstOrDefault();
-        }
-
-        public double GetDistance(double lat1, double lon1, double lat2, double lon2)
-        {
-            var R = 6371; // Radius of the Earth in km
-            var dLat = (lat2 - lat1) * Math.PI / 180;
-            var dLon = (lon2 - lon1) * Math.PI / 180;
-            var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                    Math.Cos(lat1 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180) *
-                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
-            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            var distance = R * c;
-            return distance;
-        }
-
-        public DriverController(IHubContext<AmbulanceHub> hubContext)
-        {
-            _hubContext = hubContext;
-        }
-
-        // This method is called when the driver's location is updated
-        [HttpPost]
-        public async Task<IActionResult> UpdateDriverLocation(int driverId, double latitude, double longitude)
-        {
-            // Update the driver's location in the database (optional)
-            var driver = _context.DriverInfo.FirstOrDefault(d => d.DriverId == driverId);
-            if (driver != null)
-            {
-                driver.Latitude = latitude;
-                driver.Longitude = longitude;
-                driver.UpdatedAt = DateTime.UtcNow;
-                await _context.SaveChangesAsync();
-            }
-
-            // Broadcast the driver's location to all clients
-            await _hubContext.Clients.All.SendAsync("ReceiveLocationUpdate", driverId, latitude, longitude);
-
-            return Ok();
         }
     }
 }
