@@ -204,7 +204,21 @@ namespace RapidRescue.Controllers
             return View(model);
         }
 
-        
+        [HttpPost]
+        [Route("/logout")]
+        public IActionResult Logout_User()
+        {
+            // Clear the session to log the user out
+            HttpContext.Session.Clear();
+
+            // Optionally, you can also remove cookies if you're using them for authentication
+            Response.Cookies.Delete(".AspNetCore.Session");
+
+            // Redirect to the login page or any other desired page
+            return RedirectToAction("Login_User", "User");
+        }
+
+
 
     }
 }
