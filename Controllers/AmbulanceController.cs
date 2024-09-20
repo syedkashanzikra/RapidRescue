@@ -14,14 +14,13 @@ namespace RapidRescue.Controllers
     public class AmbulanceController : Controller
     {
         private readonly RapidRescueContext _context;
-        private readonly DriverInfo _driverInfo;
 
+        private readonly ILogger<AmbulanceController> _logger;
 
-
-        public AmbulanceController(RapidRescueContext context, DriverInfo driverInfo)
+        public AmbulanceController(RapidRescueContext context, ILogger<AmbulanceController> logger)
         {
             _context = context;
-            _driverInfo = driverInfo;
+            _logger = logger;
         }
 
 
@@ -190,45 +189,63 @@ namespace RapidRescue.Controllers
             return _context.Ambulances.Any(e => e.AmbulanceId == id);
         }
 
-        // Handles the ambulance request and returns the nearest driver without patient info
         [HttpPost]
-        public IActionResult RequestAmbulance([FromBody] AmbulanceRequest model)
+        public async Task<IActionResult> RequestAmbulance([FromBody] AmbulanceRequest model)
         {
-            // Generate a unique request ID
-            var requestId = Guid.NewGuid().ToString();
-
-            // Find nearest driver using latitude and longitude
-            var nearestDriver = _context.DriverInfo
-                .Where(d => d.IsActive && d.Latitude != null && d.Longitude != null)
-                .OrderBy(d => GetDistance(d.Latitude.Value, d.Longitude.Value, model.PatientLat, model.PatientLng))
-                .FirstOrDefault();
-
-            if (nearestDriver != null)
+            try
             {
-                // Create and save the AmbulanceRequest in the database (without patient info)
-                var ambulanceRequest = new AmbulanceRequest
-                {
-                    RequestId = requestId,
-                    DriverId = nearestDriver.DriverId.ToString(),
-                    PatientLat = model.PatientLat,
-                    PatientLng = model.PatientLng,
-                    RequestTime = DateTime.UtcNow
-                };
+                var requestId = Guid.NewGuid().ToString();
 
-                _context.AmbulanceRequests.Add(ambulanceRequest);
-                _context.SaveChanges();
+                // First fetch all active drivers from the database (this will execute the query in SQL)
+                var activeDrivers = _context.DriverInfo
+                    .Where(d => d.IsActive && d.Latitude != null && d.Longitude != null)
+                    .AsEnumerable();  // This pulls the data into memory, allowing us to use GetDistance
 
-                // Return driver information and request ID to the client
-                return Ok(new
+                // Now perform the distance calculation in memory
+                var nearestDriver = activeDrivers
+                    .OrderBy(d => GetDistance(d.Latitude.Value, d.Longitude.Value, model.PatientLat, model.PatientLng))
+                    .FirstOrDefault();
+
+                if (nearestDriver != null)
                 {
-                    driverId = nearestDriver.DriverId,
-                    eta = CalculateEstimatedArrival(nearestDriver, model.PatientLat, model.PatientLng),
-                    requestId = requestId
-                });
+                    // Save the ambulance request in the database
+                    var ambulanceRequest = new AmbulanceRequest
+                    {
+                        RequestId = requestId,
+                        DriverId = nearestDriver.DriverId.ToString(),
+                        PatientLat = model.PatientLat,
+                        PatientLng = model.PatientLng,
+                        RequestTime = DateTime.UtcNow
+                    };
+
+                    _context.AmbulanceRequests.Add(ambulanceRequest);
+                    await _context.SaveChangesAsync();
+
+                    // Return driver information and request ID to the client
+                    return Ok(new
+                    {
+                        driverId = nearestDriver.DriverId,
+                        eta = CalculateEstimatedArrival(nearestDriver, model.PatientLat, model.PatientLng),
+                        requestId = requestId
+                    });
+                }
+
+                return NotFound("No active drivers available.");
             }
-
-            return NotFound("No active drivers available.");
+            catch (IOException ex)
+            {
+                // Log the IO exception with more context
+                _logger.LogWarning(ex, "Request was canceled by the client.");
+                return BadRequest("Request was canceled.");
+            }
+            catch (Exception ex)
+            {
+                // Log the detailed exception information
+                _logger.LogError(ex, "An error occurred while processing the ambulance request. Request data: {Model}", model);
+                return StatusCode(500, "An error occurred on the server.");
+            }
         }
+
 
         // Helper method to calculate the estimated arrival time of the ambulance
         private double CalculateEstimatedArrival(DriverInfo driver, double patientLat, double patientLng)
@@ -251,7 +268,6 @@ namespace RapidRescue.Controllers
             var distance = R * c;
             return distance;
         }
-
 
     }
 }
