@@ -38,7 +38,11 @@
             <a id="mobile_btn" class="mobile_btn float-start" href="index.html#sidebar"><img src="~/assets/img/icons/bar-icon.svg" alt></a>
             <div class="top-nav-search mob-view">
                 <form>
-                    <input type="text" class="form-control" placeholder="Search here">
+                    <input type="text" id="driverSearchInput" class="form-control" placeholder="Search here">
+                    <div id="searchResults" class="dropdown-menu"></div> <!-- Dropdown for results -->
+                    <div id="loadingSpinner" style="display:none; text-align:center; width:30px;height: 30px;">
+                        <p>Loading...</p>
+                    </div>
                     <a class="btn"><img src="~/assets/img/icons/search-normal.svg" alt></a>
                 </form>
             </div>
@@ -594,9 +598,91 @@
 
 
         </script>
-     
-           
-       
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#driverSearchInput').on('keyup', function () {
+                    var query = $(this).val();
+
+                    if (query.length > 2) { // Trigger search only if query is 3 or more characters
+                        $('#loadingSpinner').show(); // Show loading spinner
+                        $('#searchResults').hide(); // Hide the results while loading
+
+                        $.ajax({
+                            url: '/Search/SearchAll', // The action method in your SearchController
+                            method: 'GET',
+                            data: { query: query },
+                            success: function (response) {
+                                var resultsDropdown = $('#searchResults');
+                                resultsDropdown.empty(); // Clear previous results
+                                $('#loadingSpinner').hide(); // Hide the loading spinner
+
+                                // Display Drivers
+                                if (response.drivers.length > 0) {
+                                    resultsDropdown.append('<h6>Drivers</h6>');
+                                    $.each(response.drivers, function (index, driver) {
+                                        resultsDropdown.append(`
+                                                                <a class="dropdown-item" href="#">
+                                                                    <strong>${driver.firstName} ${driver.lastName}</strong><br>
+                                                                    Phone: ${driver.phoneNumber}<br>
+                                                                    License: ${driver.licenseNumber}<br>
+                                                                    Address: ${driver.address}
+                                                                </a>
+                                                            `);
+                                    });
+                                }
+
+                                // Display EMTs
+                                if (response.emts.length > 0) {
+                                    resultsDropdown.append('<h6>EMTs</h6>');
+                                    $.each(response.emts, function (index, emt) {
+                                        resultsDropdown.append(`
+                                                                <a class="dropdown-item" href="#">
+                                                                    <strong>${emt.firstName} ${emt.lastName}</strong><br>
+                                                                    Certification: ${emt.certificationNumber}<br>
+                                                                    License: ${emt.licenseNumber}<br>
+                                                                    Contact: ${emt.contactNumber}
+                                                                </a>
+                                                            `);
+                                    });
+                                }
+
+                                // Display Patients
+                                if (response.patients.length > 0) {
+                                    resultsDropdown.append('<h6>Patients</h6>');
+                                    $.each(response.patients, function (index, patient) {
+                                        resultsDropdown.append(`
+                                                                <a class="dropdown-item" href="#">
+                                                                    <strong>${patient.firstName} ${patient.lastName}</strong><br>
+                                                                    Mobile: ${patient.mobileNumber}<br>
+                                                                    Situation: ${patient.situation}<br>
+                                                                    Pickup Location: ${patient.pickupLocation}
+                                                                </a>
+                                                            `);
+                                    });
+                                }
+
+                                if (response.drivers.length === 0 && response.emts.length === 0 && response.patients.length === 0) {
+                                    resultsDropdown.append('<p>No results found</p>');
+                                }
+
+                                resultsDropdown.show(); // Show dropdown if results exist
+                            },
+                            error: function () {
+                                $('#loadingSpinner').hide(); // Hide loading spinner if error occurs
+                                alert('Error processing the request');
+                            }
+                        });
+                    } else {
+                        $('#loadingSpinner').hide(); // Hide the loading spinner if query is too short
+                        $('#searchResults').hide(); // Hide the results if query is too short
+                    }
+                });
+            });
+        </script>
+
+
 
 
         <script src="~/assets/js/jquery-3.7.1.min.js" type="350181ec80dc51c00069179a-text/javascript"></script>
