@@ -228,6 +228,13 @@
                 <li><a asp-action="GetEMTs" asp-controller="EMT">EMT List</a></li>
             </ul>
         </li>
+                            <li class="submenu">
+                                <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-08.svg" alt></span> <span> Ambulance </span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li><a asp-action="CreateAmbulance" asp-controller="Ambulance">Add Ambulance</a></li>
+                                    <li><a asp-action="GetAmbulance" asp-controller="Ambulance">Ambulance List</a></li>
+                                </ul>
+                            </li>
                         }
 
                           @if (roleID == 3)
