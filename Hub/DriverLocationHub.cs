@@ -13,6 +13,27 @@ namespace RapidRescue.Hubs
             _context = context;
         }
 
+        //public async Task UpdateDriverLocation(int driverId, double latitude, double longitude)
+        //{
+        //    // Fetch the driver from the database
+        //    var driver = _context.DriverInfo.FirstOrDefault(d => d.DriverId == driverId);
+
+        //    if (driver != null)
+        //    {
+        //        // Update the driver's location in the database
+        //        driver.Latitude = latitude;
+        //        driver.Longitude = longitude;
+        //        driver.UpdatedAt = DateTime.UtcNow;
+
+        //        // Save changes to the database
+        //        _context.DriverInfo.Update(driver);
+        //        await _context.SaveChangesAsync();
+
+        //        // Notify all clients about this driver's location update
+        //        await Clients.All.SendAsync("ReceiveLocationUpdate", driverId, latitude, longitude);
+        //    }
+        //}
+
         public async Task UpdateDriverLocation(int driverId, double latitude, double longitude)
         {
             // Fetch the driver from the database
@@ -33,6 +54,9 @@ namespace RapidRescue.Hubs
                 await Clients.All.SendAsync("ReceiveLocationUpdate", driverId, latitude, longitude);
             }
         }
+
+
+
         public async Task SendLocationUpdate(int driverId, double latitude, double longitude)
         {
             // Store the location in the database
