@@ -22,5 +22,6 @@ namespace RapidRescue.Context
         public DbSet<Request> Requests { get; set; }
 
 
+
     }
 }
