@@ -21,7 +21,7 @@ namespace RapidRescue.Context
 
         public DbSet<Request> Requests { get; set; }
 
-
+        public DbSet<Notification> Notifications { get; set; }
 
     }
 }

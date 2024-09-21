@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using RapidRescue.Context;
+using RapidRescue.Helpers;
 using RapidRescue.Hubs;
 using RapidRescue.Models;
 
@@ -12,13 +14,16 @@ namespace RapidRescue.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly RapidRescueContext _context;
         private readonly IHubContext<DriverLocationHub> _hubContext;
+        private readonly NotificationHelper _notificationHelper; // Use NotificationHelper instead of Notification
 
-        public HomeController(ILogger<HomeController> logger, RapidRescueContext context, IHubContext<DriverLocationHub> hubContext)
+        public HomeController(ILogger<HomeController> logger, RapidRescueContext context, IHubContext<DriverLocationHub> hubContext, NotificationHelper notificationHelper) // Updated to inject NotificationHelper
         {
             _logger = logger;
             _context = context;
             _hubContext = hubContext;
+            _notificationHelper = notificationHelper; // Updated to assign NotificationHelper
         }
+
 
         // Home page
         [Route("/")]
@@ -30,53 +35,6 @@ namespace RapidRescue.Controllers
 
 
 
-
-        //[HttpPost]
-        //[Route("/request-ambulance")]
-        //public async Task<IActionResult> RequestAmbulance(double patientLatitude, double patientLongitude)
-        //{
-        //    // Check if the latitude and longitude are properly received
-        //    Console.WriteLine($"Received latitude: {patientLatitude}, longitude: {patientLongitude}");
-
-        //    // Fetch active drivers who are not currently handling a request (status is not "Dropped the Patient")
-        //    var activeDrivers = _context.DriverInfo
-        //        .Where(d => d.IsActive)
-        //        .Where(d => !_context.Requests.Any(r => r.DriverId == d.DriverId && r.DriverStatus != "Dropped the Patient"))
-        //        .ToList();
-
-        //    if (activeDrivers.Count == 0)
-        //    {
-        //        return NotFound("No free drivers available at the moment. Please try again later.");
-        //    }
-
-        //    // Find the nearest driver (you are not modifying the patient's latitude and longitude here)
-        //    var nearestDriver = activeDrivers
-        //        .Select(driver => new {
-        //            Driver = driver,
-        //            Distance = GetDistance(patientLatitude, patientLongitude, driver.Latitude.Value, driver.Longitude.Value)
-        //        })
-        //        .OrderBy(d => d.Distance)
-        //        .First().Driver;
-
-        //    // Create a new request entry in the database
-        //    var newRequest = new Request
-        //    {
-        //        DriverId = nearestDriver.DriverId,
-        //        PatientLatitude = patientLatitude,  // Save exact latitude received from the frontend
-        //        PatientLongitude = patientLongitude, // Save exact longitude received from the frontend
-        //        RequestedAt = DateTime.UtcNow,
-        //        DriverStatus = "Going to Patient"  // Initial status when the request is created
-        //    };
-
-        //    // Save the request to the database
-        //    _context.Requests.Add(newRequest);
-        //    await _context.SaveChangesAsync();
-
-        //    // Broadcast the location update via SignalR
-        //    await _hubContext.Clients.All.SendAsync("AssignDriver", nearestDriver.DriverId, patientLatitude, patientLongitude);
-
-        //    return Ok(nearestDriver);
-        //}
 
 
         [HttpPost]
@@ -107,7 +65,8 @@ namespace RapidRescue.Controllers
 
             // Find the nearest driver
             var nearestDriver = activeDrivers
-                .Select(driver => new {
+                .Select(driver => new
+                {
                     Driver = driver,
                     Distance = GetDistance(incomingRequest.PatientLatitude, incomingRequest.PatientLongitude, driver.Latitude.Value, driver.Longitude.Value)
                 })
@@ -127,6 +86,12 @@ namespace RapidRescue.Controllers
             // Save the request to the database
             _context.Requests.Add(newRequest);
             await _context.SaveChangesAsync();
+
+            // Get driver info from the user table based on the driver user_id
+            var driverUser = await _context.Users.FirstOrDefaultAsync(u => u.User_id == nearestDriver.User_id);
+
+            string message = $"Driver {driverUser.FirstName} {driverUser.LastName} has been assigned.";
+            await _notificationHelper.CreateNotification("Driver Assignment", message); // Updated from _helpers to _notificationHelper
 
             // Broadcast the location update via SignalR
             await _hubContext.Clients.All.SendAsync("AssignDriver", nearestDriver.DriverId, incomingRequest.PatientLatitude, incomingRequest.PatientLongitude);

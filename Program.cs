@@ -5,6 +5,7 @@ using RapidRescue.Data.Seeders;
 using RapidRescue.Filters;
 using RapidRescue.Services;
 using RapidRescue.Hubs;
+using RapidRescue.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IsAdminLoggedIn>();
 builder.Services.AddScoped<UserSessionCheckAttribute>();
 builder.Services.AddScoped<UserService>();
-
+builder.Services.AddScoped<NotificationHelper>();
 builder.Services.AddHttpClient();
 
 builder.Services.AddTransient<EmailService>();
