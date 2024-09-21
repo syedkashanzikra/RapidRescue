@@ -65,11 +65,7 @@ namespace RapidRescue.Controllers
             return View(breadcrumbs);
         }
 
-        [Route("/admin/get-drivers-map")]
-        public IActionResult DriversLocation()
-        {
-            return View();
-        }
+     
 
     }
 }

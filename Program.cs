@@ -26,7 +26,7 @@ builder.Services.AddHttpContextAccessor();
 // Register the filter as a service
 builder.Services.AddScoped<IsAdminLoggedIn>();
 builder.Services.AddScoped<UserSessionCheckAttribute>();
-
+builder.Services.AddScoped<UserService>();
 
 builder.Services.AddHttpClient();
 
