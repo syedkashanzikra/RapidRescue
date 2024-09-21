@@ -13,33 +13,26 @@ namespace RapidRescue.Hubs
             _context = context;
         }
 
-    
+        // Existing Methods for Driver Location Tracking
         public async Task UpdateDriverLocation(int driverId, double latitude, double longitude)
         {
-            // Fetch the driver from the database
             var driver = _context.DriverInfo.FirstOrDefault(d => d.DriverId == driverId);
 
             if (driver != null)
             {
-                // Update the driver's location in the database
                 driver.Latitude = latitude;
                 driver.Longitude = longitude;
                 driver.UpdatedAt = DateTime.UtcNow;
 
-                // Save changes to the database
                 _context.DriverInfo.Update(driver);
                 await _context.SaveChangesAsync();
 
-                // Notify all clients about this driver's location update
                 await Clients.All.SendAsync("ReceiveLocationUpdate", driverId, latitude, longitude);
             }
         }
 
-
-
         public async Task SendLocationUpdate(int driverId, double latitude, double longitude)
         {
-            // Store the location in the database
             using (var scope = Context.GetHttpContext().RequestServices.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<RapidRescueContext>();
@@ -56,22 +49,24 @@ namespace RapidRescue.Hubs
                 }
             }
 
-            // Broadcast the location update to all connected clients
             await Clients.All.SendAsync("ReceiveLocationUpdate", driverId, latitude, longitude);
         }
 
-        // Start tracking real-time location
         public async Task StartLocationTracking(int driverId)
         {
-            // Logic to start tracking the driver's location
             await Clients.All.SendAsync("TrackingStarted", driverId);
         }
 
-        // Stop tracking real-time location
         public async Task StopLocationTracking(int driverId)
         {
-            // Logic to stop tracking the driver's location
             await Clients.All.SendAsync("TrackingStopped", driverId);
+        }
+
+        // *** NEW: Notification Sound Broadcast ***
+        public async Task PlayNotificationSound()
+        {
+            // Broadcast to all connected clients to play the notification sound
+            await Clients.All.SendAsync("PlayNotificationSound");
         }
     }
 }

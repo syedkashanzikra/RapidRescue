@@ -1,23 +1,22 @@
-﻿using RapidRescue.Context;
+﻿using Microsoft.AspNetCore.SignalR;
+using RapidRescue.Hubs;
+using RapidRescue.Context;
 using RapidRescue.Models;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR;
-using RapidRescue.Hubs;
 
 namespace RapidRescue.Helpers
 {
     public class NotificationHelper
     {
         private readonly RapidRescueContext _context;
-        private readonly IHubContext<DriverLocationHub> _hubContext;
+        private readonly IHubContext<DriverLocationHub> _driverLocationHub;
 
-        public NotificationHelper(RapidRescueContext context, IHubContext<DriverLocationHub> hubContext)
+        public NotificationHelper(RapidRescueContext context, IHubContext<DriverLocationHub> driverLocationHub)
         {
             _context = context;
-            _hubContext = hubContext;
+            _driverLocationHub = driverLocationHub;
         }
 
-        // Method to create a new notification and broadcast it via SignalR
         public async Task CreateNotification(string notificationType, string notificationMessage)
         {
             var notification = new Notification
@@ -26,12 +25,11 @@ namespace RapidRescue.Helpers
                 NotificationMessage = notificationMessage
             };
 
-            // Save the notification in the database
             _context.Notifications.Add(notification);
             await _context.SaveChangesAsync();
 
-            // Send notification via SignalR
-            await _hubContext.Clients.All.SendAsync("ReceiveNotification", notificationMessage);
+            // Trigger notification sound after saving the notification
+            await _driverLocationHub.Clients.All.SendAsync("PlayNotificationSound");
         }
     }
 }
