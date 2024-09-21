@@ -699,152 +699,91 @@
             console.error(err.toString());
         });
 
-        // Request ambulance button click handler
-        // document.getElementById('requestAmbulanceBtn').addEventListener('click', function () {
-        //     if (navigator.geolocation) {
-        //         navigator.geolocation.getCurrentPosition(function (position) {
-        //             // Capture patient's exact latitude and longitude
-        //             patientLatitude = position.coords.latitude;
-        //             patientLongitude = position.coords.longitude;
 
-        //             console.log(`Patient location - Latitude: ${patientLatitude}, Longitude: ${patientLongitude}`);
-
-        //             // Place the patient's marker on the map with the custom icon
-        //             if (patientMarker) {
-        //                 patientMarker.setPosition({ lat: patientLatitude, lng: patientLongitude });
-        //             } else {
-        //                 patientMarker = new google.maps.Marker({
-        //                     position: { lat: patientLatitude, lng: patientLongitude },
-        //                     map: map,
-        //                     title: "Your Location",
-        //                     icon: patientIcon // Custom patient icon
-        //                 });
-        //             }
-
-        //             // Change map center to the patient's location
-        //             setMapCenter(patientLatitude, patientLongitude);
-
-        //             // Send request to the server to find the nearest driver
-        //             fetch('/request-ambulance', {
-        //                 method: 'POST',
-        //                 headers: {
-        //                     'Content-Type': 'application/json',
-        //                 },
-        //                 body: JSON.stringify({
-        //                     patientLatitude: patientLatitude,  // Pass exact latitude
-        //                     patientLongitude: patientLongitude // Pass exact longitude
-        //                 }),
-        //             })
-        //                 .then(response => response.json())
-        //                 .then(data => {
-        //                     console.log('Assigned driver:', data);
-
-        //                     // Place the driver's marker on the map with the custom icon
-        //                     if (driverMarker) {
-        //                         driverMarker.setPosition({ lat: data.latitude, lng: data.longitude });
-        //                     } else {
-        //                         driverMarker = new google.maps.Marker({
-        //                             position: { lat: data.latitude, lng: data.longitude },
-        //                             map: map,
-        //                             title: "Nearest Driver",
-        //                             icon: driverIcon // Custom driver icon
-        //                         });
-        //                     }
-
-        //                     // Show a confirmation message to the user
-        //                     document.getElementById('messageBox').innerHTML = `
-        //                         <div class="alert alert-success" role="alert">
-        //                             Ambulance assigned! Your driver is on the way.
-        //                         </div>`;
-        //                 })
-        //                 .catch((error) => {
-        //                     console.error('Error:', error);
-        //                     document.getElementById('messageBox').innerHTML = `
-        //                         <div class="alert alert-danger" role="alert">
-        //                             There was an error processing your request. Please try again.
-        //                         </div>`;
-        //                 });
-
-        //         }, function () {
-        //             alert("Geolocation is not supported by this browser.");
-        //         });
-        //     } else {
-        //         alert("Geolocation is not supported by this browser.");
-        //     }
-        // });
-
-        // Request ambulance button click handler
-        // Request ambulance button click handler
         document.getElementById('requestAmbulanceBtn').addEventListener('click', function () {
+            var requestButton = this;
+
+            // Disable the button to prevent multiple clicks
+            requestButton.disabled = true;
+
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    // Capture patient's exact latitude and longitude
-                    patientLatitude = position.coords.latitude;
-                    patientLongitude = position.coords.longitude;
+                    // Ensure geolocation values are valid
+                    if (position.coords && position.coords.latitude && position.coords.longitude) {
+                        var patientLatitude = position.coords.latitude;
+                        var patientLongitude = position.coords.longitude;
 
-                    console.log(`Patient location - Latitude: ${patientLatitude}, Longitude: ${patientLongitude}`);
+                        console.log(`Patient location - Latitude: ${patientLatitude}, Longitude: ${patientLongitude}`);
 
-                    // Place the patient's marker on the map with the custom icon
-                    if (patientMarker) {
-                        patientMarker.setPosition({ lat: patientLatitude, lng: patientLongitude });
+                        // Place the patient's marker on the map with the custom icon
+                        if (patientMarker) {
+                            patientMarker.setPosition({ lat: patientLatitude, lng: patientLongitude });
+                        } else {
+                            patientMarker = new google.maps.Marker({
+                                position: { lat: patientLatitude, lng: patientLongitude },
+                                map: map,
+                                title: "Your Location",
+                                icon: patientIcon // Custom patient icon
+                            });
+                        }
+
+                        // Change map center to the patient's location
+                        setMapCenter(patientLatitude, patientLongitude);
+
+                        // Send request to the server to find the nearest driver
+                        fetch('/request-ambulance', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                patientLatitude: patientLatitude,  // Pass exact latitude
+                                patientLongitude: patientLongitude // Pass exact longitude
+                            }),
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error("No drivers available or another error occurred.");
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Assigned driver:', data);
+
+                                // Place the driver's marker on the map with the custom icon
+                                if (driverMarker) {
+                                    driverMarker.setPosition({ lat: data.latitude, lng: data.longitude });
+                                } else {
+                                    driverMarker = new google.maps.Marker({
+                                        position: { lat: data.latitude, lng: data.longitude },
+                                        map: map,
+                                        title: "Nearest Driver",
+                                        icon: driverIcon // Custom driver icon
+                                    });
+                                }
+
+                                // Show a confirmation message to the user
+                                document.getElementById('messageBox').innerHTML = `
+                                    <div class="alert alert-success" role="alert">
+                                        Ambulance assigned! Your driver is on the way. Donot Reload The Page!
+                                    </div>`;
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                                document.getElementById('messageBox').innerHTML = `
+                                    <div class="alert alert-danger" role="alert">
+                                        There was an error processing your request. Please try again.
+                                    </div>`;
+                            })
+                            .finally(() => {
+                                // Re-enable the button once the request is completed
+                                requestButton.disabled = false;
+                            });
                     } else {
-                        patientMarker = new google.maps.Marker({
-                            position: { lat: patientLatitude, lng: patientLongitude },
-                            map: map,
-                            title: "Your Location",
-                            icon: patientIcon // Custom patient icon
-                        });
+                        alert("Unable to retrieve your location. Please try again.");
+                        // Re-enable the button if geolocation fails
+                        requestButton.disabled = false;
                     }
-
-                    // Change map center to the patient's location
-                    setMapCenter(patientLatitude, patientLongitude);
-
-                    // Send request to the server to find the nearest driver
-                    fetch('/request-ambulance', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            patientLatitude: patientLatitude,  // Pass exact latitude
-                            patientLongitude: patientLongitude // Pass exact longitude
-                        }),
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error("No drivers available or another error occurred.");
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            console.log('Assigned driver:', data);
-
-                            // Place the driver's marker on the map with the custom icon
-                            if (driverMarker) {
-                                driverMarker.setPosition({ lat: data.latitude, lng: data.longitude });
-                            } else {
-                                driverMarker = new google.maps.Marker({
-                                    position: { lat: data.latitude, lng: data.longitude },
-                                    map: map,
-                                    title: "Nearest Driver",
-                                    icon: driverIcon // Custom driver icon
-                                });
-                            }
-
-                            // Show a confirmation message to the user
-                            document.getElementById('messageBox').innerHTML = `
-                            <div class="alert alert-success" role="alert">
-                                Ambulance assigned! Your driver is on the way.
-                            </div>`;
-                        })
-                        .catch((error) => {
-                            console.error('Error:', error);
-                            document.getElementById('messageBox').innerHTML = `
-                            <div class="alert alert-danger" role="alert">
-                                There was an error processing your request. Please try again.
-                            </div>`;
-                        });
-
                 }, function (error) {
                     // Handle geolocation errors
                     console.error('Error in fetching location:', error.message);
@@ -862,6 +801,8 @@
                             alert("An unknown error occurred.");
                             break;
                     }
+                    // Re-enable the button after geolocation error
+                    requestButton.disabled = false;
                 }, {
                     enableHighAccuracy: true,
                     maximumAge: 0,
@@ -869,11 +810,13 @@
                 });
             } else {
                 alert("Geolocation is not supported by this browser.");
+                // Re-enable the button if geolocation is not supported
+                requestButton.disabled = false;
             }
         });
 
 
-        // Handle real-time driver location updates
+
         connection.on("AssignDriver", function (driverId, driverLat, driverLng) {
             // Update driver's location on the map in real-time
             if (driverMarker) {

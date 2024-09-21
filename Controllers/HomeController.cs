@@ -28,6 +28,9 @@ namespace RapidRescue.Controllers
             return View();
         }
 
+
+
+
         //[HttpPost]
         //[Route("/request-ambulance")]
         //public async Task<IActionResult> RequestAmbulance(double patientLatitude, double patientLongitude)
@@ -46,7 +49,7 @@ namespace RapidRescue.Controllers
         //        return NotFound("No free drivers available at the moment. Please try again later.");
         //    }
 
-        //    // Find the nearest driver
+        //    // Find the nearest driver (you are not modifying the patient's latitude and longitude here)
         //    var nearestDriver = activeDrivers
         //        .Select(driver => new {
         //            Driver = driver,
@@ -78,10 +81,17 @@ namespace RapidRescue.Controllers
 
         [HttpPost]
         [Route("/request-ambulance")]
-        public async Task<IActionResult> RequestAmbulance(double patientLatitude, double patientLongitude)
+        public async Task<IActionResult> RequestAmbulance([FromBody] Request incomingRequest)
         {
             // Check if the latitude and longitude are properly received
-            Console.WriteLine($"Received latitude: {patientLatitude}, longitude: {patientLongitude}");
+            Console.WriteLine($"Received latitude: {incomingRequest.PatientLatitude}, longitude: {incomingRequest.PatientLongitude}");
+
+            // Validate the latitude and longitude
+            if (incomingRequest.PatientLatitude == 0.0 || incomingRequest.PatientLongitude == 0.0)
+            {
+                Console.WriteLine("Error: Invalid latitude or longitude received.");
+                return BadRequest("Invalid latitude or longitude received.");
+            }
 
             // Fetch active drivers who are not currently handling a request (status is not "Dropped the Patient")
             var activeDrivers = _context.DriverInfo
@@ -91,14 +101,15 @@ namespace RapidRescue.Controllers
 
             if (activeDrivers.Count == 0)
             {
+                Console.WriteLine("Error: No free drivers available at the moment.");
                 return NotFound("No free drivers available at the moment. Please try again later.");
             }
 
-            // Find the nearest driver (you are not modifying the patient's latitude and longitude here)
+            // Find the nearest driver
             var nearestDriver = activeDrivers
                 .Select(driver => new {
                     Driver = driver,
-                    Distance = GetDistance(patientLatitude, patientLongitude, driver.Latitude.Value, driver.Longitude.Value)
+                    Distance = GetDistance(incomingRequest.PatientLatitude, incomingRequest.PatientLongitude, driver.Latitude.Value, driver.Longitude.Value)
                 })
                 .OrderBy(d => d.Distance)
                 .First().Driver;
@@ -107,8 +118,8 @@ namespace RapidRescue.Controllers
             var newRequest = new Request
             {
                 DriverId = nearestDriver.DriverId,
-                PatientLatitude = patientLatitude,  // Save exact latitude received from the frontend
-                PatientLongitude = patientLongitude, // Save exact longitude received from the frontend
+                PatientLatitude = incomingRequest.PatientLatitude,  // Save exact latitude received from the frontend
+                PatientLongitude = incomingRequest.PatientLongitude, // Save exact longitude received from the frontend
                 RequestedAt = DateTime.UtcNow,
                 DriverStatus = "Going to Patient"  // Initial status when the request is created
             };
@@ -118,28 +129,13 @@ namespace RapidRescue.Controllers
             await _context.SaveChangesAsync();
 
             // Broadcast the location update via SignalR
-            await _hubContext.Clients.All.SendAsync("AssignDriver", nearestDriver.DriverId, patientLatitude, patientLongitude);
+            await _hubContext.Clients.All.SendAsync("AssignDriver", nearestDriver.DriverId, incomingRequest.PatientLatitude, incomingRequest.PatientLongitude);
 
             return Ok(nearestDriver);
         }
 
 
-        // Method to calculate distance between two lat-long coordinates
-        //private double GetDistance(double lat1, double lon1, double lat2, double lon2)
-        //{
-        //    var R = 6371; // Earth radius in kilometers
-        //    var dLat = (lat2 - lat1) * Math.PI / 180;
-        //    var dLon = (lon2 - lon1) * Math.PI / 180;
-        //    var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-        //            Math.Cos(lat1 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180) *
-        //            Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
-        //    var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-        //    var distance = R * c; // Distance in kilometers
-        //    return distance;
-        //}
 
-
-        // Method to calculate distance between two lat-long coordinates
         private double GetDistance(double lat1, double lon1, double lat2, double lon2)
         {
             var R = 6371; // Earth radius in kilometers
@@ -154,8 +150,7 @@ namespace RapidRescue.Controllers
             // Check if the distance is 0 (or close to 0) and handle accordingly
             if (distance < 0.01) // For example, 10 meters
             {
-                // Distance is too small, so we assume the ambulance is at the patient's location
-                // You could return a special message or status here
+                
                 Console.WriteLine("Driver is already at the patient's location.");
             }
 
