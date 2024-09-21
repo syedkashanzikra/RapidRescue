@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using RapidRescue.Context;
+using RapidRescue.Hubs;
 using RapidRescue.Models;
 using RapidRescue.ViewModels;
 using static System.Net.WebRequestMethods;
@@ -12,10 +13,12 @@ namespace RapidRescue.Controllers
     public class DriverController : Controller
     {
         private readonly RapidRescueContext _context;
+        private readonly IHubContext<DriverLocationHub> _hubContext;
 
-        public DriverController(RapidRescueContext context) 
+        public DriverController(RapidRescueContext context, IHubContext<DriverLocationHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         [Route("/get-drivers")]
@@ -263,52 +266,53 @@ namespace RapidRescue.Controllers
             return View(driver);
         }
 
-        //[HttpPost]
-        //public IActionResult ActivateDriver(int userId)
-        //{
-        //    // Fetch the driver info based on the User_id passed from the form
-        //    var driver = _context.DriverInfo.SingleOrDefault(d => d.User_id == userId);
-
-        //    if (driver != null)
-        //    {
-        //        driver.IsActive = true;  // Set driver as active
-        //        driver.UpdatedAt = DateTime.UtcNow;  // Update timestamp
-        //        _context.SaveChanges();  // Save changes to database
-        //    }
-
-        //    return RedirectToAction("UpdateStatus");
-        //}
 
         [HttpPost]
-        public IActionResult ActivateDriver(int userId)
+        public async Task<IActionResult> ActivateDriver(int userId)
         {
-            // Fetch the driver info based on the User_id passed from the form
             var driver = _context.DriverInfo.SingleOrDefault(d => d.User_id == userId);
 
             if (driver != null)
             {
                 driver.IsActive = true;  // Set driver as active
                 driver.UpdatedAt = DateTime.UtcNow;  // Update timestamp
-                _context.SaveChanges();  // Save changes to database
+
+                // Start real-time location tracking
+                await StartRealTimeLocationTracking(driver.DriverId);
+
+                _context.SaveChanges();  // Save changes to the database
             }
 
             return RedirectToAction("UpdateStatus", new { userId });
         }
 
         [HttpPost]
-        public IActionResult DeactivateDriver(int userId)
+        public async Task<IActionResult> DeactivateDriver(int userId)
         {
-            // Fetch the driver info based on the User_id passed from the form
             var driver = _context.DriverInfo.SingleOrDefault(d => d.User_id == userId);
 
             if (driver != null)
             {
                 driver.IsActive = false;  // Set driver as inactive
                 driver.UpdatedAt = DateTime.UtcNow;  // Update timestamp
-                _context.SaveChanges();  // Save changes to database
+
+                // Stop real-time location tracking
+                await StopRealTimeLocationTracking(driver.DriverId);
+
+                _context.SaveChanges();  // Save changes to the database
             }
 
             return RedirectToAction("UpdateStatus", new { userId });
+        }
+
+        private async Task StartRealTimeLocationTracking(int driverId)
+        {
+            await _hubContext.Clients.All.SendAsync("StartLocationTracking", driverId);
+        }
+
+        private async Task StopRealTimeLocationTracking(int driverId)
+        {
+            await _hubContext.Clients.All.SendAsync("StopLocationTracking", driverId);
         }
 
 

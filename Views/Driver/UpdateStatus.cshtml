@@ -21,7 +21,7 @@
 
                         <form method="post" asp-controller="Driver" asp-action="DeactivateDriver">
                             <input type="hidden" name="userId" value="@userId" />
-                            <button type="submit" class="btn btn-lg btn-danger">
+                            <button type="submit" id="deactivateButton" class="btn btn-lg btn-danger">
                                 Go Inactive
                             </button>
                         </form>
@@ -32,7 +32,7 @@
 
                         <form method="post" asp-controller="Driver" asp-action="ActivateDriver">
                             <input type="hidden" name="userId" value="@userId" />
-                            <button type="submit" class="btn btn-lg btn-success">
+                            <button type="submit" id="activateButton" class="btn btn-lg btn-success">
                                 Go Active
                             </button>
                         </form>
@@ -42,3 +42,46 @@
         </div>
     </div>
 </div>
+
+<!-- Load SignalR JavaScript library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
+
+<script>
+    // Ensure driverId is available from the model
+    var driverId = @Model.DriverId;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // SignalR connection setup
+        var connection = new signalR.HubConnectionBuilder().withUrl("/driverLocationHub").build();
+
+        connection.start().then(function () {
+            console.log("SignalR connection established");
+
+            // Geolocation watch
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(function (position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+
+                    console.log("Sending location update:", latitude, longitude);
+
+                    // Ensure SignalR connection is established before sending data
+                    connection.invoke("SendLocationUpdate", driverId, latitude, longitude).catch(function (err) {
+                        console.error(err.toString());
+                    });
+                }, function (error) {
+                    console.error("Error fetching location: " + error.message);
+                }, {
+                    enableHighAccuracy: true,
+                    maximumAge: 0,
+                    timeout: 5000
+                });
+            } else {
+                console.error("Geolocation is not supported by this browser.");
+            }
+
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+    });
+</script>
