@@ -22,6 +22,75 @@ namespace RapidRescue.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("RapidRescue.Models.Ambulance", b =>
+                {
+                    b.Property<int>("AmbulanceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AmbulanceId"), 1L, 1);
+
+                    b.Property<int>("DriverId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EquipmentLevel")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("VehicleNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("AmbulanceId");
+
+                    b.HasIndex("DriverId");
+
+                    b.ToTable("Ambulances");
+                });
+
+            modelBuilder.Entity("RapidRescue.Models.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("SubmittedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contact");
+                });
+
             modelBuilder.Entity("RapidRescue.Models.DriverInfo", b =>
                 {
                     b.Property<int>("DriverId")
@@ -44,6 +113,9 @@ namespace RapidRescue.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("float");
+
                     b.Property<DateTime>("LicenseExpiryDate")
                         .HasColumnType("datetime2");
 
@@ -51,6 +123,9 @@ namespace RapidRescue.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -124,6 +199,30 @@ namespace RapidRescue.Migrations
                     b.ToTable("EMTs");
                 });
 
+            modelBuilder.Entity("RapidRescue.Models.Notification", b =>
+                {
+                    b.Property<int>("NotificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NotificationId"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NotificationMessage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NotificationType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NotificationId");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("RapidRescue.Models.PatientsInfo", b =>
                 {
                     b.Property<int>("Patient_Id")
@@ -170,6 +269,37 @@ namespace RapidRescue.Migrations
                     b.HasIndex("User_id");
 
                     b.ToTable("PatientsInfo");
+                });
+
+            modelBuilder.Entity("RapidRescue.Models.Request", b =>
+                {
+                    b.Property<int>("RequestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequestId"), 1L, 1);
+
+                    b.Property<int>("DriverId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DriverStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PatientLatitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PatientLongitude")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("RequestedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("RequestId");
+
+                    b.HasIndex("DriverId");
+
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("RapidRescue.Models.Roles", b =>
@@ -244,6 +374,17 @@ namespace RapidRescue.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("RapidRescue.Models.Ambulance", b =>
+                {
+                    b.HasOne("RapidRescue.Models.DriverInfo", "DriverInfo")
+                        .WithMany()
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DriverInfo");
+                });
+
             modelBuilder.Entity("RapidRescue.Models.DriverInfo", b =>
                 {
                     b.HasOne("RapidRescue.Models.Users", "Users")
@@ -275,6 +416,17 @@ namespace RapidRescue.Migrations
                         .IsRequired();
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("RapidRescue.Models.Request", b =>
+                {
+                    b.HasOne("RapidRescue.Models.DriverInfo", "DriverInfo")
+                        .WithMany()
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DriverInfo");
                 });
 
             modelBuilder.Entity("RapidRescue.Models.Users", b =>
