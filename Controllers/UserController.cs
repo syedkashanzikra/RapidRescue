@@ -219,7 +219,81 @@ namespace RapidRescue.Controllers
         }
 
 
+        [HttpGet]
+        [Route("/edit-profile")]
+        public async Task<IActionResult> EditProfile()
+        {
+            // Fetch the user ID from session
+            int? userId = HttpContext.Session.GetInt32("user_id");
 
+            if (userId == null)
+            {
+                // If no user is logged in, redirect to login page
+                return RedirectToAction("Login_User", "User");
+            }
+
+            // Get the user from the database using the session user_id
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.User_id == userId);
+
+            if (user == null)
+            {
+                // If the user does not exist, redirect to an error page or home
+                return RedirectToAction("Home", "Home");
+            }
+
+            // Prepare the EditProfileViewModel with the user's current information
+            var model = new EditProfileViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                // Password is left empty intentionally so the user can update it if they want
+                Password = ""
+            };
+
+            return View(model); // Pass the model to the view
+        }
+
+        [HttpPost]
+        [Route("/edit-profile")]
+        public async Task<IActionResult> EditProfile(EditProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                int? userId = HttpContext.Session.GetInt32("user_id");
+
+                if (userId == null)
+                {
+                    return RedirectToAction("Login_User", "User");
+                }
+
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.User_id == userId);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Home", "Home");
+                }
+
+                // Update user details
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Email = model.Email;
+
+                // Only update the password if a new password is provided
+                if (!string.IsNullOrWhiteSpace(model.Password))
+                {
+                    var passwordHasher = new PasswordHasher<Users>();
+                    user.Password = passwordHasher.HashPassword(user, model.Password);
+                }
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Admin", "Admin"); // Redirect to user profile page
+            }
+
+            return View(model);
+        }
 
     }
 }
