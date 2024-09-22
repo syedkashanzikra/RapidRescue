@@ -1,9 +1,8 @@
-
-
-
 # RAPID RESCUE - E-Ambulance Web Application
 
 ![image](https://github.com/user-attachments/assets/2e02cb55-7ae2-4ece-bf21-9b550fd63d81)
+
+Hosted Link: bitrebels.aptechgarden.com
 
 ## Project Overview
 
