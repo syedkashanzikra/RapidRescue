@@ -27,7 +27,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<SessionRemoval>();
 // Register the filter as a service
-builder.Services.AddScoped<DriverCheckingRole>(); // Registering the filter in DI
+builder.Services.AddScoped<DriverCheckingRole>();
 
 builder.Services.AddScoped<IsAdminLoggedIn>();
 builder.Services.AddScoped<UserSessionCheckAttribute>();
@@ -49,6 +49,9 @@ using (var scope = app.Services.CreateScope())
     // Now seed the roles and users
     RolesSeeder.SeedRoles(dbContext);
     UsersSeeder.SeedUsers(dbContext);
+    DriverInfoSeeder.SeedDrivers(dbContext);
+    PatientsInfoSeeder.SeedPatients(dbContext);
+    EMTSeeder.SeedEMTs(dbContext);
 }
 
 // Configure the HTTP request pipeline.

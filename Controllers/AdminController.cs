@@ -60,7 +60,39 @@ namespace RapidRescue.Controllers
         new Tuple<string, string>("Home", Url.Action("Home", "Home")),
         new Tuple<string, string>(dashboardName, "")
     };
+            // Fetch counts for dashboard cards
+            ViewBag.UserCount = await _context.Users.CountAsync(); // Total users count
+            ViewBag.PatientCount = await _context.PatientsInfo.CountAsync(); // Total patients
+            ViewBag.DriverCount = await _context.DriverInfo.CountAsync(); // Total drivers
+            ViewBag.EMTCount = await _context.EMTs.CountAsync(); // Total EMTs
+            ViewBag.RequestCount = await _context.Requests.CountAsync(); // Total requests (appointments)
 
+
+            var malePatients = await _context.PatientsInfo.Where(p => p.Gender == "Male").CountAsync();
+            var femalePatients = await _context.PatientsInfo.Where(p => p.Gender == "Female").CountAsync();
+            var totalPatients = malePatients + femalePatients;
+
+            ViewBag.MalePercentage = totalPatients > 0 ? (malePatients * 100) / totalPatients : 0;
+            ViewBag.FemalePercentage = totalPatients > 0 ? (femalePatients * 100) / totalPatients : 0;
+
+
+            ViewBag.RecentPatients = await _context.PatientsInfo
+                                      .OrderByDescending(p => p.RequestedTime)
+                                      .Take(5)  // Get the latest 5 patients
+                                      .ToListAsync();
+
+            // Fetch recent requests (replace with actual model properties)
+            ViewBag.RecentRequests = await _context.Requests
+                                                .OrderByDescending(r => r.RequestedAt)
+                                                .Take(5)  // Get the latest 5 requests
+                                                .ToListAsync();
+
+            ViewBag.RecentRequests = await _context.Requests
+    .Include(r => r.DriverInfo) // Ensure DriverInfo is included
+    .ThenInclude(d => d.Users)  // Ensure Users related to DriverInfo are included
+    .OrderByDescending(r => r.RequestedAt)
+    .Take(5)
+    .ToListAsync();
 
             return View(breadcrumbs);
         }
