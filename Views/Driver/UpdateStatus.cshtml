@@ -37,6 +37,10 @@
                             </button>
                         </form>
                     }
+
+                    <!-- Quick Action to Open in Google Maps -->
+                    <button id="openInGoogleMapsBtn" class="btn btn-info mt-4">View on Google Maps</button>
+
                 </div>
             </div>
         </div>
@@ -47,8 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
 
 <script>
-    // Ensure driverId is available from the model
     var driverId = @Model.DriverId;
+    var currentLatitude, currentLongitude;
 
     document.addEventListener('DOMContentLoaded', function () {
         // SignalR connection setup
@@ -60,13 +64,13 @@
             // Geolocation watch
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(function (position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
+                    currentLatitude = position.coords.latitude;
+                    currentLongitude = position.coords.longitude;
 
-                    console.log("Sending location update:", latitude, longitude);
+                    console.log("Sending location update:", currentLatitude, currentLongitude);
 
                     // Ensure SignalR connection is established before sending data
-                    connection.invoke("SendLocationUpdate", driverId, latitude, longitude).catch(function (err) {
+                    connection.invoke("SendLocationUpdate", driverId, currentLatitude, currentLongitude).catch(function (err) {
                         console.error(err.toString());
                     });
                 }, function (error) {
@@ -82,6 +86,16 @@
 
         }).catch(function (err) {
             return console.error(err.toString());
+        });
+
+        // Add event listener to open Google Maps with the current location
+        document.getElementById('openInGoogleMapsBtn').addEventListener('click', function () {
+            if (currentLatitude && currentLongitude) {
+                var googleMapsUrl = `https://www.google.com/maps?q=${currentLatitude},${currentLongitude}`;
+                window.open(googleMapsUrl, '_blank');
+            } else {
+                alert("Location is not available yet.");
+            }
         });
     });
 </script>

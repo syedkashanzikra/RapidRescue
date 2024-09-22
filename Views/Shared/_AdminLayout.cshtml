@@ -378,6 +378,20 @@
         <script src="~/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="350181ec80dc51c00069179a-|49" defer></script>
 
         <script>
+            // Function to open Google Maps with the provided latitude and longitude
+            function openInGoogleMaps(latitude, longitude) {
+                if (latitude && longitude) {
+                    var googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                    window.open(googleMapsUrl, '_blank');
+                } else {
+                    alert("Location is not available.");
+                }
+            }
+
+            // Function to set the request ID in the modal's hidden input field
+            function setDeleteRequestId(requestId) {
+                document.getElementById('deleteRequestId').value = requestId;
+            }
             $(document).ready(function () {
                 // Function to fetch notifications
                 function fetchNotifications() {

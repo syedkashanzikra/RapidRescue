@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using RapidRescue.Context;
 using RapidRescue.Helpers;
 using RapidRescue.Hubs;
 using RapidRescue.Models;
+using RapidRescue.Services;
 using RapidRescue.ViewModels;
 using static System.Net.WebRequestMethods;
 
@@ -16,9 +18,11 @@ namespace RapidRescue.Controllers
         private readonly RapidRescueContext _context;
         private readonly IHubContext<DriverLocationHub> _hubContext;
         private readonly NotificationHelper _notificationHelper;
-        public DriverController(RapidRescueContext context, IHubContext<DriverLocationHub> hubContext, NotificationHelper notificationHelper)
+        private readonly SessionRemoval _sessionRemoval;
+        public DriverController(RapidRescueContext context, IHubContext<DriverLocationHub> hubContext, NotificationHelper notificationHelper, SessionRemoval sessionRemoval)
         {
             _context = context;
+            _sessionRemoval = sessionRemoval;
             _hubContext = hubContext;
             _notificationHelper = notificationHelper;
         }
@@ -91,7 +95,7 @@ namespace RapidRescue.Controllers
                 IsActive = false,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                RememberToken="Added By Admin"
+                RememberToken = "Added By Admin"
             };
 
             _context.Users.Add(user);
@@ -122,26 +126,26 @@ namespace RapidRescue.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteDriver(int userId)
         {
-     
+
             var user = _context.Users.FirstOrDefault(u => u.User_id == userId);
 
             if (user == null)
             {
-                
+
                 TempData["Error"] = "User not found.";
                 return RedirectToAction("GetDrivers");
             }
 
-            
+
             var driverInfo = _context.DriverInfo.Where(d => d.User_id == userId).ToList();
 
-            
+
             if (driverInfo.Any())
             {
                 _context.DriverInfo.RemoveRange(driverInfo);
             }
 
-            
+
             _context.Users.Remove(user);
 
             _context.SaveChanges();
@@ -151,7 +155,7 @@ namespace RapidRescue.Controllers
             return RedirectToAction("GetDrivers");
         }
 
-        
+
         [HttpGet]
         [Route("/edit-driver/{id}")]
         public IActionResult EditDriver(int id)
@@ -192,7 +196,7 @@ namespace RapidRescue.Controllers
             return View(model);
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("/edit-driver/{id}")]
@@ -253,7 +257,7 @@ namespace RapidRescue.Controllers
             // Fetch the driver info based on User_id passed from the URL
             var driver = _context.DriverInfo.SingleOrDefault(d => d.User_id == userId);
 
-         
+
 
             var breadcrumbs = new List<Tuple<string, string>>()
     {
@@ -300,7 +304,7 @@ namespace RapidRescue.Controllers
 
                 // Stop real-time location tracking
                 await StopRealTimeLocationTracking(driver.DriverId);
-               
+
                 _context.SaveChanges();  // Save changes to the database
             }
 
@@ -319,7 +323,7 @@ namespace RapidRescue.Controllers
 
 
 
-        // View that lists the driver's requests
+      
         [HttpGet]
         public IActionResult DriverRequests(int userId)
         {
@@ -348,7 +352,7 @@ namespace RapidRescue.Controllers
             return View(requests);
         }
 
-        // POST action to update the request status
+
         [HttpPost]
         public async Task<IActionResult> UpdateRequestStatus(int requestId, string status)
         {
@@ -356,11 +360,14 @@ namespace RapidRescue.Controllers
             var request = _context.Requests.FirstOrDefault(r => r.RequestId == requestId);
             var userId = HttpContext.Session.GetInt32("user_id");
 
-
             if (request == null)
             {
                 return NotFound("Request not found");
             }
+
+            // Log the session before updating status
+            var currentRequestId = HttpContext.Session.GetInt32("request_id");
+            Console.WriteLine($"Session before update: request_id = {currentRequestId}");
 
             // Update the driver status
             request.DriverStatus = status;
@@ -369,9 +376,38 @@ namespace RapidRescue.Controllers
             _context.Requests.Update(request);
             await _context.SaveChangesAsync();
 
+            // If the status is "Dropped the Patient", remove the session request_id and re-login the user
+            if (status == "Dropped the Patient")
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.User_id == userId);
+
+                if (user != null)
+                {
+                    // Store credentials temporarily
+                    var email = user.Email;
+                    var hashedPassword = user.Password;
+
+                    // Clear the session
+                    HttpContext.Session.Clear();
+                    Response.Cookies.Delete(".AspNetCore.Session");
+
+                    // Automatically log the user back in by setting the session again
+                    HttpContext.Session.SetInt32("user_id", user.User_id);
+                    HttpContext.Session.SetInt32("role_id", user.Role_Id);
+
+                    Console.WriteLine("Session cleared and user re-logged in.");
+                }
+
+                // Finally, remove 'request_id' from session if applicable
+                _sessionRemoval.RemoveRequestIdFromSession();
+            }
+
+            // Log session after removal attempt
+            currentRequestId = HttpContext.Session.GetInt32("request_id");
+            Console.WriteLine($"Session after update: request_id = {currentRequestId}");
 
             // Redirect back to the driver's requests page
-            return RedirectToAction("DriverRequests", new { userId =userId });
+            return RedirectToAction("DriverRequests", new { userId = userId });
         }
 
         [HttpPost]
@@ -386,12 +422,21 @@ namespace RapidRescue.Controllers
                 return NotFound("Request not found.");
             }
 
+            // Remove the request from the database
             _context.Requests.Remove(request);
             await _context.SaveChangesAsync();
 
+            // Remove the request_id from the session
+            _sessionRemoval.RemoveRequestIdFromSession();
+
             // Redirect back to the driver's requests list after deletion
-            return RedirectToAction("DriverRequests", new { userId =userId });
+            return RedirectToAction("DriverRequests", new { userId = userId });
         }
+    
+
+
+
+}
 
 
 
@@ -402,5 +447,6 @@ namespace RapidRescue.Controllers
 
 
 
-    }
+
+    
 }

@@ -17,13 +17,15 @@ builder.Services.AddDbContext<RapidRescueContext>(options =>
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); 
-    options.Cookie.HttpOnly = true;                 
-    options.Cookie.IsEssential = true;              
+    options.IdleTimeout = TimeSpan.FromMinutes(30);  // Session timeout
+    options.Cookie.HttpOnly = true;                  // Ensure session cookie is only accessed by the server
+    options.Cookie.IsEssential = true;               // Ensure cookie is essential for GDPR compliance
+    options.Cookie.Name = ".RapidRescue.Session";    // Explicitly name the session cookie
 });
 // Add HttpContextAccessor
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<SessionRemoval>();
 // Register the filter as a service
 builder.Services.AddScoped<IsAdminLoggedIn>();
 builder.Services.AddScoped<UserSessionCheckAttribute>();
