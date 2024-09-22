@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RapidRescue.Context;
+using RapidRescue.Filters;
 using RapidRescue.Models;
 using RapidRescue.ViewModels;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace RapidRescue.Controllers
 {
+    [ServiceFilter(typeof(IsAdminLoggedIn))]
     public class AmbulanceController : Controller
     {
         private readonly RapidRescueContext _context;

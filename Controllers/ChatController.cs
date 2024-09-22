@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RapidRescue.Filters;
 
 namespace RapidRescue.Controllers
 {
+    [ServiceFilter(typeof(IsAdminLoggedIn))]
     public class ChatController : Controller
     {
         [Route("/chat")]

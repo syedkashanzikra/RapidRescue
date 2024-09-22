@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RapidRescue.Context;
+using RapidRescue.Filters;
 using RapidRescue.Models;
 using RapidRescue.ViewModels;
 
 namespace RapidRescue.Controllers
 {
+    [ServiceFilter(typeof(IsAdminLoggedIn))]
     public class EMTController : Controller
     {
         private readonly RapidRescueContext _context;

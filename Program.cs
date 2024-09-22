@@ -27,6 +27,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<SessionRemoval>();
 // Register the filter as a service
+builder.Services.AddScoped<DriverCheckingRole>(); // Registering the filter in DI
+
 builder.Services.AddScoped<IsAdminLoggedIn>();
 builder.Services.AddScoped<UserSessionCheckAttribute>();
 builder.Services.AddScoped<UserService>();

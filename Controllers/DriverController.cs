@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RapidRescue.Context;
+using RapidRescue.Filters;
 using RapidRescue.Helpers;
 using RapidRescue.Hubs;
 using RapidRescue.Models;
@@ -13,6 +14,7 @@ using static System.Net.WebRequestMethods;
 
 namespace RapidRescue.Controllers
 {
+    [ServiceFilter(typeof(DriverCheckingRole))]
     public class DriverController : Controller
     {
         private readonly RapidRescueContext _context;

@@ -72,6 +72,7 @@
                                             <button type="submit" class="btn btn-sm btn-primary mt-2">Update</button>
                                         </form>
                                     </td>
+
                                     <td class="text-end">
                                         <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,9 +82,13 @@
                                                 <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete_request" onclick="setDeleteRequestId(@request.RequestId)">
                                                     <i class="fa fa-trash m-r-5"></i> Delete
                                                 </a>
-                                                <!-- Add Google Maps action -->
+                                                <!-- View on Google Maps -->
                                                 <a class="dropdown-item" href="javascript:void(0);" onclick="openInGoogleMaps(@request.PatientLatitude, @request.PatientLongitude)">
                                                     <i class="fa fa-map-marker m-r-5"></i> View on Google Maps
+                                                </a>
+                                                <!-- Get Directions -->
+                                                <a class="dropdown-item" href="javascript:void(0);" onclick="getDirections(@request.PatientLatitude, @request.PatientLongitude)">
+                                                    <i class="fa fa-location-arrow m-r-5"></i> Get Directions
                                                 </a>
                                             </div>
                                         </div>
@@ -96,7 +101,6 @@
                                     <td colspan="5" class="text-center">No requests found.</td>
                                 </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -131,4 +135,36 @@
     </div>
 </div>
 
+<script>
+    // Function to open Google Maps with the provided latitude and longitude
+    function openInGoogleMaps(latitude, longitude) {
+        if (latitude && longitude) {
+            var googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            window.open(googleMapsUrl, '_blank');
+        } else {
+            alert("Location is not available.");
+        }
+    }
 
+    // Function to get directions from the driver's current location to the patient's location
+    function getDirections(patientLat, patientLng) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var driverLat = position.coords.latitude;
+                var driverLng = position.coords.longitude;
+
+                var directionsUrl = `https://www.google.com/maps/dir/?api=1&origin=${driverLat},${driverLng}&destination=${patientLat},${patientLng}`;
+                window.open(directionsUrl, '_blank');
+            }, function (error) {
+                alert("Unable to retrieve your current location.");
+            });
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    }
+
+    // Function to set the request ID for deletion in the modal
+    function setDeleteRequestId(requestId) {
+        document.getElementById('deleteRequestId').value = requestId;
+    }
+</script>

@@ -7,7 +7,7 @@ using RapidRescue.ViewModels;
 
 namespace RapidRescue.Controllers
 {
-    //[ServiceFilter(typeof(IsAdminLoggedIn))]
+    [ServiceFilter(typeof(IsAdminLoggedIn))]
     public class PatientsController : Controller
     {
         private readonly RapidRescueContext _context;

@@ -6,6 +6,7 @@ using RapidRescue.Models;
 using RapidRescue.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using RapidRescue.Filters;
 
 
 namespace RapidRescue.Controllers
@@ -25,6 +26,7 @@ namespace RapidRescue.Controllers
 
         [HttpGet]
         [Route("/register")]
+        [ServiceFilter(typeof(UserSessionCheckAttribute))]
         public IActionResult Register_User()
         {
 
@@ -32,6 +34,7 @@ namespace RapidRescue.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(UserSessionCheckAttribute))]
         public IActionResult RegistrationConfirmation()
         {
             return View();  
@@ -88,6 +91,7 @@ namespace RapidRescue.Controllers
 
         [HttpPost]
         [Route("/register")]
+        [ServiceFilter(typeof(UserSessionCheckAttribute))]
         public async Task<IActionResult> Register_User(UserViewModel model)
         {
             if (ModelState.IsValid)
@@ -142,6 +146,7 @@ namespace RapidRescue.Controllers
 
 
         [HttpGet]
+        [ServiceFilter(typeof(UserSessionCheckAttribute))]
         public async Task<IActionResult> VerifyEmail(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -160,7 +165,7 @@ namespace RapidRescue.Controllers
         }
 
         [HttpGet]
-        [Route("/login")]
+        [Route("/login")]     
         public IActionResult Login_User()
         {
 
@@ -221,6 +226,7 @@ namespace RapidRescue.Controllers
 
         [HttpGet]
         [Route("/edit-profile")]
+        [ServiceFilter(typeof(UserSessionCheckAttribute))]
         public async Task<IActionResult> EditProfile()
         {
             // Fetch the user ID from session
@@ -256,6 +262,7 @@ namespace RapidRescue.Controllers
 
         [HttpPost]
         [Route("/edit-profile")]
+        [ServiceFilter(typeof(UserSessionCheckAttribute))]
         public async Task<IActionResult> EditProfile(EditProfileViewModel model)
         {
             if (ModelState.IsValid)
