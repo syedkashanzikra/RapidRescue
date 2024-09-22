@@ -77,6 +77,7 @@
         #map {
             height: 600px;
             width: 100%;
+            min-height: 800px;
         }
     </style>
 
@@ -619,15 +620,17 @@
     <script src="~/homeassets/js/custom.js"></script>
 
 
-    <!-- Load Google Maps API asynchronously -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_pOFVReydm5XRyae2wxzFEPyWnEUzOf4"></script>
 
-    <!-- Load SignalR library before your custom script -->
+
+
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_pOFVReydm5XRyae2wxzFEPyWnEUzOf4"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.js"></script>
 
-
-
     <script>
+        window.onload = function () {
+            setTimeout(initMap, 100); // Adding a delay of 100ms to ensure the DOM is fully rendered
+        };
         var map;
         var markers = {};
         var patientMarker;
@@ -635,28 +638,50 @@
         var isFirstDriver = true; // To track if the map has been centered yet
 
         // Custom icons for patient and driver
-        var patientIcon = '/homeassets/images/icon/map-maker.png';  // Your custom patient icon path
-        var driverIcon = '/homeassets/images/icon/ambulance.png'; // Your custom driver icon path
-
-        // Global variables for the patient's location
-        var patientLatitude;
-        var patientLongitude;
+        var patientIcon = '/homeassets/images/icon/map-maker.png';  // Custom patient icon path
+        var driverIcon = '/homeassets/images/icon/ambulance.png'; // Custom driver icon path
 
         // Initialize map with a default location
         function initMap() {
             console.log("Initializing map with default center...");
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 12,
-                center: { lat: 24.873589079144057, lng: 67.02940765987226 }, // Karachi as default center
+                center: { lat: 24.873589079144057, lng: 67.02940765987226 }, // Default center (Karachi)
                 mapTypeId: 'roadmap'
             });
+
+            // Check for an existing request ID passed from the server
+            var requestId = '@ViewData["RequestId"]';
+
+            if (requestId) {
+                console.log('Existing request found. Request ID: ' + requestId);
+
+                // Fetch request data using the request ID
+                fetch(`/get-request/${requestId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Set patient's location marker
+                        var patientPosition = { lat: data.patientLatitude, lng: data.patientLongitude };
+                        setPatientMarker(patientPosition);
+
+                        // Set driver's location marker
+                        var driverPosition = { lat: data.driverLatitude, lng: data.driverLongitude };
+                        addMarker(data.driverId, driverPosition.lat, driverPosition.lng);
+
+                        // Center the map on the patient's location
+                        setMapCenter(patientPosition.lat, patientPosition.lng);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching request data:', error);
+                    });
+            }
         }
 
         // Set map center to specified coordinates
         function setMapCenter(lat, lng) {
             var position = new google.maps.LatLng(lat, lng);
             console.log("Setting map center to: ", { lat: lat, lng: lng });
-            map.setCenter(position); // Set map center to this position
+            map.setCenter(position);
         }
 
         // Add or update markers on the map
@@ -668,7 +693,7 @@
             if (isFirstDriver) {
                 setMapCenter(lat, lng);  // Set map center to this driver
                 console.log(`Map centered on the first active driver: ${driverId}`);
-                isFirstDriver = false;   // After the first driver, don't change the center again
+                isFirstDriver = false;
             }
 
             // Check if marker for this driver already exists
@@ -687,6 +712,20 @@
             }
         }
 
+        // Set or update the patient's marker
+        function setPatientMarker(position) {
+            if (patientMarker) {
+                patientMarker.setPosition(position);
+            } else {
+                patientMarker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: "Your Location",
+                    icon: patientIcon // Custom patient icon
+                });
+            }
+        }
+
         // Initialize SignalR connection for real-time updates
         var connection = new signalR.HubConnectionBuilder().withUrl("/driverLocationHub").build();
 
@@ -699,7 +738,7 @@
             console.error(err.toString());
         });
 
-
+        // Handle request ambulance button click
         document.getElementById('requestAmbulanceBtn').addEventListener('click', function () {
             var requestButton = this;
 
@@ -708,7 +747,6 @@
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    // Ensure geolocation values are valid
                     if (position.coords && position.coords.latitude && position.coords.longitude) {
                         var patientLatitude = position.coords.latitude;
                         var patientLongitude = position.coords.longitude;
@@ -716,16 +754,7 @@
                         console.log(`Patient location - Latitude: ${patientLatitude}, Longitude: ${patientLongitude}`);
 
                         // Place the patient's marker on the map with the custom icon
-                        if (patientMarker) {
-                            patientMarker.setPosition({ lat: patientLatitude, lng: patientLongitude });
-                        } else {
-                            patientMarker = new google.maps.Marker({
-                                position: { lat: patientLatitude, lng: patientLongitude },
-                                map: map,
-                                title: "Your Location",
-                                icon: patientIcon // Custom patient icon
-                            });
-                        }
+                        setPatientMarker({ lat: patientLatitude, lng: patientLongitude });
 
                         // Change map center to the patient's location
                         setMapCenter(patientLatitude, patientLongitude);
@@ -737,8 +766,8 @@
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                patientLatitude: patientLatitude,  // Pass exact latitude
-                                patientLongitude: patientLongitude // Pass exact longitude
+                                patientLatitude: patientLatitude,
+                                patientLongitude: patientLongitude
                             }),
                         })
                             .then(response => {
@@ -751,93 +780,45 @@
                                 console.log('Assigned driver:', data);
 
                                 // Place the driver's marker on the map with the custom icon
-                                if (driverMarker) {
-                                    driverMarker.setPosition({ lat: data.latitude, lng: data.longitude });
-                                } else {
-                                    driverMarker = new google.maps.Marker({
-                                        position: { lat: data.latitude, lng: data.longitude },
-                                        map: map,
-                                        title: "Nearest Driver",
-                                        icon: driverIcon // Custom driver icon
-                                    });
-                                }
+                                addMarker(data.driverId, data.latitude, data.longitude);
 
                                 // Show a confirmation message to the user
-                                document.getElementById('messageBox').innerHTML = `
-                                    <div class="alert alert-success" role="alert">
-                                        Ambulance assigned! Your driver is on the way. Donot Reload The Page!
-                                    </div>`;
+                                document.getElementById('messageBox').innerHTML =
+                                    `<div class="alert alert-success" role="alert">
+                                                        Ambulance assigned! Your driver is on the way. Donot Reload The Page!
+                                                    </div>`;
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
-                                document.getElementById('messageBox').innerHTML = `
-                                    <div class="alert alert-danger" role="alert">
-                                        There was an error processing your request. Please try again.
-                                    </div>`;
+                                document.getElementById('messageBox').innerHTML =
+                                    `<div class="alert alert-danger" role="alert">
+                                                        There was an error processing your request. Please try again.
+                                                    </div>`;
                             })
                             .finally(() => {
-                                // Re-enable the button once the request is completed
                                 requestButton.disabled = false;
                             });
                     } else {
                         alert("Unable to retrieve your location. Please try again.");
-                        // Re-enable the button if geolocation fails
                         requestButton.disabled = false;
                     }
                 }, function (error) {
-                    // Handle geolocation errors
                     console.error('Error in fetching location:', error.message);
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            alert("User denied the request for Geolocation.");
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            alert("Location information is unavailable.");
-                            break;
-                        case error.TIMEOUT:
-                            alert("The request to get user location timed out.");
-                            break;
-                        case error.UNKNOWN_ERROR:
-                            alert("An unknown error occurred.");
-                            break;
-                    }
-                    // Re-enable the button after geolocation error
+                    alert("Geolocation error: " + error.message);
                     requestButton.disabled = false;
-                }, {
-                    enableHighAccuracy: true,
-                    maximumAge: 0,
-                    timeout: 5000 // 5 seconds timeout for fetching geolocation
                 });
             } else {
                 alert("Geolocation is not supported by this browser.");
-                // Re-enable the button if geolocation is not supported
                 requestButton.disabled = false;
             }
         });
 
-
-
-        connection.on("AssignDriver", function (driverId, driverLat, driverLng) {
-            // Update driver's location on the map in real-time
-            if (driverMarker) {
-                driverMarker.setPosition({ lat: driverLat, lng: driverLng });
-            } else {
-                driverMarker = new google.maps.Marker({
-                    position: { lat: driverLat, lng: driverLng },
-                    map: map,
-                    title: "Assigned Driver",
-                    icon: driverIcon // Use the driver icon for real-time updates
-                });
-            }
-
-            // Optionally, update the map center as the driver moves
-            map.setCenter({ lat: driverLat, lng: driverLng });
-        });
-
         // Initialize the map on page load
         window.onload = initMap;
-    </script>
 
+      
+
+    </script>
 
 </body>
 

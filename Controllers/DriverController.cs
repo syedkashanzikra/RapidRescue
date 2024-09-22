@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using RapidRescue.Context;
+using RapidRescue.Helpers;
 using RapidRescue.Hubs;
 using RapidRescue.Models;
 using RapidRescue.ViewModels;
@@ -14,11 +15,12 @@ namespace RapidRescue.Controllers
     {
         private readonly RapidRescueContext _context;
         private readonly IHubContext<DriverLocationHub> _hubContext;
-
-        public DriverController(RapidRescueContext context, IHubContext<DriverLocationHub> hubContext)
+        private readonly NotificationHelper _notificationHelper;
+        public DriverController(RapidRescueContext context, IHubContext<DriverLocationHub> hubContext, NotificationHelper notificationHelper)
         {
             _context = context;
             _hubContext = hubContext;
+            _notificationHelper = notificationHelper;
         }
 
         [Route("/get-drivers")]
@@ -298,7 +300,7 @@ namespace RapidRescue.Controllers
 
                 // Stop real-time location tracking
                 await StopRealTimeLocationTracking(driver.DriverId);
-
+               
                 _context.SaveChanges();  // Save changes to the database
             }
 

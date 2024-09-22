@@ -30,6 +30,9 @@ namespace RapidRescue.Controllers
         [Route("/home")]
         public IActionResult Home()
         {
+            var requestId = HttpContext.Session.GetInt32("request_id");
+            ViewData["RequestId"] = requestId;
+
             return View();
         }
 
@@ -96,6 +99,8 @@ namespace RapidRescue.Controllers
             // Broadcast the location update via SignalR
             await _hubContext.Clients.All.SendAsync("AssignDriver", nearestDriver.DriverId, incomingRequest.PatientLatitude, incomingRequest.PatientLongitude);
 
+            HttpContext.Session.SetInt32("request_id", newRequest.RequestId);
+
             return Ok(nearestDriver);
         }
 
@@ -122,6 +127,29 @@ namespace RapidRescue.Controllers
             return distance;
         }
 
+
+        [HttpGet("/get-request/{requestId}")]
+        public IActionResult GetRequest(int requestId)
+        {
+            var request = _context.Requests
+                .Where(r => r.RequestId == requestId)
+                .Select(r => new
+                {
+                    patientLatitude = r.PatientLatitude,
+                    patientLongitude = r.PatientLongitude,
+                    driverId = r.DriverId,
+                    driverLatitude = r.DriverInfo.Latitude,
+                    driverLongitude = r.DriverInfo.Longitude
+                })
+                .FirstOrDefault();
+
+            if (request == null)
+            {
+                return NotFound("Request not found.");
+            }
+
+            return Ok(request);
+        }
 
         [Route("/contact")]
         public IActionResult Contact()

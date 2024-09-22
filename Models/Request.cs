@@ -29,5 +29,7 @@ namespace RapidRescue.Models
 
 
         public string DriverStatus { get; set; } = "Going to Patient";
+
+        public string? CanceledReason { get; set; }
     }
 }
