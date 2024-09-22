@@ -30,12 +30,12 @@
     <div class="main-wrapper">
         <div class="header">
             <div class="header-left">
-                <a href="index.html" class="logo">
+                <a href="" class="logo">
                     <img src="~/assets/img/logo.png" width="25" height="25" alt> <span>Rapid Rescue</span>
                 </a>
             </div>
             <a id="toggle_btn" href="javascript:void(0);"><img src="~/assets/img/icons/bar-icon.svg" alt></a>
-            <a id="mobile_btn" class="mobile_btn float-start" href="index.html#sidebar"><img src="~/assets/img/icons/bar-icon.svg" alt></a>
+            <a id="mobile_btn" class="mobile_btn float-start" href="#sidebar"><img src="~/assets/img/icons/bar-icon.svg" alt></a>
             <div class="top-nav-search mob-view">
                 <form>
                     <input type="text" id="driverSearchInput" class="form-control" placeholder="Search here">
@@ -64,7 +64,7 @@
                     <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><img src="~/assets/img/icons/note-icon-01.svg" alt><span class="pulse"></span> </a>
                 </li>
                 <li class="nav-item dropdown has-arrow user-profile-list">
-                    <a href="index.html#" class="dropdown-toggle nav-link user-link" data-bs-toggle="dropdown">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-bs-toggle="dropdown">
                         <div class="user-names">
                             
                             
@@ -83,12 +83,10 @@
                         }
                     </div>
                 </li>
-                <li class="nav-item ">
-                    <a href="settings.html" class="hasnotifications nav-link"><img src="~/assets/img/icons/setting-icon-01.svg" alt> </a>
-                </li>
+                
             </ul>
             <div class="dropdown mobile-user-menu float-end">
-                <a href="index.html#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                 <div class="dropdown-menu dropdown-menu-end">
 
                     <a class="dropdown-item" asp-action="EditProfile" asp-controller="User">Edit Profile</a>
@@ -173,14 +171,14 @@
             </ul>
         </li>
         <li class="submenu">
-            <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-08.svg" alt></span> <span> EMT </span> <span class="menu-arrow"></span></a>
+            <a href="#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-08.svg" alt></span> <span> EMT </span> <span class="menu-arrow"></span></a>
             <ul style="display: none;">
                 <li><a asp-action="CreateEMT" asp-controller="EMT">Add EMT</a></li>
                 <li><a asp-action="GetEMTs" asp-controller="EMT">EMT List</a></li>
             </ul>
         </li>
                             <li class="submenu">
-                                <a href="index.html#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-08.svg" alt></span> <span> Ambulance </span> <span class="menu-arrow"></span></a>
+                                <a href="#"><span class="menu-side"><img src="~/assets/img/icons/menu-icon-08.svg" alt></span> <span> Ambulance </span> <span class="menu-arrow"></span></a>
                                 <ul style="display: none;">
                                     <li><a asp-action="CreateAmbulance" asp-controller="Ambulance">Add Ambulance</a></li>
                                     <li><a asp-action="GetAmbulances" asp-controller="Ambulance">Ambulance List</a></li>
@@ -244,7 +242,7 @@
                             </ul>
                         </div>
                         <div class="topnav-dropdown-footer">
-                            <a href="chat.html">See all messages</a>
+                            <a href="#">See all messages</a>
                         </div>
                     </div>
                 </div>
