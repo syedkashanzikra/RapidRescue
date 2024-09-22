@@ -279,6 +279,9 @@ namespace RapidRescue.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequestId"), 1L, 1);
 
+                    b.Property<string>("CanceledReason")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("DriverId")
                         .HasColumnType("int");
 
