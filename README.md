@@ -31,7 +31,7 @@ Hosted Link: bitrebels.aptechgarden.com
 
 ## Team Members
 
-- **Syed Kashan Abbas Naqvi**
+- **Syed Kashan Abbas Naqvi(Lead)**
 - **Zayaan Zubair**
 - **Prem Kumar**
 - **Ahsan Hussain**
