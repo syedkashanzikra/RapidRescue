@@ -26,7 +26,6 @@ namespace RapidRescue.Controllers
 
         [HttpGet]
         [Route("/register")]
-        [ServiceFilter(typeof(UserSessionCheckAttribute))]
         public IActionResult Register_User()
         {
 
@@ -34,7 +33,6 @@ namespace RapidRescue.Controllers
         }
 
         [HttpGet]
-        [ServiceFilter(typeof(UserSessionCheckAttribute))]
         public IActionResult RegistrationConfirmation()
         {
             return View();  
@@ -91,7 +89,6 @@ namespace RapidRescue.Controllers
 
         [HttpPost]
         [Route("/register")]
-        [ServiceFilter(typeof(UserSessionCheckAttribute))]
         public async Task<IActionResult> Register_User(UserViewModel model)
         {
             if (ModelState.IsValid)
@@ -146,7 +143,6 @@ namespace RapidRescue.Controllers
 
 
         [HttpGet]
-        [ServiceFilter(typeof(UserSessionCheckAttribute))]
         public async Task<IActionResult> VerifyEmail(int id)
         {
             var user = await _context.Users.FindAsync(id);
